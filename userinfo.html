@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="./src/css/userinfo.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <!-- Phần header -->
+            <div id="nav">
+                <div class="container">
+                    <!-- Phần top head -->
+                    <div class="topnav">
+                        <div class="logo">
+                            <a href="./userinfo.html">
+                                <img src="./src/img/BookBay2.png">
+                            </a>
+                        </div>
+                        
+                        <ul id="navmenu">
+                            <li>
+                                <a href="./index.html">TRANG CHỦ</a>
+                            </li>
+                            <li>
+                                <a href="index.html?sachtrongnuoc&0">SÁCH TRONG NƯỚC</a>
+                            </li>
+                            <li>
+                                <a href="index.html?sachngoaivan&0">SÁCH NGOẠI VĂN</a>
+                            </li>      
+                            <li>
+                                <a href="index.html?truyenthieunhi&0">TRUYỆN THIẾU NHI</a>
+                            </li>                      
+                        </ul>
+                    </div>
+                    
+                    <!-- Phần bot head -->
+                    <div class="botnav">
+                        <ul class="leftnav">
+                            <li>
+                                <a href="https://www.facebook.com/">
+                                    <img src="./src/icon/facebook.svg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/">
+                                    <img src="./src/icon/instagram.svg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com">
+                                    <img src="./src/icon/x-twitter.svg">
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- Phần search bar -->
+                         <div class="search-bar">
+                            <!-- nút thể loại -->
+                            <div class="dropdown">
+                                <div class="dropdown-text" id="drop-text">
+                                    <span>THỂ LOẠI</span>
+                                    <img src="./src/icon/xuong.svg">
+                                </div>
+                            </div>
+                            <!-- khung tìm kiếm -->
+                            <div class="search-box">
+                                <input type="text" id="search-input" placeholder="Tìm kiếm">
+                                <img src="./src/icon/kinhlup.svg">
+                            </div>
+                        </div>
+                    <!-- Phần nút rightmenu -->
+                        <ul class="rightmenu">
+                            <li>
+                                <button onClick="showform()">
+                                    <img src="./src/icon/user.svg">
+                                </button>
+                                <p>Tài khoản</p>
+                            </li>
+                            <li>
+                                <button onClick="location.href='file/cart.html'">
+                                    <img src="./src/icon/giohang.svg">
+                                </button>
+                                <p>Giỏ hàng</p>
+                            </li>
+                            <li>
+                                <button onClick="showThongbao()">
+                                    <img src="./src/icon/thongbao.svg">
+                                </button>
+                                <p>Thông báo</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                    <!-- Phần middle -->
+            <div class="middle">
+                <div class="left-content">
+                    <!-- Bảng lựa chọn -->
+                    <div class="content">
+                        <ul>
+                            <!-- Thông tin tài khoản -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div>
+                                            <img src="./src/icon/user.svg">
+                                        </div>
+                                        <strong>
+                                            <a href="https://..." >Thông tin tài khoản</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                            <!-- Hồ sơ cá nhân -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div style="width: 20px; height: 20px; margin: 0 12px">
+                                        </div>
+                                        <strong>
+                                            <a href="https://..."  style="font-weight: normal">Hồ sơ cá nhân</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                            <!-- Sổ địa chỉ -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div style="width: 20px; height: 20px; margin: 0 12px">
+                                        </div>
+                                        <strong>
+                                            <a href="https://..." style="font-weight: normal">Sổ địa chỉ</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                            <!-- Đổi mật khẩu -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div style="width: 20px; height: 20px; margin: 0 12px">
+                                        </div>
+                                        <strong>
+                                            <a href="https://..." style="font-weight: normal">Đổi mật khẩu</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                            <!-- Dòng kẻ ngăn cách -->
+                            <hr class="hr-mobile" style="margin: 5px 20px">
+                            <!-- Đơn hàng của tôi -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div>
+                                            <img src="./src/icon/giaohang.svg">
+                                        </div>
+                                        <strong>
+                                            <a href="https://...">Đơn hàng của tôi</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="right-content">
+                    <div class="form-info">
+                        <form id="accountForm" onsubmit="return validateForm()">
+                            <h2>HỒ SƠ CÁ NHÂN</h2>
+                            <!-- HỌ -->
+                            <label for="ho">Họ <em>*</em></label>
+                            <input type="text" id="ho" name="ho" placeholder="Nhập họ" required>
+                            <span id="hoError" class="error">Vui lòng nhập họ</span>
+
+                            <!-- TÊN -->
+                            <label for="ten">Tên <em>*</em> </label>
+                            <input type="text" id="ten" name="ten" placeholder="Nhập tên" required>
+                            <span id="tenError" class="error">Vui lòng nhập tên</span>
+                    
+                            <!-- SỐ ĐIẸN THOẠI -->
+                            <label for="sdt">Số điện thoại: </label>
+                            <input type="tel" id="sdt" name="sdt" placeholder="Nhập số điện thoại">
+                            <span id="sdtError" class="error">Số điện thoại không hợp lệ</span>
+                    
+                            <!-- EMAIL -->
+                            <label for="email">Email: </label>
+                            <input type="email" id="email" name="email" placeholder="Nhập email">
+                            <span id="emailError" class="error">Email không hợp lệ</span>
+                    
+                            <!-- GIỚI TÍNH -->
+                            <label>Giới tính <em>*</em> </label>
+                            <div class="gender">
+                                <input type="radio" id="nam" name="gioi_tinh" value="nam" required>
+                                <label for="nam">Nam</label>
+                                <input type="radio" id="nu" name="gioi_tinh" value="nu" required>
+                                <label for="nu">Nữ</label>
+                            </div>
+                            <span id="genderError" class="error">Vui lòng chọn giới tính</span>
+                    
+                            <!-- NGÀY SINH -->
+                            <label>Ngày sinh: </label>
+
+                            <div class="birthdate">
+                                <input type="number" id="ngay" name="ngay" placeholder="Ngày" min="1" max="31" required>
+                                <input type="number" id="thang" name="thang" placeholder="Tháng" min="1" max="12" required>
+                                <input type="number" id="Nam" name="nam" placeholder="Năm" min="1900" max="2023" required>
+                            </div>
+                            <span id="birthdateError" class="error">Vui lòng nhập ngày sinh hợp lệ</span>
+
+                                        
+                            <!-- Nut submit -->
+                            <button type="submit">Cập nhật</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần footer -->
+             <div id="footer">
+                <div class="container">
+                    <div class="topfoot">
+                        <div class="footmenu" id="left">
+                            <img src="./src/img/BookBay2.png">
+                        </div>
+                        <div class="footmenu" id="right">
+                            <h4>Thông tin liên hệ</h4>
+                            <p><img src="./src/icon/map.svg">Trụ sở chính: 273 An Dương Vương, Phường 3, Quận 5, TPHCM</p>
+                            <p><img src="./src/icon/map.svg">Chi nhánh 1: 27/5 Ấp Tam Thới, Phường Tân Thới Nhì , Huyện Hóc Môn, TPHCM</p>
+                            <p><img src="./src/icon/map.svg">Chi nhánh 2: 149 Trường Chinh, Phường 7, Quận 12, TPHCM</p>
+                            <p><img src="./src/icon/phone.svg">Liên hệ: 0855619205</p>
+                            <p><img src="./src/icon/mail.svg">cskh@bookbay.com.vn</p>     
+                        </div>
+
+                        
+                    </div>
+                </div>
+             </div>
+        </div>    
+    </body>
+    <script src="./src/javascript/userinfo.js"></script>
+</html>
