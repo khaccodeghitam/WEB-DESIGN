@@ -75,7 +75,6 @@
                 border: none;
                 cursor: pointer;
                 border-radius: 4px;
-                
             }
             button:hover {
                 background-color: #0056b3;
@@ -163,7 +162,6 @@
                 advancedSearch.style.display = 'none';
             });
 
-            // Cập nhật giá trị min/max khi chọn phân loại giá
             priceRange.addEventListener('change', () => {
                 const selectedValue = priceRange.value;
                 switch (selectedValue) {
@@ -200,7 +198,7 @@
 
             function updateGenres(selectedBookType) {
                 const options = genresByBookType[selectedBookType] || [];
-                genre.innerHTML = ''; // Xóa danh sách cũ
+                genre.innerHTML = '';
                 options.forEach(option => {
                     const newOption = document.createElement('option');
                     newOption.value = option;
