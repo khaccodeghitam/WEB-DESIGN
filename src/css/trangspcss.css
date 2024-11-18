@@ -1,0 +1,344 @@
+html{
+    font-family: 'Roboto', sans-serif;
+    font-size: 62.5%;
+    line-height: 1.6rem;
+}
+*{
+    font-size: 1.6rem;
+}
+#wrapper{
+    width: 100%;
+    border: 3px solid #f0f0f0;
+    margin:0 auto;
+   
+   
+}
+#header{
+    border: 1px snow white;
+    width: 100%;
+    height: 80px;
+    top: 0;
+    position: relative;
+   
+    left:0px;
+}
+
+#topmenu li{
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+    outline: none;
+    color:  #c8c4c4;
+}
+#topmenu{
+    margin-left: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+a{
+    text-decoration: none;
+    background-color: transparent;
+    color:black;
+    outline: none;
+}
+ol{
+    padding-left: 0px;
+ 
+}
+#topmenu .top{
+    text-transform: uppercase;
+}
+#mid{
+    display: flex;
+    justify-content: space-around; 
+}
+.leftmenu{  
+width: 500px;
+height: 497px;
+padding:10px;
+border-radius: 10px;
+background-color: #fff;
+position: sticky;
+top: 0;
+}
+.rightmenu{
+width: 55%;
+border-radius: 10px;
+background-color:#f0f0f0 ;   
+}
+img{
+    width: 100%;
+    display: flex;
+    display: block;
+}
+.content{
+display: flex;
+
+}
+.content-item img{
+ width: 80%;   
+margin: auto;
+}
+.slider{
+    overflow: hidden;
+    position: relative;
+
+}
+.slide{
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.img-slides{
+    display: flex;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+.full-screen {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Nền mờ */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.full-screen img {
+    max-width: 50%;
+    max-height: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+.navigation span {
+    cursor: pointer;
+    font-size: 30px;
+    color:  #c8c4c4;
+    background: transparent;
+    /* padding: 5px 10px;
+    border-radius: 5px; */
+    user-select: none;
+    padding: 0;
+    margin: 0;
+}
+.navigation span:hover{
+    opacity: 0.8;
+}
+.content-item{
+ text-align: center;
+ /* position: relative; */
+}
+.icon{
+    margin-right: 5px;
+}
+.but{
+    display: flex;
+    justify-content: space-around;
+}
+.btn{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 12px 48px;
+    margin-top: 30px;
+    justify-content: space-between;
+    font-weight: 550;
+    text-decoration: none;
+}
+.btn:hover{
+    opacity: 0.6;
+}
+.btn--buy{
+    background-color: white;
+    border: 3px solid orange;
+    border-radius: 12px;
+}
+.btn--addcart{
+    background-color: #36B8FF;
+    border-radius: 12px;
+    border: 3px solid #36B8FF;
+    /* color: white; */
+}
+
+.detail{
+    display: table;
+    width: 100%;
+}
+.block-content-product-info{
+    padding: 16px;
+    margin-bottom: 12px;
+    background-color: #fff;
+    border-radius: 10px;
+
+}
+
+
+.book-info{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.book-supplier{
+    display: inline-block;
+    width: 60%;
+    margin-bottom:10px ;
+    white-space: nowrap;
+}
+.book-author{
+    display: inline-block;
+    width: 40%;
+    white-space: nowrap;
+
+}
+
+#product-price{
+    font-size: 32px;
+    font-weight: 600;
+    color: #35b8fe;
+}
+#old-price{
+    text-decoration: line-through;
+}
+.product-quantity-box{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+/* Loại bỏ mũi tên lên xuống mặc định cho box số lượng */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Loại bỏ mũi tên cho Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+/* .quantity-box{
+    border: 1px solid black;
+} */
+input[type="number"] {
+    width: 40px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #f3f4f4;
+    /* border-radius: 4px; */
+    background-color: #fff;
+    height: 40px;
+    line-height: 40px;
+    height: 40px;
+    padding: 0;
+}
+button{
+    cursor: pointer;
+}
+#quantity-text{
+    width: 80px;
+    margin-right: 20px;
+}
+#qty-box{
+    display: flex;
+    align-items: center;
+    border: 1px solid #dad6d6;
+}
+.qty{
+    float: left;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    outline: none;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #f3f4f4;   
+    font-weight: bold; 
+    font-size: 2rem;
+    appearance: none;
+    color: #808080;
+}
+.btn--increase{
+    /* padding: 0 16px 0 16px; */
+    padding: 0;
+}
+.btn--decrease{
+/* padding: 0 16px 0 16px; */
+padding: 0;
+}
+.detail-info{
+    padding: 16px;
+    background-color: #fff;
+    margin-bottom: 12px;
+    border-radius: 10px;
+}
+.detail tr {
+    display: grid;
+    grid-template-columns: 25% 75%; /* Cột label chiếm 25%, cột data chiếm 75% */
+}
+
+.detail-label {
+    text-align: left;
+    padding: 8px 0;
+}
+
+.data-container {
+    text-align: left;
+    padding: 8px 0;
+}
+.description-info{
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+#description-content{
+    line-height: 1.5;
+}
+@media  (max-width: 700px){
+    .rightmenu{
+        width: 500px;
+        border-radius: 10px;
+        display: block;
+        order: 1;
+        margin-top: 12px;
+    }
+    #mid{
+        display: flex;
+        flex-direction: column;
+        /* width: 80%; */
+        text-align: center;
+        margin: auto;
+        align-items: center;
+    }
+    .leftmenu{  
+        width: 483px;
+        height: 497px;
+        padding:10px;
+        border-radius: 10px;
+        background-color: #fff;
+        position: static;
+        top: 0;
+        }
+      
+}
+@media (max-width:1024px) {
+   .btn{
+    padding: 12px 30px;
+   }
+   .leftmenu{
+    width: 390px;
+   }
+   .rightmenu{
+    width: 55%;
+   }
+}
