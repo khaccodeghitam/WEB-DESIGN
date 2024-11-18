@@ -89,11 +89,8 @@ body, html, *{
     display: flex;
     margin-left: auto;
 }
-<<<<<<< HEAD
-#nav .botnav .rightmenu button:not(.account-dropdown button,.noti-dropdown button){
-=======
-#nav .botnav .rightmenu button{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
+#nav .botnav .rightmenu button:not(.account-dropdown button,.noti-dropdown button)
+{
     width: calc(100% - 2px);
     background: none;
     outline: none;
@@ -183,22 +180,13 @@ body, html, *{
     font-size: 1rem;
     cursor: pointer;
 }
-
 /* Middle */
-<<<<<<< HEAD
-.user-info{
-=======
 .middle{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
 }
-<<<<<<< HEAD
-.user-info .left-content{
-=======
 .middle .left-content{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     padding: 10px;
     border-radius: 10px;
     background-color: #fff;
@@ -207,26 +195,11 @@ body, html, *{
     margin: 80px;
     margin-right: 0px;
 }
-<<<<<<< HEAD
-.user-info .left-content .user-content{
-=======
 .middle .left-content .content{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     margin: 20px;
     display: flex;
     flex-wrap: wrap;
 }
-<<<<<<< HEAD
-.user-info .tab-user{
-    cursor: pointer;
-    padding: 5px 0;
-}
-.user-info .left-content .current-spacial{
-    border-left: 5px solid #36B8FF;
-    font-weight: bold;
-}
-.user-info .leftcontent-item {
-=======
 .middle .tab-user{
     cursor: pointer;
     padding: 5px 0;
@@ -236,26 +209,17 @@ body, html, *{
     font-weight: bold;
 }
 .middle .leftcontent-item {
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 }
-<<<<<<< HEAD
-.user-info .leftcontent-item img{
-=======
 .middle .leftcontent-item img{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     width: 20px;
     height: 20px;
     margin: 0 12px;
 }
-<<<<<<< HEAD
-.user-info .leftcontent-item a{
-=======
 .middle .leftcontent-item a{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     pointer-events: auto;
     text-decoration: none;
     outline: none;
@@ -265,31 +229,19 @@ hr{
     border: 0;
     border-top: 1px solid #b1acac;
 }
-<<<<<<< HEAD
-.user-info .right-content{
-=======
 .middle .right-content{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     width: calc(70% - 160px);
     border-radius: 10px;
     background-color: #f0f0f0;
     margin: 80px;
 }
-<<<<<<< HEAD
-.user-info .right-content form{
-=======
 .middle .right-content form{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     width: 80%;
 }
-<<<<<<< HEAD
-.user-info .right-content .form-info{
-=======
 .middle .right-content .form-info{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     display: flex;
     justify-content: center;
     padding: 16px;
@@ -297,29 +249,17 @@ hr{
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
-<<<<<<< HEAD
-.user-info .right-content h2{
-    text-align: center;
-    color: #333;
-}
-.user-info .right-content label{
-=======
 .middle .right-content h2{
     text-align: center;
     color: #333;
 }
 .middle .right-content label{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
     display: block;
     margin-top: 10px;
     font-weight: bold;
     color: #555;
 }
-<<<<<<< HEAD
-.user-info .right-content .form-info
-=======
 .middle .right-content .form-info
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
 input[type="text"],
 input[type="tel"],
 input[type="email"],
@@ -379,7 +319,6 @@ select{
     width: 50%;
     padding: 20px;
 }
-
 #footer .topfoot .footmenu:first-child{
 	align-self: center;
 }
@@ -448,17 +387,10 @@ select{
     #nav .botnav .rightmenu {
         display: none;
     }
-<<<<<<< HEAD
-    .user-info{
-        display: block;
-    }
-    .user-info .left-content{
-=======
     .middle{
         display: block;
     }
     .middle .left-content{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
         padding: 10px;
         margin: 20px;
         border-radius: 20px;
@@ -466,11 +398,7 @@ select{
         position: static;
         top: 0;
     }
-<<<<<<< HEAD
-    .user-info .right-content{
-=======
     .middle .right-content{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
         width: auto;
         border-radius: 20px;
         order: 1;
@@ -502,7 +430,6 @@ select{
     #nav .botnav{
         padding: 0 8%;
     }
-
     #nav .botnav .search-box input{
         max-width: calc(100% - 50px);
     }
@@ -512,17 +439,10 @@ select{
     #nav .botnav .rightmenu p{
         display: none;
     }
-<<<<<<< HEAD
-    .user-info{
-        display: block;
-    }
-    .user-info .left-content{
-=======
     .middle{
         display: block;
     }
     .middle .left-content{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
         padding: 10px;
         margin: 20px;
         border-radius: 20px;
@@ -530,11 +450,7 @@ select{
         position: static;
         top: 0;
     }
-<<<<<<< HEAD
-    .user-info .right-content{
-=======
     .middle .right-content{
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
         width: auto;
         border-radius: 20px;
         order: 1;
@@ -547,8 +463,6 @@ select{
     }
 }
 
-<<<<<<< HEAD
-/* Ẩn bảng thông báo mặc định */
 .account-dropdown {
     display: none;
     position: absolute;
@@ -613,6 +527,3 @@ font-weight: 600;
 .account-dropdown button:hover {
    opacity: 0.8;
 }
-
-=======
->>>>>>> 5e58991657a696b5634925feac6fe902900b0cd2
