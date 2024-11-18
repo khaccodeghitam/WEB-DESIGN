@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./src/css/dndk.css">
+        <script src="./src/js/dndk.js"></script>
+    </head>
+    <body>
+        <form id="dangnhap">
+            <h2 id="question">Đăng nhập</h2>
+            <input type="text" name="username" placeholder="Tên đăng nhập*">
+            <input type="password" name="password" placeholder="Mật khẩu*">
+            <button type="submit" onclick="ktDangNhap()">Đăng nhập</button>
+            <div id="question">Chưa có tài khoản? <a href="#" onclick="showRegister()"> Đăng kí</a></div>
+        </form>
+        <form id="dangki">
+            <h2 id="question">Đăng kí</h2>
+            <input type="text" name="username" placeholder="Tên đăng nhập*">
+            <input type="password" name="password" placeholder="Mật khẩu*">
+            <input type="password" name="repassword" placeholder="Nhập lại mật khẩu*">
+            <input type="email" name="email" placeholder="Email">
+            <input type="text" name="phone" placeholder="Số điện thoại*">
+            <button type="submit" onclick="ktDangKi()">Đăng kí</button>
+            <div id="question">Đã có tài khoản? <a href="#" onclick="showLogin()"> Đăng nhập</a></div>
+        </form>
+    </body>
+</html>
