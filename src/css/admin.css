@@ -1,0 +1,30 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    text-align: center;
+    padding: 10px;
+}
+th {
+    background-color: orange;
+    color: white;
+}
+button {
+    padding: 5px 10px;
+    margin: 0 2px;
+    cursor: pointer;
+}
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+}
+.edit-btn {
+    background-color: blue;
+    color: white;
+    border: none;
+}
