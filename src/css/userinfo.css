@@ -181,7 +181,7 @@ body, html, *{
     cursor: pointer;
 }
 /* Middle */
-.middle{
+#userinfo.middle{ /*Middle riêng cho trang userinfo*/
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
