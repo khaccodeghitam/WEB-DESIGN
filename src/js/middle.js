@@ -183,22 +183,30 @@ window.onload = function() {
     products.forEach(product => {
         const productItem = document.createElement('div');
         productItem.classList.add('item');
+        productItem.className = 'item';
 
         const productImage = document.createElement('img');
         productImage.src = product.image || './src/img/default.jpg';
         productItem.appendChild(productImage);
 
-        const productName = document.createElement('div');
+        const productName = document.createElement('h2');
         productName.textContent = product.productName;
         productItem.appendChild(productName);
 
         const productNewPrice = document.createElement('div');
-        productNewPrice.textContent = `Giá mới: ${product.newPrice}`;
+        productNewPrice.className = 'new-price';
+        productNewPrice.textContent = `${product.newPrice} đ`;
         productItem.appendChild(productNewPrice);
 
         const productOldPrice = document.createElement('div');
-        productOldPrice.textContent = `Giá cũ: ${product.oldPrice}`;
+        productOldPrice.className = 'old-price';
+        productOldPrice.textContent = `${product.oldPrice} đ`;
         productItem.appendChild(productOldPrice);
+
+        const productPricePercent = document.createElement('div');
+        productPricePercent.className = 'price-percent';
+        productPricePercent.textContent = `-${(product.newPrice/product.oldPrice*100).toFixed(2)}%`;
+        productItem.appendChild(productPricePercent);
 
         contentDiv.appendChild(productItem);
     });

@@ -9,11 +9,16 @@ function showLogin(){
 function ktDangNhap() {
     const username = document.querySelector('#dangnhap input[name="username"]').value;
     const password = document.querySelector('#dangnhap input[name="password"]').value;
-
+    if(username =='admin'&& password=='admin'){
+        window.location.href = "admin.html";
+    }
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(u => u.username === username && u.password === password);
 
-    if (!user) {
+    if(username =='admin'&& password=='admin'){
+        alert("Admin đăng nhập!");
+    }
+    else if (!user) {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
         return false;
     }
@@ -169,4 +174,3 @@ function logout() {
     updateUI();
 }
 document.addEventListener('DOMContentLoaded', updateUI);
-

@@ -19,15 +19,12 @@
                     <!-- Phần top head -->
                     <div class="topnav">
                         <div class="logo">
-                            <a href="./userinfo.html">
+                            <a href="./index.html">
                                 <img src="./src/img/BookBay2.png">
                             </a>
                         </div>
                         
                         <ul id="navmenu">
-                            <li>
-                                <a href="./index.html">TRANG CHỦ</a>
-                            </li>
                             <li>
                                 <a href="index.html?sachtrongnuoc&0">SÁCH TRONG NƯỚC</a>
                             </li>
@@ -36,7 +33,10 @@
                             </li>      
                             <li>
                                 <a href="index.html?truyenthieunhi&0">TRUYỆN THIẾU NHI</a>
-                            </li>                      
+                            </li>        
+                            <li>
+                                <a href="./index.html?timkiemnangcao&0">LỌC THỂ LOẠI</a>
+                            </li>              
                         </ul>
                     </div>
                     
@@ -75,6 +75,12 @@
                                 <img src="./src/icon/kinhlup.svg">
                             </div>
                         </div>
+                        <!-- Khung tìm kiếm không thể loại -->
+                        <div class="search-bar2">
+                            <input type="text" placeholder="">
+                            <button><img src="./src/icon/kinhlup.svg"></button>
+                        </div>
+                        
                     <!-- Phần nút rightmenu -->
                         <ul class="rightmenu">
                             <li class="account-menu">
@@ -147,130 +153,14 @@
                                 <img class="slide" src="./src/img/banner3.jpg" style="width: 100%;height: 100%;">
                         </div>
                         <div id="content">
-                            <div class="item">
-                                <img src="./src/img/book1.jpg" >
-                                <h2 class="product-name">
-                                <div>Tên sp</div>
-                            </h2>
-                                <div class="price-label">
-                                    <p class="special-price">
-                                <span>Giá sp mới</span>
-                            </p>
-                                <p class="old-price">
-                                <span>Giá sp cũ</span>
-                            </p>
-                            </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                            </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                        
+                            
                             <div class="edit-item">
                                 <button class="edit-item-box" onclick="showEditForm()">Sửa sản phẩm</button>
                             </div>
                          
                            
                             <div class="page">
-                                <button type="button">1</button>
-                                <button type="button">2</button>
-                                <button type="button">3</button>
-                                <button type="button">4</button>
-                                <button type="button">5</button>
+                                
                             </div>
                         </div>
                     </div>
