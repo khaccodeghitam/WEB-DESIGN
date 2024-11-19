@@ -168,5 +168,67 @@ function logout() {
     // Cập nhật giao diện
     updateUI();
 }
+
+function showform() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    
+    if (loggedInUser) {
+        // Nếu đã đăng nhập, gọi hàm toggleUserInfo
+        toggleUserInfo();
+    } else {
+        // Nếu chưa đăng nhập, hiển thị dropdown đăng nhập/đăng ký
+        showDropdownNotLoggedIn();
+    }
+}
+
+
+
+function toggleUserInfo() {
+    const userInfo = document.getElementById('user-info');
+    const middleContent = document.querySelector('.middle');
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (!loggedInUser) {
+        alert("Vui lòng đăng nhập để xem thông tin tài khoản!");
+        return;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Đảm bảo CSS được load
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './src/css/userinfo.css';
+        document.head.appendChild(link);
+    });
+
+    // Kiểm tra trạng thái hiển thị của user-info
+    if (userInfo.style.display === 'none' || userInfo.style.display === '') {
+        // Ẩn middle content
+        middleContent.style.display = 'none';
+        const existingLink = document.querySelector('link[href*="userinfo.css"]');
+        if (existingLink) {
+            existingLink.href = existingLink.href.split('?')[0] + '?v=' + new Date().getTime();
+        }
+        
+        // Đợi một chút để CSS được load
+        setTimeout(() => {
+            userInfo.style.display = 'flex';
+            userInfo.classList.add('user-info-active');
+        }, 100);
+    } else {
+        middleContent.style.display = 'block';
+        userInfo.style.display = 'none';
+        userInfo.classList.remove('user-info-active');
+    }
+}
+function backToMain() {
+    const userInfo = document.getElementById('user-info');
+    const middleContent = document.querySelector('.middle');
+    
+    userInfo.style.display = 'none';
+    middleContent.style.display = 'block';
+}
+
+
 document.addEventListener('DOMContentLoaded', updateUI);
 

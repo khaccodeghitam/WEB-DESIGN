@@ -15,8 +15,9 @@ function showSlides(){
 }
 
 function showEditForm() {
+    const editFormContainer = document.getElementById("edit-form-container");
     // window.location.href = './admin.html';
-    document.body.innerHTML = `
+    editFormContainer.innerHTML = `
         <div class="form-container">
             <h3>Quản lý sản phẩm</h3>
             <form id="edit-form">

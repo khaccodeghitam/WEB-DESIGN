@@ -181,10 +181,13 @@ body, html, *{
     cursor: pointer;
 }
 /* Middle */
-.user-info{
+#user-info.user-info-active{
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+}
+#user-info.show {
+    display: block; /* Hiển thị khi có lớp show */
 }
 .middle .left-content{
     padding: 10px;
