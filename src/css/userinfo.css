@@ -180,8 +180,38 @@ body, html, *{
     font-size: 1rem;
     cursor: pointer;
 }
+/* Khung tìm kiếm không có nút thể loại */
+.search-bar2 {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: 30px;
+    max-width: 1000px;
+  }
+
+  .search-bar2 input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+  }
+
+  .search-bar2 button {
+    background-color: #0094e4;
+    color: #fff;
+    border: none;
+    margin-left: 10px;
+    padding: 8px 16px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  .search-bar2 img{
+    width: 15px;
+  }
+
 /* Middle */
-#userinfo.middle{ /*Middle riêng cho trang userinfo*/
+#userinfo .middle{ /*Middle riêng cho trang userinfo */
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -384,6 +414,9 @@ select{
     #nav .botnav .search-box input{
         max-width: calc(100% - 50px);
     }
+    .search-bar2{
+        display: none;
+    }
     #nav .botnav .rightmenu {
         display: none;
     }
@@ -432,6 +465,9 @@ select{
     }
     #nav .botnav .search-box input{
         max-width: calc(100% - 50px);
+    }
+    .search-bar2{
+        display: none;
     }
     #nav .botnav .rightmenu {
         margin-left: 20px;
@@ -526,4 +562,3 @@ font-weight: 600;
 }
 .account-dropdown button:hover {
    opacity: 0.8;
-}
