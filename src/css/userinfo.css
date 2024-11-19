@@ -58,6 +58,7 @@ body, html, *{
 }
 #nav .botnav{
     display: flex;
+    justify-content: space-around;
     align-items: center;
     height: 60px;
 }
@@ -89,8 +90,7 @@ body, html, *{
     display: flex;
     margin-left: auto;
 }
-#nav .botnav .rightmenu button:not(.account-dropdown button,.noti-dropdown button)
-{
+#nav .botnav .rightmenu button{
     width: calc(100% - 2px);
     background: none;
     outline: none;
@@ -123,13 +123,13 @@ body, html, *{
     height: 45px;
 }
 #nav .botnav .search-bar{
-    display: none;
+    display: flex;
     background-color: #fff;
     border-radius: 50px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    min-width: 50%;
-    margin-left: 10px;
+    min-width: 65%;
     width: auto;
+    margin-left: 3%;
 }
 #nav .botnav .search-bar img{
     height: 20px;
@@ -161,8 +161,8 @@ body, html, *{
     margin-left: 15px;
 }
 #nav .botnav .search-box{
-    max-width: calc(90% - 70px);
     display: flex;
+    justify-content: flex-start;
     align-items: center;
     padding-right: 1rem;
     color: #36B8FF;
@@ -180,8 +180,9 @@ body, html, *{
     font-size: 1rem;
     cursor: pointer;
 }
+
 /* Middle */
-.user-info{
+.middle{
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -319,6 +320,7 @@ select{
     width: 50%;
     padding: 20px;
 }
+
 #footer .topfoot .footmenu:first-child{
 	align-self: center;
 }
@@ -375,7 +377,6 @@ select{
         display: none;
     }
     #nav .botnav .search-bar{
-        display: flex;
         height: 60px;
     }
     #nav .botnav{
@@ -424,12 +425,10 @@ select{
     #nav .botnav .leftnav{
         display: none;
     }
-    #nav .botnav .search-bar{
-        display: flex;
-    }
     #nav .botnav{
         padding: 0 8%;
     }
+
     #nav .botnav .search-box input{
         max-width: calc(100% - 50px);
     }
@@ -463,67 +462,3 @@ select{
     }
 }
 
-.account-dropdown {
-    display: none;
-    position: absolute;
-    top: 155px; /* Điều chỉnh vị trí theo nhu cầu */
-    right: 276px;
-    background-color: #f0f0f0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 10px;
-    z-index: 10;
-}
-.account-dropdown.show {
-    display: block;
-}
-.noti-dropdown{
-    display: none;
-    position: absolute;
-    top: 158px; /* Điều chỉnh vị trí theo nhu cầu */
-    right: 5px;
-    background-color: #f0f0f0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 10px;
-    z-index: 10;
-}
-/* Hiển thị bảng khi hover vào nút tài khoản */
-.account-menu:hover .account-dropdown {
-    display: block;
-}
-.noti-menu:hover .noti-dropdown {
-    display: block;
-}
-.account-dropdown button, .noti-dropdown button{
-display: block;
-width: 150px;
-margin: 5px 0;
-padding: 8px;
-/* background-color: #36B8FF; 
-color: white;  */
-border: none;
-border-radius: 4px;
-cursor: pointer;
-text-align: center;
-font-weight: 600;
-}
-
-#nav .botnav .rightmenu .account-dropdown .btn-login {
-    background-color: #36B8FF;
-    color: white;
-}
-#nav .botnav .rightmenu .account-dropdown .btn-signin {
-    border: 3px solid #36B8FF;
-}
-#nav .botnav .rightmenu .noti-dropdown .btn-login {
-    background-color: #36B8FF;
-    color: white;
-}
-#nav .botnav .rightmenu .noti-dropdown .btn-signin {
-    border: 3px solid #36B8FF;
-
-}
-.account-dropdown button:hover {
-   opacity: 0.8;
-}
