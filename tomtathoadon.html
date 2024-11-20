@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cart-table {
+            width: 65%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-table th, .cart-table td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-table th {
+            background-color: #f2f2f2;
+        }
+
+        .cart-table img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        .cart-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-actions button {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .cart-summary {
+            width: 30%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-summary h3 {
+            margin-bottom: 20px;
+        }
+
+        .cart-summary p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .cart-summary .total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #c50000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .checkout-button:hover {
+            background-color: #a00000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Giỏ hàng</h1>
+    <div class="container">
+        <div class="cart-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items"></tbody>
+            </table>
+        </div>
+        <div class="cart-summary">
+            <h3>Tóm tắt đơn hàng</h3>
+            <p>Thành tiền <span id="subtotal">0₫</span></p>
+            <p id="shipping-row">Phí vận chuyển (Giao hàng tiêu chuẩn) <span id="shipping-fee">20,000₫</span></p>
+            <p class="total">Tổng cộng: <span id="total">20,000₫</span></p>
+            <button class="checkout-button" onclick="checkout()">THANH TOÁN</button>
+        </div>
+    </div>
+
+    <script>
+        const cart = [
+            { id: 1, name: "Sản phẩm A", price: 100000, quantity: 1, image: "https://via.placeholder.com/50" },
+            { id: 2, name: "Sản phẩm B", price: 200000, quantity: 1, image: "https://via.placeholder.com/50" },
+            { id: 3, name: "Sản phẩm C", price: 300000, quantity: 1, image: "https://via.placeholder.com/50" },
+            { id: 4, name: "Sản phẩm D", price: 400000, quantity: 1, image: "https://via.placeholder.com/50" },
+            { id: 5, name: "Sản phẩm E", price: 500000, quantity: 1, image: "https://via.placeholder.com/50" },
+        ];
+        const shippingFee = 20000;
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            const shippingRow = document.getElementById('shipping-row');
+            const shippingFeeElement = document.getElementById('shipping-fee');
+            const totalElement = document.getElementById('total');
+            const subtotalElement = document.getElementById('subtotal');
+            cartItems.innerHTML = '';
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                // Hiển thị thông báo giỏ hàng trống
+                cartItems.innerHTML = `<tr><td colspan="6" style="text-align: center;">Giỏ hàng của bạn hiện đang trống.</td></tr>`;
+                subtotalElement.textContent = '0₫';
+                shippingFeeElement.textContent = '0₫';
+                totalElement.textContent = '0₫';
+                shippingRow.style.display = "none"; // Ẩn dòng phí vận chuyển
+                return;
+            }
+
+            // Hiển thị phí vận chuyển khi có sản phẩm
+            shippingRow.style.display = "flex";
+
+            // Duyệt qua các sản phẩm trong giỏ hàng và hiển thị
+            cart.forEach((item, index) => {
+                const totalItemPrice = item.price * item.quantity;
+                subtotal += totalItemPrice;
+
+                const row = `
+                    <tr>
+                        <td><img src="${item.image}" alt="${item.name}"></td>
+                        <td>${item.name}</td>
+                        <td class="cart-actions">
+                            <button onclick="updateQuantity(${index}, -1)">-</button>
+                            ${item.quantity}
+                            <button onclick="updateQuantity(${index}, 1)">+</button>
+                        </td>
+                        <td>${item.price.toLocaleString()}₫</td>
+                        <td>${totalItemPrice.toLocaleString()}₫</td>
+                        <td><button onclick="removeItem(${index})">Xóa</button></td>
+                    </tr>
+                `;
+                cartItems.innerHTML += row;
+            });
+
+            // Cập nhật tóm tắt đơn hàng
+            const finalShippingFee = cart.length > 0 ? shippingFee : 0;
+            subtotalElement.textContent = `${subtotal.toLocaleString()}₫`;
+            shippingFeeElement.textContent = `${finalShippingFee.toLocaleString()}₫`;
+            totalElement.textContent = (subtotal + finalShippingFee).toLocaleString() + '₫';
+        }
+
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) cart.splice(index, 1); // Xóa sản phẩm nếu số lượng <= 0
+            renderCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1); // Xóa sản phẩm theo index
+            renderCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống!");
+                return;
+            }
+            alert("Thanh toán thành công!");
+            cart.length = 0; // Làm rỗng giỏ hàng
+            renderCart();
+        }
+
+        // Render giỏ hàng khi tải trang
+        renderCart();
+    </script>
+</body>
+</html>
