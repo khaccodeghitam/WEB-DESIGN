@@ -37,6 +37,7 @@ function ktDangNhap() {
 }
 function ktDangKi() {
     // Lấy giá trị từ các ô input
+    const fullname = document.querySelector('#dangki input[name="fullname"]').value;
     const username = document.querySelector('#dangki input[name="username"]').value;
     const password = document.querySelector('#dangki input[name="password"]').value;
     const repassword = document.querySelector('#dangki input[name="repassword"]').value;
@@ -44,7 +45,7 @@ function ktDangKi() {
     const phone = document.querySelector('#dangki input[name="phone"]').value;
 
     // Kiểm tra tính hợp lệ
-    if (!username || !password || !repassword || !phone) {
+    if (!fullname || !username || !password || !repassword || !phone) {
         alert("Vui lòng điền đầy đủ thông tin bắt buộc!");
         return false;
     }
@@ -55,6 +56,7 @@ function ktDangKi() {
 
     // Tạo đối tượng người dùng
     const user = {
+        fullname: fullname,
         username: username,
         password: password,
         email: email,
