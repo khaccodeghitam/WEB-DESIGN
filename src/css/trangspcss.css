@@ -6,22 +6,7 @@ html{
 *{
     font-size: 1.6rem;
 }
-#wrapper{
-    width: 100%;
-    border: 3px solid #f0f0f0;
-    margin:0 auto;
-   
-   
-}
-#header{
-    border: 1px snow white;
-    width: 100%;
-    height: 80px;
-    top: 0;
-    position: relative;
-   
-    left:0px;
-}
+
 
 #topmenu li{
     display: inline-block;
@@ -48,30 +33,60 @@ ol{
 #topmenu .top{
     text-transform: uppercase;
 }
+#product-details{
+    overflow-y: auto;
+    display: none ; /* Căn giữa theo flexbox */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0,0.3);
+    z-index: 1000;
+    position: fixed;
+}
 #mid{
+    margin: 0 ;
     display: flex;
     justify-content: space-around; 
+    width: 100%;
+    height: 100vh;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    bottom: 50%;
+    position: fixed;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* justify-content: center;
+    align-items: center; */
+    max-width: 800px;
+    /* background-color: rgba(0, 0, 0,0.3); */
+    background-color: black;
+    overflow-y: auto;
 }
 .leftmenu{  
-width: 500px;
-height: 497px;
+width: 40%;
+height: 80%;
 padding:10px;
 border-radius: 10px;
 background-color: #fff;
 position: sticky;
 top: 0;
 }
-.rightmenu{
+.rightproduct{
 width: 55%;
 border-radius: 10px;
 background-color:#f0f0f0 ;   
 }
-img{
+.img-slides{
     width: 100%;
     display: flex;
     display: block;
 }
-.content{
+.content-product{
 display: flex;
 
 }
@@ -84,7 +99,7 @@ margin: auto;
     position: relative;
 
 }
-.slide{
+.slide-product{
     min-width: 100%;
     box-sizing: border-box;
 }
@@ -143,7 +158,7 @@ margin: auto;
     margin-right: 5px;
 }
 .but{
-    display: flex;
+    /* display: flex; */
     justify-content: space-around;
 }
 .btn{
@@ -151,8 +166,8 @@ margin: auto;
     border: none;
     background-color: transparent;
     cursor: pointer;
-    padding: 12px 48px;
-    margin-top: 30px;
+    /* padding: 12px 48px; */
+    margin-top: 15px;
     justify-content: space-between;
     font-weight: 550;
     text-decoration: none;
@@ -164,12 +179,17 @@ margin: auto;
     background-color: white;
     border: 3px solid orange;
     border-radius: 12px;
+    width: 100%;
+    padding: 14px;
 }
 .btn--addcart{
     background-color: #36B8FF;
     border-radius: 12px;
     border: 3px solid #36B8FF;
     /* color: white; */
+    width: 100%;
+    padding: 14px;
+
 }
 
 .detail{
@@ -183,12 +203,22 @@ margin: auto;
     border-radius: 10px;
 
 }
-
-
+.book-title{
+    margin-bottom: 30px;
+    font-size: 24px;
+    line-height: 1.5;
+}
 .book-info{
-    display: flex;
-    justify-content: space-between;
+
     margin-bottom: 50px;
+    
+}
+.book-info2{
+    width: 50%;
+}
+.book-info1{
+    max-width: 50%;
+    margin-bottom: 14px;
 }
 .book-supplier{
     display: inline-block;
@@ -230,12 +260,12 @@ input[type=number] {
 /* .quantity-box{
     border: 1px solid black;
 } */
-input[type="number"] {
+#quantity {
     width: 40px;
     text-align: center;
     font-size: 16px;
     border: 1px solid #f3f4f4;
-    /* border-radius: 4px; */
+    
     background-color: #fff;
     height: 40px;
     line-height: 40px;
@@ -284,7 +314,7 @@ padding: 0;
 }
 .detail tr {
     display: grid;
-    grid-template-columns: 25% 75%; /* Cột label chiếm 25%, cột data chiếm 75% */
+    grid-template-columns: 40% 60%; /* Cột label chiếm 25%, cột data chiếm 75% */
 }
 
 .detail-label {
@@ -319,6 +349,7 @@ padding: 0;
         text-align: center;
         margin: auto;
         align-items: center;
+        
     }
     .leftmenu{  
         width: 483px;

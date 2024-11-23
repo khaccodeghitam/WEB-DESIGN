@@ -47,3 +47,5 @@ function editProduct(index) {
 
 // Hiển thị danh sách sản phẩm khi tải trang
 document.addEventListener("DOMContentLoaded", renderProducts);
+
+

@@ -9,10 +9,14 @@ function showLogin(){
 function ktDangNhap() {
     const username = document.querySelector('#dangnhap input[name="username"]').value;
     const password = document.querySelector('#dangnhap input[name="password"]').value;
-
+    if(username =='admin'&& password=='admin'){
+        window.location.href = "admin.html";
+    }
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(u => u.username === username && u.password === password);
-
+    if(username =='admin'&& password=='admin'){
+        alert("Admin đăng nhập!");
+    }
     if (!user) {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
         return false;
@@ -228,6 +232,224 @@ function backToMain() {
     userInfo.style.display = 'none';
     middleContent.style.display = 'block';
 }
+
+
+//Lưu thông tin địa chỉ vào tài khoản
+// document.getElementById("btnSave").addEventListener("click", function (e) {
+//     e.preventDefault();
+
+//     // Lấy các giá trị từ form
+//     const txtHo = document.getElementById("txtHo").value.trim();
+//     const txtTen = document.getElementById("txtTen").value.trim();
+//     const txtSdt = document.getElementById("txtSdt").value.trim();
+//     const txtDiachi = document.getElementById("txtDiachi").value.trim();
+
+//     const citySelect = document.getElementById("city");
+//     const city = citySelect.options[citySelect.selectedIndex].text;
+
+//     const districtSelect = document.getElementById("district");
+//     const district = districtSelect.options[districtSelect.selectedIndex].text;
+
+//     const wardSelect = document.getElementById("ward");
+//     const ward = wardSelect.options[wardSelect.selectedIndex].text;
+
+//     // Kiểm tra thông tin đầu vào
+//     if (txtHo === "" || txtTen === "" || txtSdt === "" || txtDiachi === "" || city === "" || district === "" || ward === "") {
+//         alert("Vui lòng điền đầy đủ thông tin.");
+//         return;
+//     }
+
+//     // Lấy thông tin người dùng đăng nhập
+//     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+//     if (!loggedInUser) {
+//         alert("Bạn cần đăng nhập để lưu địa chỉ!");
+//         return;
+//     }
+
+//     // Tạo đối tượng địa chỉ
+//     const newAddress = {
+//         ho: txtHo,
+//         ten: txtTen,
+//         sdt: txtSdt,
+//         diachi: txtDiachi,
+//         city: city,
+//         district: district,
+//         ward: ward
+//     };
+
+//     // Lấy danh sách địa chỉ hiện tại của tài khoản đăng nhập
+//     const users = JSON.parse(localStorage.getItem("users")) || [];
+//     const userIndex = users.findIndex(u => u.username === loggedInUser.username);
+
+//     if (userIndex === -1) {
+//         alert("Tài khoản không tồn tại.");
+//         return;
+//     }
+
+//     users[userIndex].addresses = users[userIndex].addresses || [];
+//     users[userIndex].addresses.push(newAddress);
+
+//     // Cập nhật lại danh sách người dùng trong localStorage
+//     localStorage.setItem("users", JSON.stringify(users));
+
+//     // Cập nhật danh sách địa chỉ hiển thị
+//     const addressList = document.getElementById("addressList");
+
+//     const addressItem = document.createElement("div");
+//     addressItem.classList.add("address-item");
+//     addressItem.innerHTML = `
+//         <div style="display: flex; justify-content: space-between;">
+//             <div>
+//                 <strong>${txtHo} ${txtTen} | ${txtSdt}</strong> (Địa chỉ giao hàng)
+//                 <button style="margin-left:83px;" class="edit-btn">Sửa</button>
+//                 <button class="delete-btn">Xoá</button>
+//             </div>
+//         </div>
+//         <p style="width:360px;">${txtDiachi}</p>
+//         <p style="width:360px;">${ward}, ${district}, ${city}</p>
+//     `;
+
+//     addressList.appendChild(addressItem);
+
+//     // Ẩn dòng chữ "Địa chỉ trống" nếu có
+//     const emptyAddressText = document.getElementById("emptyAddressText");
+//     if (emptyAddressText) {
+//         emptyAddressText.style.display = "none";
+//     }
+
+//     // Xóa nội dung form sau khi lưu
+//     document.getElementById("frmAddress").reset();
+
+//     // Đóng form và hiển thị lại danh sách
+//     const addressFormSection = document.getElementById("addressFormSection");
+//     const addAddressSection = document.getElementById("addAddressSection");
+//     addressFormSection.style.display = "none";
+//     addAddressSection.style.display = "block";
+
+//     // Xoá địa chỉ
+//     addressItem.querySelector(".delete-btn").addEventListener("click", function () {
+//         addressList.removeChild(addressItem);
+
+//         // Xóa địa chỉ khỏi tài khoản
+//         users[userIndex].addresses = users[userIndex].addresses.filter(
+//             address => address !== newAddress
+//         );
+//         localStorage.setItem("users", JSON.stringify(users));
+
+//         if (addressList.children.length === 0 && emptyAddressText) {
+//             emptyAddressText.style.display = "block";
+//         }
+//     });
+
+//     // Sửa địa chỉ (tạm thời chỉ hiển thị form, bạn có thể bổ sung chức năng này)
+//     addressItem.querySelector(".edit-btn").addEventListener("click", function () {
+//         alert("Chức năng sửa chưa được triển khai.");
+//     });
+// });
+
+
+document.getElementById("btnSave").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    // Lấy các giá trị từ form
+    const txtHo = document.getElementById("txtHo");
+    const txtTen = document.getElementById("txtTen");
+    const txtSdt = document.getElementById("txtSdt");
+    const txtDiachi = document.getElementById("txtDiachi");
+    const citySelect = document.getElementById("city");
+    const districtSelect = document.getElementById("district");
+    const wardSelect = document.getElementById("ward");
+
+    // Biến kiểm tra xem có lỗi không
+    let hasError = false;
+
+    // Hàm hiển thị lỗi
+    const showError = (input, message) => {
+        let errorSpan = input.nextElementSibling;
+        if (!errorSpan || !errorSpan.classList.contains("error-message")) {
+            errorSpan = document.createElement("span");
+            errorSpan.classList.add("error-message");
+            errorSpan.style.color = "red";
+            errorSpan.style.fontSize = "12px";
+            input.parentNode.appendChild(errorSpan);
+        }
+        errorSpan.textContent = message;
+        hasError = true;
+    };
+
+    // Hàm xóa lỗi
+    const clearError = (input) => {
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains("error-message")) {
+            errorSpan.textContent = "";
+        }
+    };
+
+    // Kiểm tra các trường
+    if (txtHo.value.trim() === "") {
+        showError(txtHo, "Thông tin này quan trọng. Vui lòng không để trống.");
+    } else {
+        clearError(txtHo);
+    }
+
+    if (txtTen.value.trim() === "") {
+        showError(txtTen, "Thông tin này quan trọng. Vui lòng không để trống.");
+    } else {
+        clearError(txtTen);
+    }
+
+    if (txtSdt.value.trim() === "") {
+        showError(txtSdt, "Thông tin này quan trọng. Vui lòng không để trống.");
+    } else if (!/^\d{10}$/.test(txtSdt.value.trim())) {
+        showError(txtSdt, "Số điện thoại phải nhập là số và gồm 10 chữ số.");
+    } else {
+        clearError(txtSdt);
+    }
+
+    if (txtDiachi.value.trim() === "") {
+        showError(txtDiachi, "Thông tin này quan trọng. Vui lòng không để trống.");
+    } else {
+        clearError(txtDiachi);
+    }
+
+    if (citySelect.value === "") {
+        showError(citySelect, "Thông tin này quan trọng. Vui lòng không để trống.");
+    } else {
+        clearError(citySelect);
+    }
+
+    if (districtSelect.value === "") {
+        showError(districtSelect, "Thông tin này quan trọng. Vui lòng không để trống.");
+    } else {
+        clearError(districtSelect);
+    }
+
+    if (wardSelect.value === "") {
+        showError(wardSelect, "Thông tin này quan trọng. Vui lòng không để trống.");
+    } else {
+        clearError(wardSelect);
+    }
+
+    // Nếu có lỗi, dừng xử lý tiếp
+    if (hasError) {
+        return;
+    }
+
+    // Tiếp tục lưu địa chỉ nếu không có lỗi
+    const newAddress = {
+        ho: txtHo.value.trim(),
+        ten: txtTen.value.trim(),
+        sdt: txtSdt.value.trim(),
+        diachi: txtDiachi.value.trim(),
+        city: citySelect.options[citySelect.selectedIndex].text,
+        district: districtSelect.options[districtSelect.selectedIndex].text,
+        ward: wardSelect.options[wardSelect.selectedIndex].text,
+    };
+
+    // Gọi các bước tiếp theo như lưu vào localStorage, cập nhật danh sách, ...
+    alert("Địa chỉ đã được lưu thành công!");
+});
 
 
 document.addEventListener('DOMContentLoaded', updateUI);

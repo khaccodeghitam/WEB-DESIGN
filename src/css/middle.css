@@ -37,6 +37,38 @@
     display: flex;
     flex-direction: column;
 }
+.item h2 {
+    font-size: 15px;
+    display: -webkit-box;
+    line-clamp: 2; /* Số dòng tối đa */
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 35px;
+}
+.new-price {
+    margin: 2px;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+    color: #36b8ff;   
+}
+.old-price {
+    color: #ff0000;
+    float: left;
+    font-size: 1em;
+    text-decoration: line-through;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
+.price-percent{
+    color: white;
+    background-color: #36b8ff;
+    font-size: 1em;
+    float: left;
+    border: solid 1px white;
+    margin-bottom: 2px;
+}
 .item img {
     width: 100%;
     height: 70%;
@@ -69,6 +101,14 @@
 }
 .slide{
     display: inline-block;
+}
+.edit-form-container {
+    display: none;
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 .edit-item {
    margin-left: 50px;

@@ -1,5 +1,4 @@
-    
-	var citis = document.getElementById("city");
+var citis = document.getElementById("city");
 var districts = document.getElementById("district");
 var wards = document.getElementById("ward");
 var Parameter = {
@@ -115,10 +114,10 @@ const addressList = document.getElementById("addressList");
 const emptyAddressText = document.getElementById("emptyAddressText");
 
 // Mở form thêm địa chỉ
-addNewAddressBtn.addEventListener("click", function () {
-    addAddressSection.style.display = "none";
-    addressFormSection.style.display = "block";
-});
+// addNewAddressBtn.addEventListener("click", function () {
+//     addAddressSection.style.display = "none";
+//     addressFormSection.style.display = "block";
+// });
 
 // Lưu thông tin địa chỉ
 document.getElementById("btnSave").addEventListener("click", function (e) {
