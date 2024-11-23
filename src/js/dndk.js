@@ -71,6 +71,17 @@ function ktDangKi() {
     alert("Đăng ký thành công!");
     showLogin(); // Chuyển sang giao diện đăng nhập
 }
+
+function handleBuyNow() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (!loggedInUser) {
+        // Nếu chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
+        alert("Bạn cần đăng nhập để mua hàng!");    
+        return;
+    }
+}
+
     function updateUI() {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); 
     

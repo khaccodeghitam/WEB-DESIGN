@@ -172,7 +172,7 @@
                     </div>
                     <div id="product-details">
                     <div style="border: 3px solid  #f0f0f0; background-color:#f0f0f0; display: none;" id="mid">
-                        <button onclick="closeProductDetails()" style="position: absolute; top: 10px; right: 10px;">✖</button>
+                        <button onclick="closeProductDetails()" style="position: fixed; top: 10px; right: 10px;">✖</button>
                         <div class="leftmenu">
                         <div class="content-product" id="content-product">
                         <div class="content-item">
@@ -190,7 +190,7 @@
                             <img id="fullImage" src="" alt="Full Screen Image">
                         </div>
                             <div class="but">
-                            <button class="btn btn--buy">Mua Ngay</button>
+                            <button class="btn btn--buy" onclick="handleBuyNow()">Mua Ngay</button>
                             <button class="btn btn--addcart"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
                         </div>
                         </div>
