@@ -79,10 +79,12 @@ function searchProducts(query) {
   return products.filter((product, index) => {
     const normalizedProductName = removeAccents(product.productName);
     const normalizedAuthor = removeAccents(product.author);
+    const normalizedCategory = removeAccents(product.category);
 
     return (
       normalizedProductName.includes(normalizedQuery) ||
-      normalizedAuthor.includes(normalizedQuery)
+      normalizedAuthor.includes(normalizedQuery) ||
+      normalizedCategory.includes(normalizedQuery)
     );
   });
 }
