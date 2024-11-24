@@ -4,7 +4,8 @@ var wards = document.getElementById("ward");
 var Parameter = {
   url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json", 
   method: "GET", 
-  responseType: "application/json", 
+  // responseType: "application/json", 
+  responseType: "json",
 };
 var promise = axios(Parameter);
 promise.then(function (result) {
@@ -98,52 +99,8 @@ document.getElementById("btnSave").addEventListener("click", function (e) {
     if (isHoValid && isTenValid && isSdtValid && isCityValid && isDiachiValid && isDistrictValid && isWardValid && isPhoneValid) {
         alert("Thông tin đã được lưu thành công!");
     }
-});
-const addNewAddressBtn = document.getElementById("addNewAddressBtn");
-const addAddressSection = document.getElementById("addAddressSection");
-const addressFormSection = document.getElementById("addressFormSection");
 
-addNewAddressBtn.addEventListener("click", function () {
-    addAddressSection.style.display = "none";
-    addressFormSection.style.display = "block";
-});
-
-// Lưu thông tin vào sổ địa chỉ
-const btnSave = document.getElementById("btnSave");
-const addressList = document.getElementById("addressList");
-const emptyAddressText = document.getElementById("emptyAddressText");
-
-// Mở form thêm địa chỉ
-// addNewAddressBtn.addEventListener("click", function () {
-//     addAddressSection.style.display = "none";
-//     addressFormSection.style.display = "block";
-// });
-
-// Lưu thông tin địa chỉ
-document.getElementById("btnSave").addEventListener("click", function (e) {
-    e.preventDefault();
-
-    // Lấy các giá trị từ form
-    const txtHo = document.getElementById("txtHo").value.trim();
-    const txtTen = document.getElementById("txtTen").value.trim();
-    const txtSdt = document.getElementById("txtSdt").value.trim();
-    const txtDiachi = document.getElementById("txtDiachi").value.trim();
-
-    const citySelect = document.getElementById("city");
-    const city = citySelect.options[citySelect.selectedIndex].text;
-
-    const districtSelect = document.getElementById("district");
-    const district = districtSelect.options[districtSelect.selectedIndex].text;
-
-    const wardSelect = document.getElementById("ward");
-    const ward = wardSelect.options[wardSelect.selectedIndex].text;
-    // Kiểm tra thông tin đầu vào
-    if (txtHo === "" || txtTen === "" || txtSdt === "" || txtDiachi === "" || city === "" || district === "" || ward === "") {
-        alert("Vui lòng điền đầy đủ thông tin.");
-        return;
-    }
-
-    // Tạo phần tử hiển thị thông tin địa chỉ
+    //được hợp nhất từ btnSave ở bên dưới
     const addressItem = document.createElement("div");
     addressItem.classList.add("address-item");
     addressItem.innerHTML = `
@@ -189,6 +146,97 @@ document.getElementById("btnSave").addEventListener("click", function (e) {
     addressItem.querySelector(".edit-btn").addEventListener("click", function () {
         alert("Chức năng sửa chưa được triển khai.");
     });
+});
+const addNewAddressBtn = document.getElementById("addNewAddressBtn");
+const addAddressSection = document.getElementById("addAddressSection");
+const addressFormSection = document.getElementById("addressFormSection");
+
+addNewAddressBtn.addEventListener("click", function () {
+    addAddressSection.style.display = "none";
+    addressFormSection.style.display = "block";
+});
+
+// Lưu thông tin vào sổ địa chỉ
+const btnSave = document.getElementById("btnSave");
+const addressList = document.getElementById("addressList");
+const emptyAddressText = document.getElementById("emptyAddressText");
+
+// Mở form thêm địa chỉ
+// addNewAddressBtn.addEventListener("click", function () {
+//     addAddressSection.style.display = "none";
+//     addressFormSection.style.display = "block";
+// });
+
+// Lưu thông tin địa chỉ
+// document.getElementById("btnSave").addEventListener("click", function (e) {
+//     e.preventDefault();
+
+//     // Lấy các giá trị từ form
+//     const txtHo = document.getElementById("txtHo").value.trim();
+//     const txtTen = document.getElementById("txtTen").value.trim();
+//     const txtSdt = document.getElementById("txtSdt").value.trim();
+//     const txtDiachi = document.getElementById("txtDiachi").value.trim();
+
+//     const citySelect = document.getElementById("city");
+//     const city = citySelect.options[citySelect.selectedIndex].text;
+
+//     const districtSelect = document.getElementById("district");
+//     const district = districtSelect.options[districtSelect.selectedIndex].text;
+
+//     const wardSelect = document.getElementById("ward");
+//     const ward = wardSelect.options[wardSelect.selectedIndex].text;
+//     // Kiểm tra thông tin đầu vào
+//     if (txtHo === "" || txtTen === "" || txtSdt === "" || txtDiachi === "" || city === "" || district === "" || ward === "") {
+//         alert("Vui lòng điền đầy đủ thông tin.");
+//         return;
+//     }
+
+//     // Tạo phần tử hiển thị thông tin địa chỉ
+//     const addressItem = document.createElement("div");
+//     addressItem.classList.add("address-item");
+//     addressItem.innerHTML = `
+//         <div style="display: flex; justify-content: space-between;">
+//             <div>
+//                 <strong>${txtHo} ${txtTen} | ${txtSdt}</strong> (Địa chỉ giao hàng)
+//                 <button style="margin-left:83px;" class="edit-btn">Sửa</button>
+//                 <button class="delete-btn">Xoá</button>
+//             </div>
+//         </div>
+//         <p style="width:360px;">${txtDiachi}</p>
+//         <p style="width:360px;">${ward}, ${district}, ${city}</p>
+//     `;
+
+//     // Thêm địa chỉ vào danh sách
+//     const addressList = document.getElementById("addressList");
+//     addressList.appendChild(addressItem);
+
+//     // Ẩn dòng chữ "Địa chỉ trống" nếu có
+//     const emptyAddressText = document.getElementById("emptyAddressText");
+//     if (emptyAddressText) {
+//         emptyAddressText.style.display = "none";
+//     }
+
+//     // Xóa nội dung form sau khi lưu
+//     document.getElementById("frmAddress").reset();
+
+//     // Đóng form và hiển thị lại danh sách
+//     const addressFormSection = document.getElementById("addressFormSection");
+//     const addAddressSection = document.getElementById("addAddressSection");
+//     addressFormSection.style.display = "none";
+//     addAddressSection.style.display = "block";
+
+//     // Xoá địa chỉ
+//     addressItem.querySelector(".delete-btn").addEventListener("click", function () {
+//         addressList.removeChild(addressItem);
+//         if (addressList.children.length === 0 && emptyAddressText) {
+//             emptyAddressText.style.display = "block";
+//         }
+//     });
+
+//     // Sửa địa chỉ (tạm thời chỉ hiển thị form, bạn có thể bổ sung chức năng này)
+//     addressItem.querySelector(".edit-btn").addEventListener("click", function () {
+//         alert("Chức năng sửa chưa được triển khai.");
+//     });
 
     
-});
+// });

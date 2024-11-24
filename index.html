@@ -389,8 +389,8 @@
                             <!-- GIỚI TÍNH -->
                             <label>Giới tính <em>*</em> </label>
                             <div class="gender">
-                                <input type="radio" id="nam" name="gioi_tinh" value="nam" required>
-                                <label for="nam">Nam</label>
+                                <input type="radio" id="boy" name="gioi_tinh" value="boy" required>
+                                <label for="boy">Nam</label>
                                 <input type="radio" id="nu" name="gioi_tinh" value="nu" required>
                                 <label for="nu">Nữ</label>
                             </div>
@@ -402,13 +402,13 @@
                             <div class="birthdate">
                                 <input type="number" id="ngay" name="ngay" placeholder="Ngày" min="1" max="31" required>
                                 <input type="number" id="thang" name="thang" placeholder="Tháng" min="1" max="12" required>
-                                <input type="number" id="Nam" name="nam" placeholder="Năm" min="1900" max="2023" required>
+                                <input type="number" id="nam" name="nam" placeholder="Năm" min="1900" max="2023" required>
                             </div>
                             <span id="birthdateError" class="error">Vui lòng nhập ngày sinh hợp lệ</span>
 
                                         
                             <!-- Nut submit -->
-                            <button type="submit">Cập nhật</button>
+                            <button type="button" onclick="saveUserInfo()" id="updateButton">Cập nhật</button>
                         </form>
                     </div>
                     <div class="add-address-form" id="addAddressSection" style="display: none;">

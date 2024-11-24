@@ -21,6 +21,7 @@ function renderProducts() {
             <td>${10000 + index}</td>
             <td><img src="${product.image || './src/img/default.jpg'}" alt="Image" style="width: 50px; height: 50px;"></td>
             <td>${product.productName}</td>
+            <td>${product.category}</td>
             <td>${product.author}</td>
             <td>${product.newPrice} VND</td>
             <td>
