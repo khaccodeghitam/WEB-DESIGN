@@ -75,7 +75,7 @@ function searchProducts(query) {
     return products.filter((_, index) => (10000 + index).toString() === query);
   }
 
-  // Lọc sản phẩm theo ID, tên, hoặc tác giả
+  // Lọc sản phẩm theo ID, tên, hoặc tác giả, thể loại
   return products.filter((product, index) => {
     const normalizedProductName = removeAccents(product.productName);
     const normalizedAuthor = removeAccents(product.author);
