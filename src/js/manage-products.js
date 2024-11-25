@@ -21,7 +21,7 @@ function renderProducts(filteredProducts = null) {
     if (products.includes(product)) {
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${10000 + index}</td>
+        <td>${product.productID}</td>
         <td><img src="${
           product.image || "./src/img/default.jpg"
         }" alt="Image" style="width: 50px; height: 50px;"></td>
