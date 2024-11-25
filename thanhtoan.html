@@ -295,5 +295,72 @@
         // Gọi hàm để thiết lập ngày giao hàng khi trang được tải
         setDeliveryDate();
     </script>
+
+
+
+
+
+    <script>
+        // Hàm để lấy tham số từ URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Lấy thông tin từ URL
+        const productId = getQueryParam("productId");
+        const quantity = getQueryParam("quantity");
+
+        // Cập nhật thông tin sản phẩm (giả sử bạn có một danh sách sản phẩm mẫu để tham chiếu)
+        const productDetails = {
+            "3123410367": { name: "Tên sách A", price: 100000 },
+            // Thêm các sản phẩm khác tại đây...
+        };
+
+        if (productId && productDetails[productId]) {
+            const product = productDetails[productId];
+
+            // Hiển thị thông tin sản phẩm
+            document.querySelector(".item-name").textContent = `${product.name} (x${quantity})`; 
+            document.querySelector(".item-price").textContent = `${product.price.toLocaleString()} VNĐ`;
+            document.querySelector(".subtotal-price").textContent = `${(product.price * quantity).toLocaleString()} VNĐ`;
+            document.querySelector(".total-price").textContent = `${(product.price * quantity + 20000).toLocaleString()} VNĐ`; // Thêm phí vận chuyển
+        }
+    </script>
+
+    <script>
+        document.querySelector('.btn-submit').addEventListener('click', function () {
+            // Lấy thông tin từ các trường nhập liệu
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const country = document.getElementById('country').value;
+            const address = document.getElementById('address').value;
+            const paymentMethod = document.getElementById('payment-method').value;
+
+            // Tạo một object để lưu thông tin đơn hàng
+            const orderInfo = {
+                name,
+                email,
+                phone,
+                country,
+                address,
+                paymentMethod,
+                items: [
+                    {
+                        productName: document.querySelector('.item-name').textContent,
+                        productPrice: document.querySelector('.item-price').textContent,
+                    }
+                ],
+                totalPrice: document.querySelector('.total-price').textContent,
+            };
+
+            // Lưu vào localStorage
+            localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
+
+            // Thông báo hoặc chuyển hướng
+            alert('Thông tin thanh toán đã được lưu!');
+        });
+    </script>
 </body>
 </html>
