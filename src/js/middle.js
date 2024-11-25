@@ -1,18 +1,43 @@
-var index = 0;
-showSlides();
-function showSlides(){
-    var i;
-    var slides= document.getElementsByClassName("slide");
-    for(i = 0; i < slides.length; i++){
-        slides[i].style.display = "none";
-    }
-    index++;
-    if(index > slides.length){
-        index = 1;
-    }
-    slides[index-1].style.display = "block";
-    setTimeout(showSlides, 3000);
+let slider = document.querySelector('.slideshow .slide-container');
+let items = document.querySelectorAll('.slideshow .slide-container .slide');
+let next = document.getElementById('next');
+let prev = document.getElementById('prev');
+let dots = document.querySelectorAll('.slideshow .dots li');
+
+let lengthItems = items.length - 1;
+let active = 0;
+next.onclick = function(){
+    active = active + 1 <= lengthItems ? active + 1 : 0;
+    reloadSlider();
 }
+prev.onclick = function(){
+    active = active - 1 >= 0 ? active - 1 : lengthItems;
+    reloadSlider();
+}
+let refreshInterval = setInterval(()=> {next.click()}, 3000);
+function reloadSlider(){
+    slider.style.left = -items[active].offsetLeft + 'px';
+    // 
+    let last_active_dot = document.querySelector('.slideshow .dots li.active');
+    last_active_dot.classList.remove('active');
+    dots[active].classList.add('active');
+
+    clearInterval(refreshInterval);
+    refreshInterval = setInterval(()=> {next.click()}, 3000);
+
+    
+}
+
+dots.forEach((li, key) => {
+    li.addEventListener('click', ()=>{
+         active = key;
+         reloadSlider();
+    })
+})
+window.onresize = function(event) {
+    reloadSlider();
+};
+
 
 function showEditForm() {
     // window.location.href = './admin.html';
@@ -138,7 +163,7 @@ function submitEditForm() {
     }
 }
 
-function addProductToUI(product) {
+/*function addProductToUI(product) {
     const contentDiv = document.getElementById('content');
 
     // Tạo một thẻ item mới
@@ -170,7 +195,7 @@ function addProductToUI(product) {
 
     // Thêm sản phẩm mới vào danh sách
     contentDiv.appendChild(productItem);
-}
+}*/
  
 
 function goBack() {
@@ -179,35 +204,80 @@ function goBack() {
 window.onload = function() {
     let products = JSON.parse(localStorage.getItem('products')) || [];
     const contentDiv = document.getElementById('content');
+    var count=0,sotrang=1;
+    var i=0;
+    var sotrang=0;
+    var url=window.location.href;
+    var temp=url.split("?");
+    if(temp[1]=='' || temp[1]==undefined || temp[1].search('all')==0){
+		if(temp[1]=='' || temp[1]==undefined){
+			temp = 'all&0';
+		}
+		else{
+			temp = temp[1];
+		}
+        var temp2 = temp.split("&");
+		var vitri = temp2[1];   
+        for(i=vitri; i<products.length; i++){
+            // Tạo một thẻ item mới
+            const productItem = document.createElement('div');
+            productItem.classList.add('item');
 
-    products.forEach(product => {
-        const productItem = document.createElement('div');
-        productItem.classList.add('item');
-        productItem.className = 'item';
+            // Hình ảnh sản phẩm
+            const productImage = document.createElement('img');
+            productImage.src = products[i].image;
+            productItem.appendChild(productImage);
 
-        const productImage = document.createElement('img');
-        productImage.src = product.image || './src/img/default.jpg';
-        productItem.appendChild(productImage);
+            // Tên sản phẩm
+            const productName = document.createElement('h2');
+            productName.classList.add('product-name');
+            productName.innerHTML = `<div>${products[i].productName}</div>`;
+            productItem.appendChild(productName);
 
-        const productName = document.createElement('h2');
-        productName.textContent = product.productName;
-        productItem.appendChild(productName);
+            const priceLabel = document.createElement('div');
+            priceLabel.classList.add('price-label');
 
-        const productNewPrice = document.createElement('div');
-        productNewPrice.className = 'new-price';
-        productNewPrice.textContent = `${product.newPrice} đ`;
-        productItem.appendChild(productNewPrice);
+            const priceRow = document.createElement('div');
+            priceRow.classList.add('price-row');
+            // Giá mới
+            const productNewPrice = document.createElement('div');
+            productNewPrice.classList.add('new-price');
+            productNewPrice.innerHTML = `<div>${products[i].newPrice}đ</div>`;
+            priceRow.appendChild(productNewPrice);
 
-        const productOldPrice = document.createElement('div');
-        productOldPrice.className = 'old-price';
-        productOldPrice.textContent = `${product.oldPrice} đ`;
-        productItem.appendChild(productOldPrice);
-
-        const productPricePercent = document.createElement('div');
-        productPricePercent.className = 'price-percent';
-        productPricePercent.textContent = `-${(product.newPrice/product.oldPrice*100).toFixed(2)}%`;
-        productItem.appendChild(productPricePercent);
-
-        contentDiv.appendChild(productItem);
-    });
+            const productPricePercent = document.createElement('div');
+            productPricePercent.classList.add('price-percent');
+            productPricePercent.innerHTML = `<div>-${(products[i].newPrice/products[i].oldPrice*100).toFixed(0)}%</div>`;
+            priceRow.appendChild(productPricePercent);
+            priceLabel.appendChild(priceRow);
+            // Giá cũ
+            const productOldPrice = document.createElement('div');
+            productOldPrice.classList.add('old-price');
+            productOldPrice.innerHTML = `<div>${products[i].oldPrice}đ</div>`;
+            priceLabel.appendChild(productOldPrice);
+            productItem.appendChild(priceLabel);
+            // Thêm sản phẩm mới vào danh sách
+            contentDiv.appendChild(productItem);
+            count++;
+            if(count==15)
+                break;
+        }
+        sotrang = Math.ceil(products.length/15);
+        const page=document.getElementById('page');
+        var lienket = '';
+        if (!page) {
+            console.error('Element with ID "page" not found');
+        } else {
+            for (let i = 0; i < sotrang; i++) {
+                const vitri = i * 15;
+                lienket = document.createElement('button');
+                lienket.textContent = i + 1;
+                lienket.addEventListener('click', function() {
+                    window.location.href = `index.html?all&${vitri}`;
+                });
+                page.appendChild(lienket);
+                console.log(`Button ${i + 1} added`); // Debugging log
+            }
+        }
 };
+}
