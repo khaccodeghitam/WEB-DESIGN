@@ -3,9 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/css/sodiachi.css">
+        <link rel="stylesheet" href="./src/css/trangspcss.css">
         <link rel="stylesheet" href="./src/css/dndk.css">
-        <link rel="stylesheet" href="./src/css/userinfo.css">
         <link rel="stylesheet" href="./src/css/middle.css">
+        <link rel="stylesheet" href="./src/css/userinfo.css" type="text/css" media="all">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -26,6 +28,9 @@
                         
                         <ul id="navmenu">
                             <li>
+                                <a href="./index.html?timkiemnangcao&0">LỌC THỂ LOẠI</a>
+                            </li>
+                            <li>
                                 <a href="index.html?sachtrongnuoc&0">SÁCH TRONG NƯỚC</a>
                             </li>
                             <li>
@@ -33,10 +38,7 @@
                             </li>      
                             <li>
                                 <a href="index.html?truyenthieunhi&0">TRUYỆN THIẾU NHI</a>
-                            </li>        
-                            <li>
-                                <a href="./index.html?timkiemnangcao&0">LỌC THỂ LOẠI</a>
-                            </li>              
+                            </li>                      
                         </ul>
                     </div>
                     
@@ -75,12 +77,12 @@
                                 <img src="./src/icon/kinhlup.svg">
                             </div>
                         </div>
-                        <!-- Khung tìm kiếm không thể loại -->
+                        <!-- Khung tìm kiếm full màn -->
                         <div class="search-bar2">
                             <input type="text" placeholder="">
                             <button><img src="./src/icon/kinhlup.svg"></button>
                         </div>
-                        
+
                     <!-- Phần nút rightmenu -->
                         <ul class="rightmenu">
                             <li class="account-menu">
@@ -94,7 +96,7 @@
                                 </div>
                             </li>
                             <li class="cart-menu">
-                                <button onClick="location.href='file/cart.html'">
+                                <button onClick="location.href='giohang.html'">
                                     <img src="./src/icon/giohang.svg">
                                 </button>
                                 <p>Giỏ hàng</p>
@@ -130,18 +132,19 @@
                     <input type="text" name="username" placeholder="Tên đăng nhập*">
                     <input type="password" name="password" placeholder="Mật khẩu*">
                     <button type="submit" onclick="ktDangNhap()">Đăng nhập</button>
-                    <div id="question">Chưa có tài khoản? <a href="#" onclick="showRegister()"> Đăng kí</a></div>
+                    <div id="question" >Chưa có tài khoản? <a href="#" onclick="showRegister()" style="color: #2489F4;margin-left: 10px;"> Đăng kí</a></div>
                 </form>     
                 <form id="dangki">
                     <button onclick="closeForm()" style="float: right;" class="btn-close" >X</button> 
                     <h2 id="question">Đăng kí</h2>
+                    <input type="text" name="fullname" placeholder="Họ và tên">
                     <input type="text" name="username" placeholder="Tên đăng nhập*">
                     <input type="password" name="password" placeholder="Mật khẩu*">
                     <input type="password" name="repassword" placeholder="Nhập lại mật khẩu*">
                     <input type="email" name="email" placeholder="Email">
                     <input type="text" name="phone" placeholder="Số điện thoại*">
                     <button type="submit" onclick="ktDangKi()">Đăng kí</button>
-                    <div id="question">Đã có tài khoản? <a href="#" onclick="showLogin()"> Đăng nhập</a></div>
+                    <div id="question" >Đã có tài khoản? <a href="#" onclick="showLogin()" style="color: #2489F4; margin-left: 10px;"> Đăng nhập</a></div>
                 </form>
             </div>
         </div>
@@ -153,119 +156,6 @@
                                 <img class="slide" src="./src/img/banner3.jpg" style="width: 100%;height: 100%;">
                         </div>
                         <div id="content">
-                            <div class="item">
-                                <img src="./src/img/book1.jpg" >
-                                <h2 class="product-name">
-                                <div>Tên sp</div>
-                            </h2>
-                                <div class="price-label">
-                                    <p class="special-price">
-                                <span>Giá sp mới</span>
-                            </p>
-                                <p class="old-price">
-                                <span>Giá sp cũ</span>
-                            </p>
-                            </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                            </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="bt/image/ms_banner_img4.jpg" >
-                                <h2 class="product-name">
-                                    <div>Tên sp</div>
-                                </h2>
-                                    <div class="price-label">
-                                        <p class="special-price">
-                                    <span>Giá sp mới</span>
-                                </p>
-                                    <p class="old-price">
-                                    <span>Giá sp cũ</span>
-                                </p>
-                                </div>
-                            </div>
-                        
                             <div class="edit-item">
                                 <button class="edit-item-box" onclick="showEditForm()">Sửa sản phẩm</button>
                             </div>
@@ -280,7 +170,125 @@
                             </div>
                         </div>
                     </div>
-            <div class="user-info" style="display: none;">
+                    <div id="product-details">
+                    <div style="border: 3px solid  #f0f0f0; background-color:#f0f0f0; display: none;" id="mid">
+                        <button onclick="closeProductDetails()" style="position: fixed; top: 10px; right: 10px;">✖</button>
+                        <div class="leftmenu">
+                        <div class="content-product" id="content-product">
+                        <div class="content-item">
+                            <div class="slider">
+                            <div class="img-slides">
+                            <div class="slide-product"><img src="" alt="ảnh sách 1" width="100%"  onclick="openFullScreen(this)"></div>
+                            <div class="slide-product"><img src="" alt="ảnh sách 2" width="100%"  onclick="openFullScreen(this)"></div> 
+                        </div>
+                            <div class="navigation">
+                                <span class="prev" onclick="moveSlide(-1)">&#10094;</span>
+                                <span class="next" onclick="moveSlide(1)">&#10095;</span>
+                            </div>
+                        </div>
+                        <div id="fullScreenImage" class="full-screen" onclick="closeFullScreen()">
+                            <img id="fullImage" src="" alt="Full Screen Image">
+                        </div>
+                            <div class="but">
+                            <button class="btn btn--buy" onclick="handleBuyNow()">Mua Ngay</button>
+                            <button class="btn btn--addcart"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="rightproduct">
+                            <div class="block-content-product-info">
+                            <h1 class="book-title"></h1>
+                            <div class="book-info">
+                                <div class="book-info1">
+                                <div class="book-supplier">
+                                <span>Nhà cung cấp:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                <div class="book-author">
+                                <span>Nhà xuất bản:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                </div>
+                                <div class="book-info2-test">
+                                <div class="book-info2">
+                                <div class="book-supplier">
+                                <span>Tác giả:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                <div class="book-author">
+                                <span>Hình thức bìa:</span>
+                                <span style="font-weight: bold;"></span>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="price" id="product-price"></span>
+                                <span class="price" id="old-price"></span>
+                            </div>
+                            <div class="product-quantity-box">
+                                <label for="quantity" id="quantity-text" style="font-weight: 550;">Số lượng: </label>
+                              <div id="qty-box">
+                                <button class="btn--decrease qty" onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="999" >
+                                <button class="btn--increase qty" onclick="increaseQuantity()">+</button>
+                            </div>
+                            </div>
+                        </div>
+                            <div class="detail-info">
+                                <h2 class="detail-head">Thông tin chi tiết</h2>
+                                <table class="detail">
+                                    <tbody>
+                                        <tr>
+                                            <th class="detail-label">Mã hàng</th>
+                                            <td class="data_0">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label" >Tên nhà cung cấp</th>
+                                            <td class="data_1">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Tác giả</th>
+                                            <td class="data_2">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Nhà xuất bản</th>
+                                            <td class="data_3">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Ngôn Ngữ</th>
+                                            <td class="data_4">
+                                                <div class="data-container">Tiếng Việt</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Hình thức</th>
+                                            <td class="data_5">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="description-info">
+                                <h2 class="description-head">Mô tả sản phẩm</h2>
+                                <div id="description-content">
+                                    <p style="text-align: justify;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            <div id="user-info" class="user-info" style="display: none;">
                 <div class="left-content">
                     <!-- Bảng lựa chọn -->
                     <div class="user-content">
@@ -317,7 +325,7 @@
                                         <div style="width: 20px; height: 20px; margin: 0 12px">
                                         </div>
                                         <strong>
-                                            <a href="https://..." style="font-weight: normal">Sổ địa chỉ</a>
+                                            <a href="javascript:void(0);" id="showAddressForm" style="font-weight: normal">Sổ địa chỉ</a>
                                         </strong>
                                     </div>
                                 </li>
@@ -355,7 +363,7 @@
                 </div>
                 <!-- Form thông tin khách hàng -->
                 <div class="right-content">
-                    <div class="form-info">
+                    <div class="form-info" >
                         <form id="accountForm" onsubmit="return validateForm()">
                             <h2>HỒ SƠ CÁ NHÂN</h2>
                             <!-- HỌ -->
@@ -381,8 +389,8 @@
                             <!-- GIỚI TÍNH -->
                             <label>Giới tính <em>*</em> </label>
                             <div class="gender">
-                                <input type="radio" id="nam" name="gioi_tinh" value="nam" required>
-                                <label for="nam">Nam</label>
+                                <input type="radio" id="boy" name="gioi_tinh" value="boy" required>
+                                <label for="boy">Nam</label>
                                 <input type="radio" id="nu" name="gioi_tinh" value="nu" required>
                                 <label for="nu">Nữ</label>
                             </div>
@@ -394,14 +402,68 @@
                             <div class="birthdate">
                                 <input type="number" id="ngay" name="ngay" placeholder="Ngày" min="1" max="31" required>
                                 <input type="number" id="thang" name="thang" placeholder="Tháng" min="1" max="12" required>
-                                <input type="number" id="Nam" name="nam" placeholder="Năm" min="1900" max="2023" required>
+                                <input type="number" id="nam" name="nam" placeholder="Năm" min="1900" max="2023" required>
                             </div>
                             <span id="birthdateError" class="error">Vui lòng nhập ngày sinh hợp lệ</span>
 
                                         
                             <!-- Nut submit -->
-                            <button type="submit">Cập nhật</button>
+                            <button type="button" onclick="saveUserInfo()" id="updateButton">Cập nhật</button>
                         </form>
+                    </div>
+                    <div class="add-address-form" id="addAddressSection" style="display: none;">
+                        <div class="add-address-form-body">
+                            <div style="display: flex;justify-content: space-between;align-items: center;">
+                            <h2 style="text-decoration: unset; font-weight: 600;font-family: 'Nunito Sans';">Số địa chỉ</h2>
+                            <span id="addNewAddressBtn" style="color: #2489F4; font-size: 14px;cursor: pointer;text-align: center;">
+                                <span style="font-size: 18px; margin-right: 8px;">+</span>
+                                Thêm địa chỉ mới
+                            </span>
+                        </div>
+                            <h1 style="text-decoration: unset;" id="emptyAddressText"> Địa chỉ trống, vui lòng thêm địa chỉ giao hàng</h1>
+                            <div id="addressList"></div>
+                        </div>
+                    </div>
+                    <!-- Form thêm địa chỉ -->
+                    <div class="address-form" id="addressFormSection" style="display: none;">
+                        <h1 style="text-transform: unset;" class="add-address-head">Thêm địa chỉ mới</h1>
+                        <form id="frmAddress" name="frmAddress" method="post">
+                        <label for="txtHo" class="frmLabel">Họ*</label>
+                        <input type="text" id="txtHo" name="txtHo" ><br>
+                        <span class="error-message" id="errorHo"></span><br>
+                        <label for="txtTen" class="frmLabel">Tên*</label>
+                        <input type="text" id="txtTen" name="txtTen"><br>
+                        <span class="error-message" id="errorTen"></span><br>
+                        <label for="txtSdt" class="frmLabel">Điện thoại* </label>
+                        <input type="text" name="txtSdt" id="txtSdt" pattern="^\d{10}$" required><br>
+                        <span class="error-message" id="errorSdt"></span><br>
+                        <div>
+                                <label for="cboCity" class="frmLabel">Tỉnh/Thành Phố*</label>
+                                <select class="form-select form-select-sm mb-3" id="city" name="city" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn tỉnh thành</option>           
+                                </select>
+                                <span class="error-message" id="errorCity"></span><br>
+                                <label for="cboDistrict" class="frmLabel">Quận/Huyện*</label>
+                                <select class="form-select form-select-sm mb-3" id="district" name="district" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn Quận/Huyện</option>
+                                </select>
+                                <span class="error-message" id="errorDistrict"></span><br>
+                                <label for="cboWard" class="frmLabel">Phường/Xã*</label>
+                                <select class="form-select form-select-sm" id="ward" name="ward" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn Phường/Xã</option>
+                                </select>
+                                <span class="error-message" id="errorWard"></span><br>
+                        </div>
+                        <label for="txtDiachi" class="frmLabel">Địa chỉ*</label>
+                        <input type="text" name="txtDiachi" id="txtDiachi"><br>
+                        <span class="error-message" id="errorDiachi"></span><br>
+                    </form>
+                    <div class="button-sets">
+                    <p class="backlink">
+                      <a href="" style="outline: none; text-decoration: none; color: #2489F4;">Quay lại</a>
+                    </p>
+                    <button type="submit" id="btnSave" name="btnSave">Lưu địa chỉ</button>
+                  </div>
                     </div>
                 </div>
             </div>
@@ -428,7 +490,10 @@
              </div>
         </div>    
     </body>
-    <script src="./src/javascript/userinfo.js"></script>
+    <script src="./src/js/userinfo.js"></script>
     <script src="./src/js/middle.js"></script>
     <script src="./src/js/dndk.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="./src/js/sodiachijs.js"></script>
+    <script src="./src/js/trangspjs.js"></script>
 </html>
