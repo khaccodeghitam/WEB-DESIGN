@@ -58,3 +58,14 @@ function closeFullScreen() {
 
 
 
+
+function handleBuyNow(productId) {
+    // Lấy số lượng sản phẩm
+    const quantity = document.getElementById("quantity").value;
+
+    // Tạo URL cho trang thanh toán
+    const checkoutUrl = `thanhtoan.html?productId=${productId}&quantity=${quantity}`;
+
+    // Điều hướng đến trang thanh toán
+    window.location.href = checkoutUrl;
+}
