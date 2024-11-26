@@ -99,6 +99,8 @@
 
     document.querySelector('.btn-submit').addEventListener('click', function () {
         // Lấy thông tin từ các trường nhập liệu
+        const id = Math.floor(Math.random() * 1000000); // ID đơn hàng (giả sử)
+        const date = new Date().toLocaleDateString(); // Ngày đặt hàng
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
@@ -107,6 +109,8 @@
         const paymentMethod = document.getElementById('payment-method').value;
         // Tạo một object để lưu thông tin đơn hàng
         const orderInfo = {
+            id,
+            date,
             name,
             email,
             phone,
@@ -120,10 +124,17 @@
                 }
             ],
             totalPrice: document.querySelector('.total-price').textContent,
+            status: 'Chờ xử lý', // Mặc định là chờ xử lý
         };
         // Lưu vào localStorage
-        localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
+        localStorage.setItem('order', JSON.stringify(orderInfo));
+        if(localStorage.getItem('order') == null){
+            console.log('null');
+        } else{
+            console.log('not null');}
         // Thông báo hoặc chuyển hướng
         alert('Thông tin thanh toán đã được lưu!');
    });
+    
+    
     

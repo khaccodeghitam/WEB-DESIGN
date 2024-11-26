@@ -1,16 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const orderInfo = [
-        { id: 1, customer: 'Nguyen Van A', date: '2023-10-01', total: 100000, status: 'chua_su_li', products: ['Book 1', 'Book 2'] },
-        { id: 2, customer: 'Tran Thi B', date: '2023-10-02', total: 200000, status: 'chua_su_li', products: ['Book 3', 'Book 4'] },
-        // Add more orders here
-    ];
-
-    const billTableBody = document.querySelector('#bill-table tbody');
-    const overlay = document.getElementById('overlay');
-    const content = document.getElementById('overlay-content');
+const orderInfo = JSON.parse(localStorage.getItem('orders')) || [];
+const billTableBody = document.querySelector('#bill-table tbody');
+const overlay = document.getElementById('overlay');
+const content = document.getElementById('overlay-content');
 
     function renderOrders(orders) {
-        billTableBody.innerHTML = '';
         orders.forEach(order => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -26,10 +19,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showOrderDetails(order) {
-        content.innerHTML = `
+        const overlay = document.getElementById('overlay');
+        overlay.innerHTML = `
             <p>ID: ${order.id}</p>
             <p>Người đặt: ${order.customer}</p>
             <p>Ngày đặt: ${order.date}</p>
+            <p>Địa chỉ: ${order.address}</p>
+            <p>Điện thoại: ${order.phone}</p>
             <p>Tổng tiền: ${order.total}</p>
             <p>Sản phẩm: ${order.products.join(', ')}</p>
             <label for="order-status">Trạng thái:</label>
@@ -63,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     renderOrders(orderInfo);
-});
 function closeOverlay() {
     document.getElementById('overlay').style.display = 'none';
 }

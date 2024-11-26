@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Thanh Toán</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form select, form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #b71c1c;
+        }
+
+        .delivery-date {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .payment-box {
+            border: 2px solid #d32f2f;
+            background-color: #fff5f5;
+        }
+
+        /* Ẩn các trường tỉnh, quận, phường khi chọn quốc gia ngoài Việt Nam */
+        .location-fields {
+            display: none;
+        }
+
+        /* Hiển thị lại các trường nhập nếu chọn quốc gia không phải Việt Nam */
+        .manual-location {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thanh Toán</h1>
+        <!-- Khung thông tin đơn hàng và người nhận -->
+        <div class="box">
+            <div class="order-summary">
+                <h2>Tóm Tắt Đơn Hàng</h2>
+                <div class="item">
+                    <span class="item-name">Sản phẩm A</span>
+                    <span class="item-price">100,000 VNĐ</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">Sản phẩm B</span>
+                    <span class="item-price">200,000 VNĐ</span>
+                </div>
+                <div class="total">
+                    <span>Tạm tính:</span>
+                    <span class="subtotal-price">300,000 VNĐ</span>
+                </div>
+            </div>
+
+            <div class="shipping-info">
+                <h2>Phương Thức Vận Chuyển</h2>
+                <div class="item">
+                    <span>Giao hàng tiêu chuẩn</span>
+                    <span class="shipping-fee">20,000 VNĐ</span>
+                </div>
+                <div class="delivery-date">
+                    Ngày nhận hàng dự kiến: <span id="delivery-date"></span>
+                </div>
+            </div>
+
+            <div class="total">
+                <span>Tổng cộng:</span>
+                <span class="total-price">320,000 VNĐ</span>
+            </div>
+
+            <div class="payment-info">
+                <h2>Thông tin người nhận</h2>
+                <form action="#">
+                    <label for="name">Họ và tên:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+
+                    <label for="country">Quốc gia:</label>
+                    <select id="country" name="country" required>
+                        <option value="">Chọn quốc gia</option>
+                        <option value="vn">Việt Nam</option>
+                        <option value="us">Hoa Kỳ</option>
+                        <option value="uk">Anh</option>
+                        <option value="jp">Nhật Bản</option>
+                    </select>
+
+                    <!-- Các trường địa chỉ (tỉnh, quận, phường) -->
+                    <div id="location-fields" class="location-fields">
+                        <select id="city" aria-label=".form-select-sm">
+                            <option value="">Chọn tỉnh thành</option>
+                        </select>
+
+                        <select id="district" aria-label=".form-select-sm">
+                            <option value="">Chọn quận huyện</option>
+                        </select>
+
+                        <select id="ward" aria-label=".form-select-sm">
+                            <option value="">Chọn phường xã</option>
+                        </select>
+                    </div>
+
+                    <!-- Trường nhập tay cho quốc gia ngoài Việt Nam -->
+                    <div class="manual-location" id="manual-location">
+                        <label for="manual-city">Tỉnh/Thành phố:</label>
+                        <input type="text" id="manual-city" name="manual-city" placeholder="Nhập tỉnh/thành phố" required>
+
+                        <label for="manual-district">Quận/Huyện:</label>
+                        <input type="text" id="manual-district" name="manual-district" placeholder="Nhập quận/huyện" required>
+
+                        <label for="manual-postcode">Mã bưu cục:</label>
+                        <input type="text" id="manual-postcode" name="manual-postcode" placeholder="Nhập mã bưu cục" required>
+                    </div>
+
+                    <label for="address">Địa chỉ:</label>
+                    <input type="text" id="address" name="address" placeholder="Nhập địa chỉ chi tiết" required>
+                </form>
+            </div>
+        </div>
+
+        <!-- Khung Phương Thức Thanh Toán -->
+        <div class="box payment-box">
+            <h2>Phương Thức Thanh Toán</h2>
+            <form action="#">
+                <label for="payment-method">Chọn phương thức:</label>
+                <select id="payment-method" name="payment-method">
+                    <option value="credit-card">Thẻ tín dụng</option>
+                    <option value="bank-transfer">Chuyển khoản ngân hàng</option>
+                    <option value="cash">Tiền mặt khi nhận hàng</option>
+                </select>
+            </form>
+        </div>
+
+        <button type="submit" class="btn-submit">Xác Nhận Thanh Toán</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="./src/js/thanhtoan.js"></script>
+    
+</body>
+</html>
