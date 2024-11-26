@@ -151,23 +151,32 @@
                     <!-- Phần middle -->
                     <div class="middle">
                         <div class="slideshow">
-                                <img class="slide" src="./src/img/banner2.jpg" style="width: 100%;height: 100%">
-                                <img class="slide" src="./src/img/banner1.jpg" style="width: 100%;height: 100%;">
-                                <img class="slide" src="./src/img/banner3.jpg" style="width: 100%;height: 100%;">
+                            <div class="slide-container">
+                                <div class="slide">
+                                    <img src="./src/img/banner2.jpg">
+                                </div>
+                                <div class="slide">
+                                    <img src="./src/img/banner1.jpg">
+                                </div>
+                                <div class="slide">
+                                    <img src="./src/img/banner3.jpg">
+                                </div>
+                            </div>
+                            <div class="buttons-slide">
+                                <button id="prev"><</button>
+                                <button id="next">></button>
+                            </div>
+                            <ul class="dots">
+                                <li class="active"></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
                         </div>
                         <div id="content">
-                            <div class="edit-item">
-                                <button class="edit-item-box" onclick="showEditForm()">Sửa sản phẩm</button>
-                            </div>
-                         
-                           
-                            <div class="page">
-                                <button type="button">1</button>
-                                <button type="button">2</button>
-                                <button type="button">3</button>
-                                <button type="button">4</button>
-                                <button type="button">5</button>
-                            </div>
+                            
+                        </div>
+                        <div id="page">
+                                
                         </div>
                     </div>
                     <div id="product-details">
@@ -411,32 +420,11 @@
                             <button type="button" onclick="saveUserInfo()" id="updateButton">Cập nhật</button>
                         </form>
                     </div>
-                    <div class="add-address-form" id="addAddressSection" style="display: none;">
-                        <div class="add-address-form-body">
-                            <div style="display: flex;justify-content: space-between;align-items: center;">
-                            <h2 style="text-decoration: unset; font-weight: 600;font-family: 'Nunito Sans';">Số địa chỉ</h2>
-                            <span id="addNewAddressBtn" style="color: #2489F4; font-size: 14px;cursor: pointer;text-align: center;">
-                                <span style="font-size: 18px; margin-right: 8px;">+</span>
-                                Thêm địa chỉ mới
-                            </span>
-                        </div>
-                            <h1 style="text-decoration: unset;" id="emptyAddressText"> Địa chỉ trống, vui lòng thêm địa chỉ giao hàng</h1>
-                            <div id="addressList"></div>
-                        </div>
-                    </div>
+                 
                     <!-- Form thêm địa chỉ -->
-                    <div class="address-form" id="addressFormSection" style="display: none;">
+                    <div class="address-form" id="addressFormSection" >
                         <h1 style="text-transform: unset;" class="add-address-head">Thêm địa chỉ mới</h1>
                         <form id="frmAddress" name="frmAddress" method="post">
-                        <label for="txtHo" class="frmLabel">Họ*</label>
-                        <input type="text" id="txtHo" name="txtHo" ><br>
-                        <span class="error-message" id="errorHo"></span><br>
-                        <label for="txtTen" class="frmLabel">Tên*</label>
-                        <input type="text" id="txtTen" name="txtTen"><br>
-                        <span class="error-message" id="errorTen"></span><br>
-                        <label for="txtSdt" class="frmLabel">Điện thoại* </label>
-                        <input type="text" name="txtSdt" id="txtSdt" pattern="^\d{10}$" required><br>
-                        <span class="error-message" id="errorSdt"></span><br>
                         <div>
                                 <label for="cboCity" class="frmLabel">Tỉnh/Thành Phố*</label>
                                 <select class="form-select form-select-sm mb-3" id="city" name="city" aria-label=".form-select-sm">
@@ -459,10 +447,7 @@
                         <span class="error-message" id="errorDiachi"></span><br>
                     </form>
                     <div class="button-sets">
-                    <p class="backlink">
-                      <a href="" style="outline: none; text-decoration: none; color: #2489F4;">Quay lại</a>
-                    </p>
-                    <button type="submit" id="btnSave" name="btnSave">Lưu địa chỉ</button>
+                    <button type="button" id="btnSave" name="btnSave">Lưu địa chỉ</button>
                   </div>
                     </div>
                 </div>
