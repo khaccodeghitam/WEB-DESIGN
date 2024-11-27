@@ -65,16 +65,31 @@ function validateForm() {
 }
 const showAddressFormLink = document.getElementById('showAddressForm');
 const formInfoSection = document.querySelector('.form-info');
-const addAddressSection = document.getElementById('addAddressSection');
-
+const addressFormSection = document.getElementById('addressFormSection');
+const changePasswordForm = document.getElementById('passwordForm');
 // Thêm sự kiện click cho nút "Sổ địa chỉ"
 showAddressFormLink.addEventListener('click', () => {
     // Ẩn phần "form-info"
     formInfoSection.style.display = 'none';
-
+    changePasswordForm.style.display='none';
     // Hiện phần "add-address-form"
-    addAddressSection.style.display = 'block';
+    addressFormSection.style.display = 'block';
 });
+
+const showUserInfoLink= document.getElementById('showUserInfo');
+showUserInfoLink.addEventListener('click',() =>{
+    addressFormSection.style.display = 'none';
+    changePasswordForm.style.display='none';
+    formInfoSection.style.display='block';
+});
+
+const showChangePasswordLink = document.getElementById('showChangePassword');
+showChangePasswordLink.addEventListener('click',()=>{
+    formInfoSection.style.display = 'none';
+    addressFormSection.style.display='none';
+    changePasswordForm.style.display='block';
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const addNewAddressBtn = document.getElementById("addNewAddressBtn");
     const addAddressSection = document.getElementById("addAddressSection");

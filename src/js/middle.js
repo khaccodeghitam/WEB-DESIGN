@@ -179,16 +179,21 @@ function submitEditForm() {
 
 function saveProduct(product) {
     let products = JSON.parse(localStorage.getItem('products')) || [];
-    const productID = 10000 + products.length; // Tự động tạo ID sản phẩm dựa trên số lượng hiện có
-    product.productID = productID;
+  /* */  const currentId = JSON.parse(localStorage.getItem('currentId')) || 10000; // Lấy currentId từ localStorage
+    // const productID = 10000 + products.length;
+    // product.productID = productID;
+   /* */ product.productID = currentId + 1;
+
     products.push(product);
     localStorage.setItem('products', JSON.stringify(products));
+    /* */ localStorage.setItem('currentId', JSON.stringify(product.productID));
+
     alert("Đã thêm sản phẩm!");
     addProductToUI(product);
     
 }
 
-function renderProductDetails(product, productID) {
+function renderProductDetails(product,productID) {
     // Điền vào các trường thông tin
     document.querySelector('#mid .book-title').textContent = product.productName;
     document.querySelector('#mid #old-price').textContent = `${product.oldPrice} đ`;
@@ -243,6 +248,20 @@ function attachProductEventListeners(products) {
     });
 }
 
+// function attachProductEventListeners(products) {
+//     const contentDiv = document.getElementById('content');
+//     const productItems = contentDiv.querySelectorAll('.item');
+
+//     productItems.forEach((item) => {
+//         // Lấy ID sản phẩm từ thuộc tính data-id gắn vào mỗi item
+//         const productId = item.getAttribute('data-id');
+//         item.addEventListener('click', () => {
+//             const product = products.find(p => p.productID == productId); // Tìm sản phẩm theo productID
+//             renderProductDetails(product);
+//         });
+//     });
+// }
+
 function closeProductDetails() {
     const mid = document.getElementById('mid');
     const productDetails = document.getElementById("product-details")
@@ -294,42 +313,6 @@ function goBack() {
 
 
 window.onload = function () {
-//    // Logic của bạn từ window.onload trong middle.js
-//    let products = JSON.parse(localStorage.getItem('products')) || [];
-//    const contentDiv = document.getElementById('content');
-//    //add sth
-
-//    //add sth
-//    products.forEach(product => {
-//        const productItem = document.createElement('div');
-//        productItem.classList.add('item');
-//        productItem.className = 'item';
-
-//        const productImage = document.createElement('img');
-//        productImage.src = product.image || './src/img/default.jpg';
-//        productItem.appendChild(productImage);
-
-//        const productName = document.createElement('h2');
-//        productName.textContent = product.productName;
-//        productItem.appendChild(productName);
-
-//        const productNewPrice = document.createElement('div');
-//        productNewPrice.className = 'new-price';
-//        productNewPrice.textContent = `${product.newPrice} đ`;
-//        productItem.appendChild(productNewPrice);
-
-//        const productOldPrice = document.createElement('div');
-//        productOldPrice.className = 'old-price';
-//        productOldPrice.textContent = `${product.oldPrice} đ`;
-//        productItem.appendChild(productOldPrice);
-
-//        const productPricePercent = document.createElement('div');
-//        productPricePercent.className = 'price-percent';
-//        productPricePercent.textContent = `-${Math.floor(100-(product.newPrice/product.oldPrice*100))}%`;
-//        productItem.appendChild(productPricePercent);
-
-//        contentDiv.appendChild(productItem);
-//    });
 let products = JSON.parse(localStorage.getItem('products')) || [];
     const contentDiv = document.getElementById('content');
     var count=0,sotrang=1;
@@ -375,7 +358,7 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
 
             const productPricePercent = document.createElement('div');
             productPricePercent.classList.add('price-percent');
-            productPricePercent.innerHTML = `<div>-${(products[i].newPrice/products[i].oldPrice*100).toFixed(0)}%</div>`;
+            productPricePercent.innerHTML = `<div>-${Math.floor(100-(products[i].newPrice/products[i].oldPrice*100))}%</div>`;
             priceRow.appendChild(productPricePercent);
             priceLabel.appendChild(priceRow);
             // Giá cũ

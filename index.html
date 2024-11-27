@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/css/sodiachi.css">
+        <link rel="stylesheet" href="./src/css/password.css">
+        <link rel="stylesheet" href="./src/css/sodiachi.css">
         <link rel="stylesheet" href="./src/css/trangspcss.css">
         <link rel="stylesheet" href="./src/css/dndk.css">
         <link rel="stylesheet" href="./src/css/middle.css">
@@ -137,7 +138,7 @@
                 <form id="dangki">
                     <button onclick="closeForm()" style="float: right;" class="btn-close" >X</button> 
                     <h2 id="question">Đăng kí</h2>
-                    <input type="text" name="fullname" placeholder="Họ và tên">
+                    <!-- <input type="text" name="fullname" placeholder="Họ và tên"> -->
                     <input type="text" name="username" placeholder="Tên đăng nhập*">
                     <input type="password" name="password" placeholder="Mật khẩu*">
                     <input type="password" name="repassword" placeholder="Nhập lại mật khẩu*">
@@ -190,17 +191,14 @@
                             <div class="slide-product"><img src="" alt="ảnh sách 1" width="100%"  onclick="openFullScreen(this)"></div>
                             <div class="slide-product"><img src="" alt="ảnh sách 2" width="100%"  onclick="openFullScreen(this)"></div> 
                         </div>
-                            <div class="navigation">
-                                <span class="prev" onclick="moveSlide(-1)">&#10094;</span>
-                                <span class="next" onclick="moveSlide(1)">&#10095;</span>
-                            </div>
+                           
                         </div>
                         <div id="fullScreenImage" class="full-screen" onclick="closeFullScreen()">
                             <img id="fullImage" src="" alt="Full Screen Image">
                         </div>
                             <div class="but">
                             <button class="btn btn--buy" onclick="handleBuyNow()">Mua Ngay</button>
-                            <button class="btn btn--addcart"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
+                            <button class="btn btn--addcart" onclick="handleCartNow()"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
                         </div>
                         </div>
                         </div>
@@ -235,14 +233,6 @@
                             <div class="price-box">
                                 <span class="price" id="product-price"></span>
                                 <span class="price" id="old-price"></span>
-                            </div>
-                            <div class="product-quantity-box">
-                                <label for="quantity" id="quantity-text" style="font-weight: 550;">Số lượng: </label>
-                              <div id="qty-box">
-                                <button class="btn--decrease qty" onclick="decreaseQuantity()">-</button>
-                                <input type="number" id="quantity" value="1" min="1" max="999" >
-                                <button class="btn--increase qty" onclick="increaseQuantity()">+</button>
-                            </div>
                             </div>
                         </div>
                             <div class="detail-info">
@@ -310,7 +300,7 @@
                                             <img src="./src/icon/user.svg">
                                         </div>
                                         <strong>
-                                            <a href="https://..." >Thông tin tài khoản</a>
+                                            <a  >Thông tin tài khoản</a>
                                         </strong>
                                     </div>
                                 </li>
@@ -322,7 +312,7 @@
                                         <div style="width: 20px; height: 20px; margin: 0 12px">
                                         </div>
                                         <strong>
-                                            <a href="https://..."  style="font-weight: normal">Hồ sơ cá nhân</a>
+                                            <a href="javascript:void(0)" id="showUserInfo"  style="font-weight: normal">Hồ sơ cá nhân</a>
                                         </strong>
                                     </div>
                                 </li>
@@ -346,7 +336,7 @@
                                         <div style="width: 20px; height: 20px; margin: 0 12px">
                                         </div>
                                         <strong>
-                                            <a href="https://..." style="font-weight: normal">Đổi mật khẩu</a>
+                                            <a href="javascript:void(0);" id="showChangePassword" style="font-weight: normal">Đổi mật khẩu</a>
                                         </strong>
                                     </div>
                                 </li>
@@ -422,7 +412,7 @@
                     </div>
                  
                     <!-- Form thêm địa chỉ -->
-                    <div class="address-form" id="addressFormSection" >
+                    <div class="address-form" id="addressFormSection" style="display: none;">
                         <h1 style="text-transform: unset;" class="add-address-head">Thêm địa chỉ mới</h1>
                         <form id="frmAddress" name="frmAddress" method="post">
                         <div>
@@ -448,8 +438,28 @@
                     </form>
                     <div class="button-sets">
                     <button type="button" id="btnSave" name="btnSave">Lưu địa chỉ</button>
-                  </div>
+                  </div>    
                     </div>
+                    <div class="passwordSection">
+                    <div class="password-container" id="passwordForm" style="display: none;">
+                        <h2>Đổi Mật Khẩu</h2>
+                        <form  method="post"  onsubmit="updatePassword(event)">
+                            <div class="password-group">
+                                <label for="old-password">Mật khẩu cũ</label>
+                                <input type="password" id="old-password" name="old-password" placeholder="Nhập mật khẩu cũ" required>
+                            </div>
+                            <div class="password-group">
+                                <label for="new-password">Mật khẩu mới</label>
+                                <input type="password" id="new-password" name="new-password" placeholder="Nhập mật khẩu mới" required>
+                            </div>
+                            <div class="password-group">
+                                <label for="confirm-password">Nhập lại mật khẩu mới</label>
+                                <input type="password" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu mới" required>
+                            </div>
+                            <button type="submit" class="btn-update-password" onclick="updatePassword()">Cập Nhật Mật Khẩu</button>
+                        </form>
+                    </div>
+                </div>
                 </div>
             </div>
 

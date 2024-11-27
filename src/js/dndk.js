@@ -37,7 +37,7 @@ function ktDangNhap() {
 }
 function ktDangKi() {
     // Lấy giá trị từ các ô input
-    const fullname = document.querySelector('#dangki input[name="fullname"]').value;
+    
     const username = document.querySelector('#dangki input[name="username"]').value;
     const password = document.querySelector('#dangki input[name="password"]').value;
     const repassword = document.querySelector('#dangki input[name="repassword"]').value;
@@ -45,7 +45,7 @@ function ktDangKi() {
     const phone = document.querySelector('#dangki input[name="phone"]').value;
 
     // Kiểm tra tính hợp lệ
-    if (!fullname || !username || !password || !repassword || !phone) {
+    if ( !username || !password || !repassword || !phone) {
         alert("Vui lòng điền đầy đủ thông tin bắt buộc!");
         return false;
     }
@@ -54,9 +54,20 @@ function ktDangKi() {
         return false;
     }
 
+  // Lấy danh sách người dùng từ localStorage
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+ 
+
+  // Kiểm tra trùng tên đăng nhập
+  const isUsernameTaken = users.some(user => user.username === username);
+  if (isUsernameTaken) {
+      alert("Tên đăng nhập đã có người sử dụng!");
+      return false;
+  }
+
     // Tạo đối tượng người dùng
     const user = {
-        fullname: fullname,
+        
         username: username,
         password: password,
         email: email,
@@ -71,8 +82,7 @@ function ktDangKi() {
         },
     };
 
-    // Lưu thông tin người dùng vào localStorage
-    const users = JSON.parse(localStorage.getItem('users')) || [];
+   
     users.push(user);
     localStorage.setItem('users', JSON.stringify(users));
 
@@ -88,6 +98,63 @@ function handleBuyNow() {
         alert("Bạn cần đăng nhập để mua hàng!");    
         return;
     }
+}
+
+function handleCartNow() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (!loggedInUser) {
+        
+        alert("Bạn cần đăng nhập để thêm vào giỏ hàng!");    
+        return;
+    }
+}
+
+function updatePassword(event) {
+    event.preventDefault();
+    // Lấy thông tin tài khoản đang đăng nhập từ localStorage
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+   
+
+    // Lấy giá trị từ các ô input
+    const oldPassword = document.getElementById('old-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    // Kiểm tra tính hợp lệ
+    if (!oldPassword || !newPassword || !confirmPassword) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+    }
+
+    if (oldPassword !== loggedInUser.password) {
+        alert("Mật khẩu cũ không đúng!");
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        alert("Mật khẩu mới và nhập lại mật khẩu không khớp!");
+        return;
+    }
+
+    // Cập nhật mật khẩu trong danh sách người dùng
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(u => u.username === loggedInUser.username);
+
+    if (userIndex !== -1) {
+        users[userIndex].password = newPassword;
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    // Cập nhật mật khẩu trong thông tin tài khoản đăng nhập
+    loggedInUser.password = newPassword;
+    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+    alert("Đổi mật khẩu thành công!");
+    // Reset form
+    document.getElementById('old-password').value = '';
+    document.getElementById('new-password').value = '';
+    document.getElementById('confirm-password').value = '';
 }
 
 function saveUserInfo() {

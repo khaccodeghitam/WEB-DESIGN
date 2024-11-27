@@ -46,6 +46,9 @@ function openFullScreen(img) {
 
     // Hiển thị ảnh toàn màn hình
     fullScreenDiv.style.display = "flex";
+    document.body.style.overflow="hidden";
+    document.getElementById("mid").style.overflow = "hidden";
+
 }
 
 // Hàm đóng ảnh toàn màn hình
@@ -54,6 +57,12 @@ function closeFullScreen() {
 
     // Ẩn ảnh toàn màn hình
     fullScreenDiv.style.display = "none";
+
+    document.body.style.overflow = "auto";
+    document.getElementById("mid").style.overflow = "auto";
+
+
+
 }
 
 
