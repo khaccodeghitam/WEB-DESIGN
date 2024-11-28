@@ -44,7 +44,7 @@ function showEditForm() {
     // Ẩn phần quản lý sản phẩm và tìm kiếm
     document.querySelector('.product-manage').style.display = 'none';
     document.querySelector('.search-container').style.display = 'none';
-
+    document.getElementById("pageadmin").style.display='none';
     //form thêm sản phẩm
     const editFormContainer = document.getElementById("edit-form-container");
     editFormContainer.style.display = 'block';
@@ -62,11 +62,51 @@ function showEditForm() {
                 <label for="new-price">Giá mới:</label>
                 <input type="number" id="new-price" name="new-price">
 
-                <label for="book-type">Loại sách:</label>
-                <input type="text" id="book-type" name="book-type">
+                 <label for="book-type">Loại sách:</label>
+            <select id="book-type" name="book-type">
+                <option value="" disabled selected>Chọn Loại Sách</option>
+                <option value="Văn Học">Văn Học</option>
+                <option value="Kinh Tế">Kinh Tế</option>
+                <option value="Sách giáo khoa">Sách giáo khoa</option>
+                <option value="Tâm Lý - Kỹ Năng Sống">Tâm Lý - Kỹ Năng Sống</option>
+                <option value="Truyện Tranh">Truyện Tranh</option>
+            </select>
 
-                <label for="category">Thể Loại:</label>
-                <input type="text" id="category" name="category">
+            <label for="category">Thể Loại:</label>
+            <select id="category" name="category">
+            <option value="" disabled selected>Chọn Thể Loại</option>
+
+                    <option value="Tiểu thuyết">Tiểu thuyết</option>
+                    <option value="Truyện ngắn">Truyện ngắn</option>
+                    <option value="Ngôn tình">Ngôn tình</option>
+               
+               
+                    <option value="Bài học kinh doanh">Bài học kinh doanh</option>
+                    <option value="Quản trị - Lãnh đạo">Quản trị - Lãnh đạo</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Phân tích kinh tế">Phân tích kinh tế</option>
+                
+                
+                    <option value="Chọn thể loại">Chọn thể loại</option>
+                    <option value="Sách giáo khoa">Sách giáo khoa</option>
+                    <option value="Sách luyện thi THPTQG">Sách luyện thi THPTQG</option>
+                    <option value="Sách mẫu giáo">Sách mẫu giáo</option>
+                
+                
+                    <option value="Kỹ năng sống">Kỹ năng sống</option>
+                    <option value="Rèn luyện nhân cách">Rèn luyện nhân cách</option>
+                    <option value="Tâm lý">Tâm lý</option>
+                    <option value="Sách cho tuổi mới lớn">Sách cho tuổi mới lớn</option>
+                
+                
+                    <option value="Manga (Nhật Bản)">Manga (Nhật Bản)</option>
+                    <option value="Manhwa (Hàn Quốc)">Manhwa (Hàn Quốc)</option>
+                    <option value="Manhua (Trung Quốc)">Manhua (Trung Quốc)</option>
+                    <option value="Comic (Phương Tây)">Comic (Phương Tây)</option>
+                    <option value="Truyện tranh thiếu nhi">Truyện tranh thiếu nhi</option>
+                
+            </select>
+
 
                 <label for="supplier">Nhà cung cấp:</label>
                 <input type="text" id="supplier" name="supplier">
@@ -85,7 +125,7 @@ function showEditForm() {
                 
                 <label for="product-image">Thêm hình ảnh:</label>
                 <input type="file" id="product-image" name="product-image" accept="image/*" onchange="previewImage(event)">
-
+                <img id="image-preview" style="display: none; max-width: 200px; margin-top: 10px;">
                 <div class="btn-edit-form">
                     <button type="button" onclick="goBack()">Quay lại</button>
                     <button type="button" onclick="submitEditForm()">Thêm</button>
@@ -95,6 +135,7 @@ function showEditForm() {
     `;
     return false;
 }
+
 
 function previewImage(event) {
     const imagePreview = document.getElementById('image-preview');
@@ -203,11 +244,16 @@ function renderProductDetails(product,productID) {
     const bookInfo1 = document.querySelector('#mid .book-info1');
     bookInfo1.querySelector('.book-supplier span:last-child').textContent = product.supplier;
     bookInfo1.querySelector('.book-author span:last-child').textContent = product.publisher;
-
+    
     // Điền author và form
     const bookInfo2 = document.querySelector('#mid .book-info2');
     bookInfo2.querySelector('.book-supplier span:last-child').textContent = product.author;
     bookInfo2.querySelector('.book-author span:last-child').textContent = product.form;
+
+    const bookCategory = document.querySelector('#mid .book-category span:last-child');
+    if (bookCategory) {
+        bookCategory.textContent = product.category;
+    }
 
     // Điền mã hàng và thông tin chi tiết
     document.querySelector('#mid .data_0 .data-container').textContent = productID;
@@ -393,3 +439,4 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
 };
    attachProductEventListeners(products);
 };
+{/* <input type="text" id="book-type" name="book-type"></input> */}
