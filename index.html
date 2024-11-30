@@ -3,10 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/css/sodiachi.css">
+        <link rel="stylesheet" href="./src/css/password.css">
+        <link rel="stylesheet" href="./src/css/sodiachi.css">
         <link rel="stylesheet" href="./src/css/trangspcss.css">
         <link rel="stylesheet" href="./src/css/dndk.css">
         <link rel="stylesheet" href="./src/css/middle.css">
+        <link rel="stylesheet" href="./src/css/advancedsearch.css">
         <link rel="stylesheet" href="./src/css/userinfo.css" type="text/css" media="all">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,18 +30,58 @@
                         
                         <ul id="navmenu">
                             <li>
-                                <a href="./index.html?timkiemnangcao&0">LỌC THỂ LOẠI</a>
+                                <a href="javascript:void(0);" onclick="showAdvancedSearch()" style="font-size: 25px;"><i class="fa-solid fa-filter" style="font-size: 20px;"></i>LỌC THỂ LOẠI</a>
                             </li>
-                            <li>
-                                <a href="index.html?sachtrongnuoc&0">SÁCH TRONG NƯỚC</a>
-                            </li>
-                            <li>
-                                <a href="index.html?sachngoaivan&0">SÁCH NGOẠI VĂN</a>
-                            </li>      
-                            <li>
-                                <a href="index.html?truyenthieunhi&0">TRUYỆN THIẾU NHI</a>
-                            </li>                      
+                            
                         </ul>
+
+                        <!-- The advanced search form -->
+                        <div id="advancedSearch" style="display: none">
+                            <h1 id="advSearch-h1">Tìm Kiếm Nâng Cao</h1>
+                            <div class="form-group">
+                                <label for="priceRange">Phân Loại Theo Giá:</label><br />
+                                <input type="number" id="minPrice" placeholder="Giá thấp nhất" />
+                                -
+                                <input type="number" id="maxPrice" placeholder="Giá cao nhất" />
+                                <select id="priceRange">
+                                    <option value="all">Tất cả</option>
+                                    <option value="low">Dưới 50.000</option>
+                                    <option value="50-150">50.000 - 150.000</option>
+                                    <option value="150-250">150.000 - 250.000</option>
+                                    <option value="high">Trên 250.000</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Thể Loại:</label><br />
+                                <select id="category-select"> 
+                                <option value="all">Tất Cả</option>
+                                <option value="Tiểu thuyết">Tiểu Thuyết</option>
+                                <option value="Truyện ngắn">Truyện Ngắn</option>
+                                <option value="Ngôn tình">Ngôn Tình</option>
+                                <option value="Bài học kinh doanh">Bài Học Kinh Doanh</option>
+                                <option value="Quản trị - Lãnh đạo">Quản Trị - Lãnh Đạo</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Phân tích kinh tế">Phân Tích Kinh Tế</option>
+                                <option value="Sách giáo khoa">Sách Giáo Khoa</option>
+                                <option value="Sách luyện thi THPTQG">Sách Luyện Thi THPTQG</option>
+                                <option value="Sách mẫu giáo">Sách Mẫu Giáo</option>
+                                <option value="Kỹ năng sống">Kỹ Năng Sống</option>
+                                <option value="Rèn luyện nhân cách">Rèn Luyện Nhân Cách</option>
+                                <option value="Tâm lý">Tâm Lý</option>
+                                <option value="Sách cho tuổi mới lớn">Sách Cho Tuổi Mới Lớn</option>
+                                <option value="Manga (Nhật Bản)">Manga (Nhật Bản)</option>
+                                <option value="Manhwa (Hàn Quốc)">Manhwa (Hàn Quốc)</option>
+                                <option value="Manhua (Trung Quốc)">Manhua (Trung Quốc)</option>
+                                <option value="Comic (Phương Tây)">Comic (Phương Tây)</option>
+                                <option value="Truyện tranh thiếu nhi">Truyện tranh thiếu nhi</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Overlay background to dim the page -->
+                        <div id="advancedSearchOverlay" onclick="closeAdvancedSearch()"></div>
+
                     </div>
                     
                     <!-- Phần bot head -->
@@ -63,23 +105,32 @@
                         </ul>
 
                         <!-- Phần search bar -->
-                         <div class="search-bar">
+                        <div class="search-bar">
                             <!-- nút thể loại -->
                             <div class="dropdown">
                                 <div class="dropdown-text" id="drop-text">
                                     <span>THỂ LOẠI</span>
-                                    <img src="./src/icon/xuong.svg">
+                                    <img src="./src/icon/xuong.svg" alt="Dropdown Icon">
                                 </div>
+                                <ul id="dropdown-list" class="dropdown-list">
+                                    <li data-value="all">Tất cả</li>
+                                    <li data-value="category1">Thể loại 1</li>
+                                    <li data-value="category2">Thể loại 2</li>
+                                    <li data-value="category3">Thể loại 3</li>
+                                    <!-- Thêm các thể loại khác ở đây -->
+                                </ul>
                             </div>
+                            
                             <!-- khung tìm kiếm -->
                             <div class="search-box">
-                                <input type="text" id="search-input" placeholder="Tìm kiếm">
+                                <input id="search-input2" type="text" placeholder="Tìm kiếm">
                                 <img src="./src/icon/kinhlup.svg">
                             </div>
                         </div>
+
                         <!-- Khung tìm kiếm full màn -->
                         <div class="search-bar2">
-                            <input type="text" placeholder="">
+                            <input id="search-input" type="text" placeholder="">
                             <button><img src="./src/icon/kinhlup.svg"></button>
                         </div>
 
@@ -137,7 +188,7 @@
                 <form id="dangki">
                     <button onclick="closeForm()" style="float: right;" class="btn-close" >X</button> 
                     <h2 id="question">Đăng kí</h2>
-                    <input type="text" name="fullname" placeholder="Họ và tên">
+                    <!-- <input type="text" name="fullname" placeholder="Họ và tên"> -->
                     <input type="text" name="username" placeholder="Tên đăng nhập*">
                     <input type="password" name="password" placeholder="Mật khẩu*">
                     <input type="password" name="repassword" placeholder="Nhập lại mật khẩu*">
@@ -151,23 +202,32 @@
                     <!-- Phần middle -->
                     <div class="middle">
                         <div class="slideshow">
-                                <img class="slide" src="./src/img/banner2.jpg" style="width: 100%;height: 100%">
-                                <img class="slide" src="./src/img/banner1.jpg" style="width: 100%;height: 100%;">
-                                <img class="slide" src="./src/img/banner3.jpg" style="width: 100%;height: 100%;">
+                            <div class="slide-container">
+                                <div class="slide">
+                                    <img src="./src/img/banner2.jpg">
+                                </div>
+                                <div class="slide">
+                                    <img src="./src/img/banner1.jpg">
+                                </div>
+                                <div class="slide">
+                                    <img src="./src/img/banner3.jpg">
+                                </div>
+                            </div>
+                            <div class="buttons-slide">
+                                <button id="prev"><</button>
+                                <button id="next">></button>
+                            </div>
+                            <ul class="dots">
+                                <li class="active"></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
                         </div>
                         <div id="content">
-                            <div class="edit-item">
-                                <button class="edit-item-box" onclick="showEditForm()">Sửa sản phẩm</button>
-                            </div>
-                         
-                           
-                            <div class="page">
-                                <button type="button">1</button>
-                                <button type="button">2</button>
-                                <button type="button">3</button>
-                                <button type="button">4</button>
-                                <button type="button">5</button>
-                            </div>
+                            
+                        </div>
+                        <div id="page">
+                                
                         </div>
                     </div>
                     <div id="product-details">
@@ -181,17 +241,14 @@
                             <div class="slide-product"><img src="" alt="ảnh sách 1" width="100%"  onclick="openFullScreen(this)"></div>
                             <div class="slide-product"><img src="" alt="ảnh sách 2" width="100%"  onclick="openFullScreen(this)"></div> 
                         </div>
-                            <div class="navigation">
-                                <span class="prev" onclick="moveSlide(-1)">&#10094;</span>
-                                <span class="next" onclick="moveSlide(1)">&#10095;</span>
-                            </div>
+                           
                         </div>
                         <div id="fullScreenImage" class="full-screen" onclick="closeFullScreen()">
                             <img id="fullImage" src="" alt="Full Screen Image">
                         </div>
                             <div class="but">
                             <button class="btn btn--buy" onclick="handleBuyNow()">Mua Ngay</button>
-                            <button class="btn btn--addcart"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
+                            <button class="btn btn--addcart" onclick="handleCartNow()"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
                         </div>
                         </div>
                         </div>
@@ -222,18 +279,14 @@
                                 </div>
                             </div>
                         </div>
+                            <div class="book-category">
+                                <span>Thể loại:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
                             </div>
                             <div class="price-box">
                                 <span class="price" id="product-price"></span>
                                 <span class="price" id="old-price"></span>
-                            </div>
-                            <div class="product-quantity-box">
-                                <label for="quantity" id="quantity-text" style="font-weight: 550;">Số lượng: </label>
-                              <div id="qty-box">
-                                <button class="btn--decrease qty" onclick="decreaseQuantity()">-</button>
-                                <input type="number" id="quantity" value="1" min="1" max="999" >
-                                <button class="btn--increase qty" onclick="increaseQuantity()">+</button>
-                            </div>
                             </div>
                         </div>
                             <div class="detail-info">
@@ -301,7 +354,7 @@
                                             <img src="./src/icon/user.svg">
                                         </div>
                                         <strong>
-                                            <a href="https://..." >Thông tin tài khoản</a>
+                                            <a  >Thông tin tài khoản</a>
                                         </strong>
                                     </div>
                                 </li>
@@ -313,7 +366,7 @@
                                         <div style="width: 20px; height: 20px; margin: 0 12px">
                                         </div>
                                         <strong>
-                                            <a href="https://..."  style="font-weight: normal">Hồ sơ cá nhân</a>
+                                            <a href="javascript:void(0)" id="showUserInfo"  style="font-weight: normal">Hồ sơ cá nhân</a>
                                         </strong>
                                     </div>
                                 </li>
@@ -337,7 +390,7 @@
                                         <div style="width: 20px; height: 20px; margin: 0 12px">
                                         </div>
                                         <strong>
-                                            <a href="https://..." style="font-weight: normal">Đổi mật khẩu</a>
+                                            <a href="javascript:void(0);" id="showChangePassword" style="font-weight: normal">Đổi mật khẩu</a>
                                         </strong>
                                     </div>
                                 </li>
@@ -352,7 +405,8 @@
                                             <img src="./src/icon/giaohang.svg">
                                         </div>
                                         <strong>
-                                            <a href="https://...">Đơn hàng của tôi</a>
+                                            <button style="background-color: white;" onClick="location.href='lichsumuahang.html'"><p>Đơn hàng của tôi</p></button>
+                                            
                                         </strong>
                                     </div>
                                 </li>
@@ -411,32 +465,11 @@
                             <button type="button" onclick="saveUserInfo()" id="updateButton">Cập nhật</button>
                         </form>
                     </div>
-                    <div class="add-address-form" id="addAddressSection" style="display: none;">
-                        <div class="add-address-form-body">
-                            <div style="display: flex;justify-content: space-between;align-items: center;">
-                            <h2 style="text-decoration: unset; font-weight: 600;font-family: 'Nunito Sans';">Số địa chỉ</h2>
-                            <span id="addNewAddressBtn" style="color: #2489F4; font-size: 14px;cursor: pointer;text-align: center;">
-                                <span style="font-size: 18px; margin-right: 8px;">+</span>
-                                Thêm địa chỉ mới
-                            </span>
-                        </div>
-                            <h1 style="text-decoration: unset;" id="emptyAddressText"> Địa chỉ trống, vui lòng thêm địa chỉ giao hàng</h1>
-                            <div id="addressList"></div>
-                        </div>
-                    </div>
+                 
                     <!-- Form thêm địa chỉ -->
                     <div class="address-form" id="addressFormSection" style="display: none;">
                         <h1 style="text-transform: unset;" class="add-address-head">Thêm địa chỉ mới</h1>
                         <form id="frmAddress" name="frmAddress" method="post">
-                        <label for="txtHo" class="frmLabel">Họ*</label>
-                        <input type="text" id="txtHo" name="txtHo" ><br>
-                        <span class="error-message" id="errorHo"></span><br>
-                        <label for="txtTen" class="frmLabel">Tên*</label>
-                        <input type="text" id="txtTen" name="txtTen"><br>
-                        <span class="error-message" id="errorTen"></span><br>
-                        <label for="txtSdt" class="frmLabel">Điện thoại* </label>
-                        <input type="text" name="txtSdt" id="txtSdt" pattern="^\d{10}$" required><br>
-                        <span class="error-message" id="errorSdt"></span><br>
                         <div>
                                 <label for="cboCity" class="frmLabel">Tỉnh/Thành Phố*</label>
                                 <select class="form-select form-select-sm mb-3" id="city" name="city" aria-label=".form-select-sm">
@@ -459,12 +492,29 @@
                         <span class="error-message" id="errorDiachi"></span><br>
                     </form>
                     <div class="button-sets">
-                    <p class="backlink">
-                      <a href="" style="outline: none; text-decoration: none; color: #2489F4;">Quay lại</a>
-                    </p>
-                    <button type="submit" id="btnSave" name="btnSave">Lưu địa chỉ</button>
-                  </div>
+                    <button type="button" id="btnSave" name="btnSave">Lưu địa chỉ</button>
+                  </div>    
                     </div>
+                    <div class="passwordSection">
+                    <div class="password-container" id="passwordForm" style="display: none;">
+                        <h2>Đổi Mật Khẩu</h2>
+                        <form  method="post"  onsubmit="updatePassword(event)">
+                            <div class="password-group">
+                                <label for="old-password">Mật khẩu cũ</label>
+                                <input type="password" id="old-password" name="old-password" placeholder="Nhập mật khẩu cũ" required>
+                            </div>
+                            <div class="password-group">
+                                <label for="new-password">Mật khẩu mới</label>
+                                <input type="password" id="new-password" name="new-password" placeholder="Nhập mật khẩu mới" required>
+                            </div>
+                            <div class="password-group">
+                                <label for="confirm-password">Nhập lại mật khẩu mới</label>
+                                <input type="password" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu mới" required>
+                            </div>
+                            <button type="submit" class="btn-update-password" onclick="updatePassword()">Cập Nhật Mật Khẩu</button>
+                        </form>
+                    </div>
+                </div>
                 </div>
             </div>
 
@@ -496,4 +546,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="./src/js/sodiachijs.js"></script>
     <script src="./src/js/trangspjs.js"></script>
+    <script src="./src/js/sanpham.js"></script>
+    <script src="./src/js/advancedsearch.js"></script>
+    
 </html>
