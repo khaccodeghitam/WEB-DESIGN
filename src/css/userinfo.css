@@ -64,13 +64,6 @@ body.modal-open {
     border-bottom: 6px solid #8dccff;
     padding-top: 5px;
 }
-.topnav{
-    position: relative;
-}
-#navmenu {
-    position: absolute;
-    right: 10px;
-}
 #nav .botnav{
     display: flex;
     align-items: center;
@@ -150,10 +143,11 @@ body.modal-open {
 #nav .botnav .search-bar img{
     height: 20px;
     width: 20px;
+    /* margin: 0 5px; */
     position: absolute;
-    right: 10px;
+    right: 5px;
 }
-#nav .botnav .dropdown{
+#nav .botnav .dropdown{ 
     display: flex;
     align-items: center;
     justify-items: center;
@@ -177,55 +171,6 @@ body.modal-open {
 #nav .botnav .dropdown-text img{
     margin-left: 15px;
 }
-
-/* Kiểu cho dropdown */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-text {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.dropdown-text img {
-    margin-left: 8px;
-    transition: transform 0.3s ease;
-}
-
-.dropdown-list {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    width: 100%;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 10;
-}
-
-.dropdown-list li {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.dropdown-list li:hover {
-    background-color: #f0f0f0;
-}
-
-/* Khi dropdown mở */
-.dropdown.open .dropdown-list {
-    display: block;
-}
-
-.dropdown.open .dropdown-text img {
-    transform: rotate(180deg);
-}
-
 #nav .botnav .search-box{
     max-width: calc(90% - 70px);
     display: flex;
@@ -477,9 +422,9 @@ select{
         display: flex;
         justify-content: center;
     }
-    #nav .topnav {
+    /* #nav .topnav #navmenu{
         display: none;
-    }
+    } */
     #nav .topnav .logo{
         margin: 10px 0;
     } 
@@ -530,7 +475,9 @@ select{
         display: flex;
         justify-content: center;
     }
-    
+    /* #nav .topnav #navmenu{
+        display: none;
+    } */
     #nav .topnav .logo{
         margin: 10px 0;
     } 
