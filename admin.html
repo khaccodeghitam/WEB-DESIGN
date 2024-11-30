@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./src/css/middle.css">
+    <link rel="stylesheet" href="./src/css/admin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm</title>
+    
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="logo"><img src="./src/img/BookBay2.png" alt="BOOKBAY"></div>
+            <ul>
+                <li><img src="src/icon/home.svg"><a href="index.html">Trang chủ</a></li>
+                <li><img src="src/icon/book.svg"><a href="admin.html">Sản phẩm</a></li>
+                <li><img src="src/icon/file-circle-plus-solid.svg"><button onclick="showEditForm()" class="add-product-btn">Thêm sản phẩm</button>
+                </li>
+                <li><img src="src/icon/bill.svg"><a href="bill.html">Đơn hàng</a></li>
+                <li><img src="src/icon/groupuser.svg"><a href="users.html">Khách hàng</a></li>
+            </ul>
+        </div>
+
+        <!-- Phần header -->
+        <div class="main_content">
+            <div class="header">
+                <div class="admin-header">
+                    <div id="welcome-admin">
+                        Chủ Quán Sách
+                        <button class="btn-admin-logout" onclick="logout()">Đăng Xuất</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Phần middle -->
+            <div class="info">
+                <div>
+                    <!-- Phần danh sách sản phẩm -->
+                    <div class="product-manage">
+                        <h2>Danh sách sản phẩm</h2>
+                        <table id="product-table">
+                            <thead>
+                                <tr>
+                                    <th>#ID</th>
+                                    <th>Ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Thể loại</th>
+                                    <th>Tác giả</th>
+                                    <th>Giá</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Sản phẩm sẽ được thêm động từ JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Phần tìm kiếm -->
+                    <div class="search-container">
+                        <form action="/search" method="GET">
+                            <!-- Ô nhập dữ liệu tìm kiếm -->
+                            <label for="category" class="category-label">Tên</label>
+                            <input type="text" name="query" placeholder="Nhập từ khóa tìm kiếm..." class="search-box">
+                
+                            <!-- Dropdown chọn thể loại -->
+                            <label for="category" class="category-label">Thể loại</label>
+                            <select name="category" class="category-select">
+                                <option value="all">Tất cả</option>
+                                <option value="domestic">Sách trong nước</option>
+                                <option value="foreign">Sách ngoại văn</option>
+                                <option value="children">Truyện thiếu nhi</option>
+                            </select>
+                
+                            <!-- Nút tìm kiếm -->
+                            <button type="submit" class="search-button">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div id="edit-form-container" class="edit-form-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</body>
+<script src="./src/js/manage-products.js"></script>
+<script src="./src/js/dndk.js"></script>
+<script src="./src/js/middle.js"></script>
+</html>
