@@ -355,12 +355,18 @@ const searchInput = document.getElementById('search-input');
 const searchInput2 = document.getElementById('search-input2'); 
 const priceRangeSelect = document.getElementById('priceRange');
 const categorySelect = document.getElementById('category-select');
+const minPriceInput = document.getElementById('minPrice');
+const maxPriceInput = document.getElementById('maxPrice');
 const contentDiv = document.getElementById('content');
+
 
 function filterProducts() {
     const searchValue = searchInput.value.toLowerCase();
     const selectedCategory = categorySelect.value;
     const selectedPriceRange = priceRangeSelect.value;
+
+    const minPrice = parseFloat(minPriceInput.value) || 0;
+    const maxPrice = parseFloat(maxPriceInput.value) || Number.MAX_VALUE;
 
     let products = JSON.parse(localStorage.getItem('products')) || [];
 
@@ -370,10 +376,11 @@ function filterProducts() {
         const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
 
         // Lọc theo phạm vi giá
+        const productPrice = product.newPrice;
         let matchesPrice = true;
 
         if (selectedPriceRange !== 'all') {
-            const productPrice = product.newPrice;
+            
 
             switch (selectedPriceRange) {
                 case 'low':
@@ -393,7 +400,9 @@ function filterProducts() {
             }
         }
 
-        return matchesName && matchesCategory && matchesPrice;
+        const matchesCustomPriceRange = productPrice >= minPrice && productPrice <= maxPrice;
+
+        return matchesName && matchesCategory && matchesPrice && matchesCustomPriceRange;
     });
 
     // Cập nhật giao diện
@@ -476,8 +485,10 @@ function displayProducts(products) {
 searchInput.addEventListener('input', filterProducts);
 categorySelect.addEventListener('change', filterProducts);
 priceRangeSelect.addEventListener('change', filterProducts);
+minPriceInput.addEventListener('input', filterProducts);
+maxPriceInput.addEventListener('input', filterProducts);
 searchInput2.addEventListener('input', filterProducts2);
-//End Search
+//End Search 
 
 
 
