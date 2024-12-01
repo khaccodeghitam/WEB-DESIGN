@@ -34,20 +34,26 @@
                 <!-- Phần middle -->
                 <div class="info">
                     <div>
-                        <form action="/search" method="GET" class="search-form">
+                        <form class="search-form">
                             <label for="billid">Bill ID</label>
                             <input type="text" id="billid" name="billid" placeholder="">
                             
                             <label for="date">Ngày đặt</label>
                             <input type="text" id="date" name="date" placeholder="ngày/tháng/năm">
                             
+                            <label for="address">Địa chỉ</label>
+                            <select id="city-select" aria-label=".form-select-sm">
+                                <option value="all">Chọn tỉnh thành</option>
+                            </select>
+
                             <label for="status">Trạng thái</label>
-                            <select name="status" id="status">
+                            <select name="status" id="status-bill">
                                 <option value="all">Tất cả</option>
                                 <option value="Chưa xử lí">Chưa xử lí</option>
-                                <option value="đã xác nhận">Đã xác nhận</option>
-                                <option value="đang giao">Đang giao</option>
+                                <option value="Đã xác nhận">Đã xác nhận</option>
+                                <option value="Đang giao">Đang giao</option>
                                 <option value="Hoàn thành">Hoàn thành</option>
+                                <option value="Hủy">Hủy</option>
                             </select>
                             
                             <button type="submit" class="btn-search">Tìm kiếm</button>
