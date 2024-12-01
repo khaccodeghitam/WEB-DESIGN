@@ -69,7 +69,7 @@ function buy(){
     }
     var customer = JSON.parse(localStorage.getItem('loggedInUser'));
 	var date = new Date();
-	var d = date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
+	var d = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
 	if(localStorage.getItem('bill')===null){
 		var billArray = [];
 		var bill = {id: billArray.length +100, info: info, totalprice: total, customer: customer, date: d, status: 'Chưa xử lý'};

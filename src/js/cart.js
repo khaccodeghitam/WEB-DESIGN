@@ -146,7 +146,7 @@ function deleteCart(index){
 
 }*/
 function showBill() {
-    console.log("showBill function called"); // Debugging log
+    console.log("showBill function called");
 
     const billArray = JSON.parse(localStorage.getItem('bill'));
     if (!billArray || billArray.length === 0) {
@@ -158,7 +158,7 @@ function showBill() {
 
     const billTable = document.getElementById('bill-items');
     if (!billTable) {
-        console.error("Element with id 'bill-items' not found");
+        console.error("Không tìm thấy hóa đơn");
         return;
     }
 
@@ -166,11 +166,12 @@ function showBill() {
     for (let i = 0; i < billArray.length; i++) {
         const row = document.createElement('tr');
         row.innerHTML = `
+        <td>${billArray[i].id}</td>
         <td>${billArray[i].info}</td>
         <td>${billArray[i].totalprice} Đ</td>
         <td>${billArray[i].customer.username}</td>
         <td>${billArray[i].date}</td>
-        <td>${billArray[i].status}</td>
+        <td class="status">${billArray[i].status}</td>
         `;
         billTable.appendChild(row);
     }
