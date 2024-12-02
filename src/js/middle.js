@@ -190,6 +190,7 @@ function saveProduct(product) {
 }
 
 function renderProductDetails(product, productID) {
+    document.querySelector('#mid .but button.btn--addcart').setAttribute('onClick', 'addToCart('+productID+')');
     // Điền vào các trường thông tin
     document.querySelector('#mid .book-title').textContent = product.productName;
     document.querySelector('#mid #old-price').textContent = `${product.oldPrice} đ`;
@@ -420,4 +421,14 @@ function handleCartNow() {
         return;
     }
 }
+function checkLoggedUser() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
+    if (!loggedInUser || loggedInUser.length === 0) {
+        alert("Bạn cần đăng nhập để vào giỏ hàng!");
+        return;
+    }
+    else{
+        window.location.href = './giohang.html';
+    }
+}

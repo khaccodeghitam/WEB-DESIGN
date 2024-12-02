@@ -45,11 +45,11 @@ function check() {
 }
 function paymentMethod(){
     const paymentMethod = document.getElementById("payment-method").value;
-    if(paymentMethod === "cash"){
+    if(paymentMethod === "Tiền mặt khi nhận hàng"){
         document.getElementById("credit").style.display = "none";
         document.getElementById("bank").style.display = "none";
     }
-    else if(paymentMethod === "credit-card"){
+    else if(paymentMethod === "Thẻ tín dụng"){
         document.getElementById("credit").style.display = "block";
         document.getElementById("bank").style.display = "none";
     } else {
@@ -59,6 +59,7 @@ function paymentMethod(){
 }
 function buy(){
     const cartArray= JSON.parse(localStorage.getItem('cart'));
+    const paymentMethod = document.getElementById("payment-method").value;
     var info = '';
     var total = 0;
     for (let i = 0; i < cartArray.length; i++) {
@@ -72,13 +73,13 @@ function buy(){
 	var d = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
 	if(localStorage.getItem('bill')===null){
 		var billArray = [];
-		var bill = {id: billArray.length +100, info: info, totalprice: total, customer: customer, date: d, status: 'Chưa xử lý'};
+		var bill = {id: billArray.length +100, info: info, totalprice: total, customer: customer, date: d, status: 'Chưa xử lí'};
 		billArray.unshift(bill);
 		localStorage.setItem('bill', JSON.stringify(billArray));
 	}
 	else{
 		var billArray = JSON.parse(localStorage.getItem('bill'));
-		var bill = {id: billArray.length +100, info: info, totalprice: total, customer: customer, date: d, status: 'Chưa xử lý'};
+		var bill = {id: billArray.length +100, info: info, totalprice: total, customer: customer, date: d, status: 'Chưa xử lí'};
 		billArray.unshift(bill);
 		localStorage.setItem('bill', JSON.stringify(billArray));
 	}

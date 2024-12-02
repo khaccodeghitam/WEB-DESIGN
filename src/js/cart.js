@@ -1,9 +1,19 @@
 function addToCart(productIDadd) {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (!loggedInUser) {
+        
+        alert("Bạn cần đăng nhập để thêm vào giỏ hàng!");    
+        return;
+    }
+    console.log(productIDadd);
     const products = JSON.parse(localStorage.getItem('products')) || [];
+    console.log(products);
     var product;
     for(var i=0; i<products.length;i++){
-		if(products[i].productId==productIDadd){
+		if(products[i].productID==productIDadd){
 			product = products[i];
+            console.log(product);
 		}
 	}
     /*if(product===null){
@@ -21,11 +31,13 @@ function addToCart(productIDadd) {
         if (!product.quantity) product.quantity = 1;
 		cartArray.unshift(product);
 		localStorage.setItem('cart',JSON.stringify(cartArray));
+        console.log("Thêm vào giỏ hàng thành công!");
 	}else{
 		var cartArray = JSON.parse(localStorage.getItem('cart'));
         if (!product.quantity) product.quantity = 1;
 		cartArray.unshift(product);
-		localStorage.setItem('cart',JSON.stringify(cartArray));		
+		localStorage.setItem('cart',JSON.stringify(cartArray));
+        console.log("Thêm vào giỏ hàng thành công!");		
 	}
     /*if (cartArray.length==0) {
         console.log("Giỏ hàng trống!");
@@ -38,16 +50,21 @@ function checkCart() {
     const cart= document.getElementsByClassName('cart-container')[0];
     const cartEmpty= document.getElementsByClassName('cart-empty')[0];
     const cartArray= JSON.parse(localStorage.getItem('cart'));
-    if(cartArray[0]!==null){
+    if(!cartArray || cartArray.length === 0){
+        cart.style.display='none';
+        cartEmpty.style.display='block';
+    }
+    else{
+        console.log(cartArray[0]);
         cart.style.display='block';
         cartEmpty.style.display='none';
     }
-
 }
 function cartList() {
     let cartArray = [];
     let cartData = localStorage.getItem('cart');
     cartArray = JSON.parse(cartData);
+    console.log(cartArray);
     const cartTable = document.getElementById('cart-items');
     const totalPrice = document.getElementById('total-price');
     let total = 0;
