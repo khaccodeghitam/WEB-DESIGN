@@ -137,7 +137,6 @@ body{
     color:#36b8ff;
   }
   .wrapper .main_content{
-    width: 100%;
     margin-left: 70px;
   }
   .wrapper .main_content .info{
@@ -170,7 +169,7 @@ body{
   /* Phần tìm kiếm */
   .search-container {
     display: none;
-    margin-left: 80px;
+    margin: 60px 80px;
     background: #ffffff;
     padding: 20px 30px;
     border-radius: 10px;
@@ -285,3 +284,81 @@ body{
   .info #customer-table button:hover{
     background: linear-gradient(135deg, #13a0ec, #16d8e2);
   }
+/* Form đăng nhập cho admin */
+#admin-login-form {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5); /* Nền tối mờ */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Canh ngang */
+    align-items: center; /* Canh dọc */
+    z-index: 1000;
+}
+
+#login-form {
+  position: absolute;
+    top: 50%; /* Canh giữa theo chiều dọc */
+    left: 50%; /* Canh giữa theo chiều ngang */
+    transform: translate(-50%, -50%); /* Đưa tâm của form về giữa màn hình */
+    background-color: #fff; /* Màu nền của form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Đổ bóng */
+    width: 100%;
+    max-width: 400px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#login-form h2 {
+    margin-bottom: 20px;
+    color: #333; /* Màu chữ tiêu đề */
+}
+
+#login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+    text-align: left;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+}
+
+#login-form input:focus {
+    outline: none;
+    border-color: #007bff; /* Màu viền khi focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Màu nút */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#login-form button:hover {
+    background-color: #0056b3; /* Màu nút khi hover */
+}
+
+#login-form button:active {
+    background-color: #004085; /* Màu nút khi nhấn */
+}
