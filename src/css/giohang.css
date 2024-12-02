@@ -1,0 +1,100 @@
+.cart-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    display: none;
+}
+
+.cart-list, .cart-total, .bill-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cart-list th, .cart-list td, .cart-total td, .bill-list th, .bill-list td, .bill-total td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.cart-list th, .bill-list th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.cart-total {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.cart-total td {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.cart-total td:first-child {
+    text-align: left;
+}
+.submit-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #36b8ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #1e90ff;
+}
+
+.cart-empty {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.cart-empty img {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.cart-empty p {
+    font-size: 16px;
+    color: #666;
+}
+
+.cart-empty button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #36b8ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-empty button:hover {
+    background-color: #b00000;
+}
+.bill-container{
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}

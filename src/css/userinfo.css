@@ -138,11 +138,14 @@ body.modal-open {
     min-width: 50%;
     margin-left: 10px;
     width: auto;
+    position: relative;
 }
 #nav .botnav .search-bar img{
     height: 20px;
     width: 20px;
-    margin: 0 5px;
+    /* margin: 0 5px; */
+    right: 5px;
+    position: absolute;
 }
 #nav .botnav .dropdown{
     display: flex;
@@ -419,9 +422,9 @@ select{
         display: flex;
         justify-content: center;
     }
-    #nav .topnav #navmenu{
+    /* #nav .topnav #navmenu{
         display: none;
-    }
+    } */
     #nav .topnav .logo{
         margin: 10px 0;
     } 

@@ -1,21 +1,21 @@
 
-function decreaseQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    let currentValue = parseInt(quantityInput.value);
-    if (currentValue > 1) {
-        quantityInput.value = currentValue - 1;
-    }
-}
+// function decreaseQuantity() {
+//     const quantityInput = document.getElementById('quantity');
+//     let currentValue = parseInt(quantityInput.value);
+//     if (currentValue > 1) {
+//         quantityInput.value = currentValue - 1;
+//     }
+// }
 
-function increaseQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    let currentValue = parseInt(quantityInput.value);
+// function increaseQuantity() {
+//     const quantityInput = document.getElementById('quantity');
+//     let currentValue = parseInt(quantityInput.value);
 
-    // Giới hạn số lượng tối đa là 999
-    if (currentValue < 999) {
-        quantityInput.value = currentValue + 1;
-    }
-}
+//     // Giới hạn số lượng tối đa là 999
+//     if (currentValue < 999) {
+//         quantityInput.value = currentValue + 1;
+//     }
+// }
 let currentIndex = 0;
 
 function moveSlide(direction) {

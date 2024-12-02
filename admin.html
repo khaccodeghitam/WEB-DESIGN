@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="./src/css/middle.css">
     <link rel="stylesheet" href="./src/css/admin.css">
+    <link rel="stylesheet" href="./src/css/thongke.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý sản phẩm</title>
@@ -19,7 +20,7 @@
                 </li>
                 <li><img src="src/icon/bill.svg"><a href="bill.html">Đơn hàng</a></li>
                 <li><img src="src/icon/groupuser.svg"><a href="users.html">Khách hàng</a></li>
-                <li><img src="src/icon/statistics-svgrepo-com.svg"><a href="">Thống kê</a></li>
+                <li><img src="src/icon/statistics-svgrepo-com.svg"><a href="javascript:void(0);" onclick="showThongKe()">Thống kê</a></li>
             </ul>
         </div>
 
@@ -64,22 +65,103 @@
                         <form action="/search" method="GET">
                             <!-- Ô nhập dữ liệu tìm kiếm -->
                             <label for="category" class="category-label">Tên</label>
-                            <input type="text" name="query" placeholder="Nhập từ khóa tìm kiếm..." class="search-box">
-                
+                            <input type="text" name="query" id="searchproductname" class="search-box" placeholder="Nhập từ khóa tìm kiếm..." oninput="searchProduct()">
+
                             <!-- Dropdown chọn thể loại -->
                             <label for="category" class="category-label">Thể loại</label>
-                            <select name="category" class="category-select">
+                            <select name="category" id="searchproductcategory" class="category-select" onchange="searchProduct()" >
                                 <option value="all">Tất cả</option>
-                                <option value="domestic">Sách trong nước</option>
-                                <option value="foreign">Sách ngoại văn</option>
-                                <option value="children">Truyện thiếu nhi</option>
+                                <option value="Tiểu thuyết">Tiểu Thuyết</option>
+                                <option value="Truyện ngắn">Truyện Ngắn</option>
+                                <option value="Ngôn tình">Ngôn Tình</option>
+                                <option value="Bài học kinh doanh">Bài Học Kinh Doanh</option>
+                                <option value="Quản trị - Lãnh đạo">Quản Trị - Lãnh Đạo</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Phân tích kinh tế">Phân Tích Kinh Tế</option>
+                                <option value="Sách giáo khoa">Sách Giáo Khoa</option>
+                                <option value="Sách luyện thi THPTQG">Sách Luyện Thi THPTQG</option>
+                                <option value="Sách mẫu giáo">Sách Mẫu Giáo</option>
+                                <option value="Kỹ năng sống">Kỹ Năng Sống</option>
+                                <option value="Rèn luyện nhân cách">Rèn Luyện Nhân Cách</option>
+                                <option value="Tâm lý">Tâm Lý</option>
+                                <option value="Sách cho tuổi mới lớn">Sách Cho Tuổi Mới Lớn</option>
+                                <option value="Manga (Nhật Bản)">Manga (Nhật Bản)</option>
+                                <option value="Manhwa (Hàn Quốc)">Manhwa (Hàn Quốc)</option>
+                                <option value="Manhua (Trung Quốc)">Manhua (Trung Quốc)</option>
+                                <option value="Comic (Phương Tây)">Comic (Phương Tây)</option>
+                                <option value="Truyện tranh thiếu nhi">Truyện tranh thiếu nhi</option>
                             </select>
-                
-                            <!-- Nút tìm kiếm -->
-                            <button type="submit" class="search-button">Tìm kiếm</button>
+
                         </form>
                     </div>
                     <div id="edit-form-container" class="edit-form-container"></div>
+                    <div id="thongke" style="display: none;">
+                        <div class="thongke-sanpham">
+                            <h2>Thống kê sản phẩm</h2>
+                            <table id="bang-thongke">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng bán ra</th>
+                                        <th>Tổng tiền thu được</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Sản phẩm sẽ được thêm động từ JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="thongke-banchay">
+                            <h2>5 Sản phẩm bán chạy nhất</h2>
+                            <table id="sanpham-banchay">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng bán ra</th>
+                                        <th>Tổng tiền thu được</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- sản phẩm được thống kê tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="thongke-bane">
+                            <h2>5 Sản phẩm bán ế nhất</h2>
+                            <table id="sanpham-bane">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng bán ra</th>
+                                        <th>Tổng tiền thu được</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- sản phẩm được thống kê tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="thongke-khachhang">
+                            <h2>5 Khách hàng chi nhiều nhất</h2>
+                            <table id="khachhang-chitieu">
+                                <thead>
+                                    <tr>
+                                        <th>ID Khách hàng</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Tổng chi</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- khách hàng được thống kê tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

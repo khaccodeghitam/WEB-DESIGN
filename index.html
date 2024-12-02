@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./src/css/advancedsearch.css">
         <link rel="stylesheet" href="./src/css/password.css">
         <link rel="stylesheet" href="./src/css/sodiachi.css">
         <link rel="stylesheet" href="./src/css/trangspcss.css">
@@ -14,7 +15,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     </head>
-    <body>
+    <body onload="showProducts()">
         <div id="wrapper">
             <!-- Phần header -->
             <div id="nav">
@@ -29,18 +30,55 @@
                         
                         <ul id="navmenu">
                             <li>
-                                <a href="./index.html?timkiemnangcao&0">LỌC THỂ LOẠI</a>
+                                <a href="javascript:void(0);" onclick="showAdvancedSearch()" style="font-size: 20px;"><i class="fa-solid fa-filter" style="font-size: 20px;"></i>LỌC THỂ LOẠI</a>
                             </li>
-                            <li>
-                                <a href="index.html?sachtrongnuoc&0">SÁCH TRONG NƯỚC</a>
-                            </li>
-                            <li>
-                                <a href="index.html?sachngoaivan&0">SÁCH NGOẠI VĂN</a>
-                            </li>      
-                            <li>
-                                <a href="index.html?truyenthieunhi&0">TRUYỆN THIẾU NHI</a>
-                            </li>                      
+                                               
                         </ul>
+                        <div id="advancedSearch" style="display: none">
+                            <h1 id="advSearch-h1">Tìm Kiếm Nâng Cao</h1>
+                            <div class="form-group">
+                                <label for="priceRange">Phân Loại Theo Giá:</label><br />
+                                <input type="number" id="minPrice" placeholder="Giá thấp nhất" />
+                                -
+                                <input type="number" id="maxPrice" placeholder="Giá cao nhất" />
+                                <select id="priceRange">
+                                    <option value="all">Tất cả</option>
+                                    <option value="low">Dưới 50.000</option>
+                                    <option value="50-150">50.000 - 150.000</option>
+                                    <option value="150-250">150.000 - 250.000</option>
+                                    <option value="high">Trên 250.000</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Thể Loại:</label><br />
+                                <select id="category-select"> 
+                                <option value="all">Tất Cả</option>
+                                <option value="Tiểu thuyết">Tiểu Thuyết</option>
+                                <option value="Truyện ngắn">Truyện Ngắn</option>
+                                <option value="Ngôn tình">Ngôn Tình</option>
+                                <option value="Bài học kinh doanh">Bài Học Kinh Doanh</option>
+                                <option value="Quản trị - Lãnh đạo">Quản Trị - Lãnh Đạo</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Phân tích kinh tế">Phân Tích Kinh Tế</option>
+                                <option value="Sách giáo khoa">Sách Giáo Khoa</option>
+                                <option value="Sách luyện thi THPTQG">Sách Luyện Thi THPTQG</option>
+                                <option value="Sách mẫu giáo">Sách Mẫu Giáo</option>
+                                <option value="Kỹ năng sống">Kỹ Năng Sống</option>
+                                <option value="Rèn luyện nhân cách">Rèn Luyện Nhân Cách</option>
+                                <option value="Tâm lý">Tâm Lý</option>
+                                <option value="Sách cho tuổi mới lớn">Sách Cho Tuổi Mới Lớn</option>
+                                <option value="Manga (Nhật Bản)">Manga (Nhật Bản)</option>
+                                <option value="Manhwa (Hàn Quốc)">Manhwa (Hàn Quốc)</option>
+                                <option value="Manhua (Trung Quốc)">Manhua (Trung Quốc)</option>
+                                <option value="Comic (Phương Tây)">Comic (Phương Tây)</option>
+                                <option value="Truyện tranh thiếu nhi">Truyện tranh thiếu nhi</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Overlay background to dim the page -->
+                        <div id="advancedSearchOverlay" onclick="closeAdvancedSearch()"></div>
                     </div>
                     
                     <!-- Phần bot head -->
@@ -74,13 +112,13 @@
                             </div>
                             <!-- khung tìm kiếm -->
                             <div class="search-box">
-                                <input type="text" id="search-input" placeholder="Tìm kiếm">
+                                <input id="search-input2" type="text" placeholder="Tìm kiếm">
                                 <img src="./src/icon/kinhlup.svg">
                             </div>
                         </div>
                         <!-- Khung tìm kiếm full màn -->
                         <div class="search-bar2">
-                            <input type="text" placeholder="">
+                            <input id="search-input" type="text" placeholder="">
                             <button><img src="./src/icon/kinhlup.svg"></button>
                         </div>
 
@@ -97,7 +135,7 @@
                                 </div>
                             </li>
                             <li class="cart-menu">
-                                <button onClick="location.href='giohang.html'">
+                                <button onclick="checkLoggedUser()">
                                     <img src="./src/icon/giohang.svg">
                                 </button>
                                 <p>Giỏ hàng</p>
@@ -143,7 +181,9 @@
                     <input type="password" name="password" placeholder="Mật khẩu*">
                     <input type="password" name="repassword" placeholder="Nhập lại mật khẩu*">
                     <input type="email" name="email" placeholder="Email">
+                    <span id="emailError" class="error">Email không hợp lệ</span>
                     <input type="text" name="phone" placeholder="Số điện thoại*">
+                    <span id="sdtError" class="error">Số điện thoại không hợp lệ</span>
                     <button type="submit" onclick="ktDangKi()">Đăng kí</button>
                     <div id="question" >Đã có tài khoản? <a href="#" onclick="showLogin()" style="color: #2489F4; margin-left: 10px;"> Đăng nhập</a></div>
                 </form>
@@ -197,8 +237,8 @@
                             <img id="fullImage" src="" alt="Full Screen Image">
                         </div>
                             <div class="but">
-                            <button class="btn btn--buy" onclick="handleBuyNow()">Mua Ngay</button>
-                            <button class="btn btn--addcart" onclick="handleCartNow()"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
+                            <!-- <button class="btn btn--buy" onclick="handleBuyNow()">Mua Ngay</button> -->
+                            <button class="btn btn--addcart" onclick="addToCart()"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
                         </div>
                         </div>
                         </div>
@@ -411,7 +451,7 @@
 
                                         
                             <!-- Nut submit -->
-                            <button type="button" onclick="saveUserInfo()" id="updateButton">Cập nhật</button>
+                            <button type="button" id="updateButton">Cập nhật</button>
                         </form>
                     </div>
                  
@@ -489,11 +529,14 @@
              </div>
         </div>    
     </body>
+    <script src="./src/js/cart.js"></script>
+    <script src="./src/js/advancedsearch.js"></script>
     <script src="./src/js/userinfo.js"></script>
+    <script src="./src/js/manage-products.js"></script>
     <script src="./src/js/middle.js"></script>
     <script src="./src/js/dndk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="./src/js/sodiachijs.js"></script>
     <script src="./src/js/trangspjs.js"></script>
-    <script src="./src/js/sanpham.js"></script>
+    
 </html>

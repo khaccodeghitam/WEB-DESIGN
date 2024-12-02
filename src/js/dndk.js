@@ -54,6 +54,20 @@ function ktDangKi() {
         return false;
     }
 
+ // Kiểm tra số điện thoại hợp lệ
+ const phonePattern = /^[0-9]{10}$/;
+ if (!phonePattern.test(phone)) {
+     alert("Vui lòng nhập số điện thoại hợp lệ (10 chữ số)!");
+     return false;
+ }
+
+ // Kiểm tra email hợp lệ
+ const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+ if (email && !emailPattern.test(email)) {
+     alert("Vui lòng nhập email hợp lệ!");
+     return false;
+ }
+
   // Lấy danh sách người dùng từ localStorage
   const users = JSON.parse(localStorage.getItem('users')) || [];
  
@@ -159,6 +173,11 @@ function updatePassword(event) {
 
 function saveUserInfo() {
   
+    if (!validateForm()) {
+        alert("Vui lòng kiểm tra lại thông tin và sửa các lỗi trước khi lưu.");
+        return; 
+    }
+   
     // Lấy thông tin từ form
     const ho = document.getElementById("ho").value;
     const ten = document.getElementById("ten").value;
@@ -332,6 +351,7 @@ function logout() {
     alert("Bạn đã đăng xuất thành công!");
 
     // Cập nhật giao diện
+    location.reload();
     updateUI();
 }
 

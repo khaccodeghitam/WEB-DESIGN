@@ -12,9 +12,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-        <link rel="stylesheet" href="./src/css/giohang.css">
     </head>
-    <body onload="showBill(),checkCart(),cartList()">
+    <body onload="showProducts()">
         <div id="wrapper">
             <!-- Phần header -->
             <div id="nav">
@@ -97,7 +96,7 @@
                                 </div>
                             </li>
                             <li class="cart-menu">
-                                <button onClick="location.href='./giohang.html'">
+                                <button onclick="checkLoggedUser()">
                                     <img src="./src/icon/giohang.svg">
                                 </button>
                                 <p>Giỏ hàng</p>
@@ -149,56 +148,158 @@
                 </form>
             </div>
             </div>
-                         <!-- Phần giỏ hàng -->
-                        <div class="cart-container">
-                            <!-- Danh sách sản phẩm trong giỏ hàng -->
-                            <table class="cart-list">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 40%;">Tên sản phẩm</th>
-                                        <th style="width: 20%;">Ảnh</th>
-                                        <th style="width: 20%;">Số lượng</th>
-                                        <th style="width: 20%;">Giá</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-items">
-                                    <!-- Các sản phẩm trong giỏ hàng -->
-                                </tbody>
-                            </table>
-
-                            <!-- GIá tổng -->
-                            <table class="cart-total">
-                                <tr>
-                                    <td>Tổng cộng:</td>
-                                    <td id="total-price"></td>
-                                </tr>
-                            </table>
-                            <div class="submit-container">
-                                <button type="button" class="btn-submit" onclick="window.location.href='trangthanhtoan.html'" >Thanh toán</button>
+                    <!-- Phần middle -->
+                    <div class="middle">
+                        <div class="slideshow">
+                            <div class="slide-container">
+                                <div class="slide">
+                                    <img src="./src/img/banner2.jpg">
+                                </div>
+                                <div class="slide">
+                                    <img src="./src/img/banner1.jpg">
+                                </div>
+                                <div class="slide">
+                                    <img src="./src/img/banner3.jpg">
+                                </div>
+                            </div>
+                            <div class="buttons-slide">
+                                <button id="prev"><</button>
+                                <button id="next">></button>
+                            </div>
+                            <ul class="dots">
+                                <li class="active"></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div id="content">
+                            
+                        </div>
+                        <div id="page">
+                                
+                        </div>
+                    </div>
+                    <div id="product-details">
+                    <div style="border: 3px solid  #f0f0f0; background-color:#f0f0f0; display: none;" id="mid">
+                        <button onclick="closeProductDetails()" style="position: fixed; top: 10px; right: 10px;">✖</button>
+                        <div class="leftmenu">
+                        <div class="content-product" id="content-product">
+                        <div class="content-item">
+                            <div class="slider">
+                            <div class="img-slides">
+                            <div class="slide-product"><img src="" alt="ảnh sách 1" width="100%"  onclick="openFullScreen(this)"></div>
+                            <div class="slide-product"><img src="" alt="ảnh sách 2" width="100%"  onclick="openFullScreen(this)"></div> 
+                        </div>
+                            <div class="navigation">
+                                <span class="prev" onclick="moveSlide(-1)">&#10094;</span>
+                                <span class="next" onclick="moveSlide(1)">&#10095;</span>
                             </div>
                         </div>
-
-                        <div class="cart-empty">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty Cart">
-                            <p>Chưa có sản phẩm trong giỏ hàng của bạn.</p>
-                            <button onclick="location.href='/'">MUA SẮM NGAY</button>
-                        </div> 
-                        
-                        <div class="bill-container">
-                            <h4>Đơn hàng của bạn</h4>
-                            <div class="bill-list">
-                                <table>
-                                    <tbody id="bill-items">
-                                        <!-- Các sản phẩm đã đặt -->
+                        <div id="fullScreenImage" class="full-screen" onclick="closeFullScreen()">
+                            <img id="fullImage" src="" alt="Full Screen Image">
+                        </div>
+                            <div class="but">
+                            <button class="btn btn--addcart" onclick="addToCart()"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="rightproduct">
+                            <div class="block-content-product-info">
+                            <h1 class="book-title"></h1>
+                            <div class="book-info">
+                                <div class="book-info1">
+                                <div class="book-supplier">
+                                <span>Nhà cung cấp:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                <div class="book-author">
+                                <span>Nhà xuất bản:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                </div>
+                                <div class="book-info2-test">
+                                <div class="book-info2">
+                                <div class="book-supplier">
+                                <span>Tác giả:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                <div class="book-author">
+                                <span>Hình thức bìa:</span>
+                                <span style="font-weight: bold;"></span>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="price" id="product-price"></span>
+                                <span class="price" id="old-price"></span>
+                            </div>
+                            <!--<div class="product-quantity-box">
+                                <label for="quantity" id="quantity-text" style="font-weight: 550;">Số lượng: </label>
+                              <div id="qty-box">
+                                <button class="btn--decrease qty" onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="999" >
+                                <button class="btn--increase qty" onclick="increaseQuantity()">+</button>
+                                </div>
+                            </div>-->
+                        </div>
+                            <div class="detail-info">
+                                <h2 class="detail-head">Thông tin chi tiết</h2>
+                                <table class="detail">
+                                    <tbody>
+                                        <tr>
+                                            <th class="detail-label">Mã hàng</th>
+                                            <td class="data_0">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label" >Tên nhà cung cấp</th>
+                                            <td class="data_1">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Tác giả</th>
+                                            <td class="data_2">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Nhà xuất bản</th>
+                                            <td class="data_3">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Ngôn Ngữ</th>
+                                            <td class="data_4">
+                                                <div class="data-container">Tiếng Việt</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Hình thức</th>
+                                            <td class="data_5">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>   
-                        
-                        <div id="user-info" class="user-info" style="display: none;">
-                        <div class="left-content">
-                        <!-- Bảng lựa chọn -->
-                        <div class="user-content">
+                            <div class="description-info">
+                                <h2 class="description-head">Mô tả sản phẩm</h2>
+                                <div id="description-content">
+                                    <p style="text-align: justify;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            <div id="user-info" class="user-info" style="display: none;">
+                <div class="left-content">
+                    <!-- Bảng lựa chọn -->
+                    <div class="user-content">
                         <ul>
                             <!-- Thông tin tài khoản -->
                             <div class="tab-user">
@@ -350,7 +451,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Phần footer -->
              <div id="footer">
                 <div class="container">
@@ -381,4 +482,3 @@
     <script src="./src/js/trangspjs.js"></script>
     <script src="./src/js/cart.js"></script>
 </html>
-

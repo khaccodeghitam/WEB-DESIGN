@@ -10,63 +10,60 @@ function validateForm() {
     document.getElementById("genderError").style.display = "none";
     document.getElementById("birthdateError").style.display = "none";
 
+    const ho = document.getElementById("ho").value.trim();
+    const ten = document.getElementById("ten").value.trim();
+    const sdt = document.getElementById("sdt").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const gioiTinh = document.querySelector('input[name="gioi_tinh"]:checked');
+    const ngay = document.getElementById("ngay").value.trim();
+    const thang = document.getElementById("thang").value.trim();
+    const nam = document.getElementById("nam").value.trim();
+    
+   // Validate Họ
+   if (!ho) {
+    document.getElementById("hoError").style.display = "block";
+    isValid = false;
+}
 
-    // Validate Ho
-    const ho = document.getElementById("ho").value;
-    if (ho.trim() === "") {
-        document.getElementById("hoError").style.display = "block";
-        isValid = false;
-    }
+// Validate Tên
+if (!ten) {
+    document.getElementById("tenError").style.display = "block";
+    isValid = false;
+}
 
-    // Validate Ten
-    const ten = document.getElementById("ten").value;
-    if (ten.trim() === "") {
-        document.getElementById("tenError").style.display = "block";
-        isValid = false;
-    }
+// Validate Số điện thoại
+const sdtPattern = /^[0-9]{10}$/;
+if (sdt && !sdtPattern.test(sdt)) {
+    document.getElementById("sdtError").style.display = "block";
+    isValid = false;
+}
 
-    // Validate So dien thoai (optional but numeric only)
-    const sdt = document.getElementById("sdt").value;
-    const sdtPattern = /^[0-9]{10}$/;
-    if (sdt && !sdtPattern.test(sdt)) {
-        document.getElementById("sdtError").style.display = "block";
-        isValid = false;
-    }
+// Validate Email
+const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+if (email && !emailPattern.test(email)) {
+    document.getElementById("emailError").style.display = "block";
+    isValid = false;
+}
 
-    // Validate Email (optional but valid format)
-    const email = document.getElementById("email").value;
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (email && !emailPattern.test(email)) {
-        document.getElementById("emailError").style.display = "block";
-        isValid = false;
-    }
+// Validate Giới tính
+if (!gioiTinh) {
+    document.getElementById("genderError").style.display = "block";
+    isValid = false;
+}
 
-    // Validate Gioi tinh
-    const gioiTinhNam = document.getElementById("nam").checked;
-    const gioiTinhNu = document.getElementById("nu").checked;
-    if (!gioiTinhNam && !gioiTinhNu) {
-        document.getElementById("genderError").style.display = "block";
-        isValid = false;
-    }
- 
-    // Validate Ngay sinh
-    const ngay = document.getElementById("ngay").value;
-    const thang = document.getElementById("thang").value;
-    const nam = document.getElementById("Nam").value;
+// Validate Ngày sinh
+if (!ngay || !thang || !nam || ngay < 1 || ngay > 31 || thang < 1 || thang > 12 || nam.length !== 4 || nam < 1900 || nam > 2023) {
+    document.getElementById("birthdateError").style.display = "block";
+    isValid = false;
+}
 
-    // Thêm dòng console.log để kiểm tra giá trị ngay, thang, nam
-    console.log(`Ngay: ${ngay}, Thang: ${thang}, Nam: ${nam}`);
-
-    if (!ngay || !thang || !nam || ngay < 1 || ngay > 31 || thang < 1 || thang > 12 || nam.length !== 4 || nam < 1900 || nam > 2023) {
-        document.getElementById("birthdateError").style.display = "block";
-        isValid = false;
-    }
-    return isValid;
+return isValid;
 }
 const showAddressFormLink = document.getElementById('showAddressForm');
 const formInfoSection = document.querySelector('.form-info');
 const addressFormSection = document.getElementById('addressFormSection');
 const changePasswordForm = document.getElementById('passwordForm');
+const passwordSection = document.querySelector('.passwordSection')
 // Thêm sự kiện click cho nút "Sổ địa chỉ"
 showAddressFormLink.addEventListener('click', () => {
     // Ẩn phần "form-info"
@@ -74,6 +71,7 @@ showAddressFormLink.addEventListener('click', () => {
     changePasswordForm.style.display='none';
     // Hiện phần "add-address-form"
     addressFormSection.style.display = 'block';
+    
 });
 
 const showUserInfoLink= document.getElementById('showUserInfo');
@@ -81,6 +79,7 @@ showUserInfoLink.addEventListener('click',() =>{
     addressFormSection.style.display = 'none';
     changePasswordForm.style.display='none';
     formInfoSection.style.display='block';
+    
 });
 
 const showChangePasswordLink = document.getElementById('showChangePassword');

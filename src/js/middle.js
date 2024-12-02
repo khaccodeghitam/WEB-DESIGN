@@ -62,16 +62,6 @@ function showEditForm() {
                 <label for="new-price">Giá mới:</label>
                 <input type="number" id="new-price" name="new-price">
 
-                 <label for="book-type">Loại sách:</label>
-            <select id="book-type" name="book-type">
-                <option value="" disabled selected>Chọn Loại Sách</option>
-                <option value="Văn Học">Văn Học</option>
-                <option value="Kinh Tế">Kinh Tế</option>
-                <option value="Sách giáo khoa">Sách giáo khoa</option>
-                <option value="Tâm Lý - Kỹ Năng Sống">Tâm Lý - Kỹ Năng Sống</option>
-                <option value="Truyện Tranh">Truyện Tranh</option>
-            </select>
-
             <label for="category">Thể Loại:</label>
             <select id="category" name="category">
             <option value="" disabled selected>Chọn Thể Loại</option>
@@ -172,7 +162,7 @@ function submitEditForm() {
     const productName = document.getElementById('product-name').value;
     const oldPrice = document.getElementById('old-price').value;
     const newPrice = document.getElementById('new-price').value;
-    const bookType = document.getElementById('book-type').value;
+    
     const category = document.getElementById('category').value;
     const supplier = document.getElementById('supplier').value;
     const publisher = document.getElementById('publisher').value;
@@ -181,14 +171,13 @@ function submitEditForm() {
     const description = document.getElementById('description').value;
     const image = document.getElementById('product-image').files[0];
 
-    if (productName && oldPrice && newPrice && bookType && category && supplier && publisher && author && form && description) {
+    if (productName && oldPrice && newPrice && category && supplier && publisher && author && form && description) {
         if (image) {
             convertToBase64(image, function (base64Image) {
                 saveProduct({
                     productName,
                     oldPrice,
                     newPrice,
-                    bookType,
                     category,
                     supplier,
                     publisher,
@@ -203,7 +192,6 @@ function submitEditForm() {
                 productName,
                 oldPrice,
                 newPrice,
-                bookType,
                 category,
                 supplier,
                 publisher,
@@ -235,10 +223,12 @@ function saveProduct(product) {
 }
 
 function renderProductDetails(product,productID) {
+    document.querySelector('#mid .but button.btn--addcart').setAttribute('onClick', 'addToCart('+productID+')');
+
     // Điền vào các trường thông tin
     document.querySelector('#mid .book-title').textContent = product.productName;
-    document.querySelector('#mid #old-price').textContent = `${product.oldPrice} đ`;
-    document.querySelector('#mid #product-price').textContent = `${product.newPrice} đ`;
+    document.querySelector('#mid #old-price').textContent = `${formatCurrency(product.oldPrice)} đ`;
+    document.querySelector('#mid #product-price').textContent = `${formatCurrency(product.newPrice)} đ`;
 
     // Điền supplier và publisher
     const bookInfo1 = document.querySelector('#mid .book-info1');
@@ -294,19 +284,6 @@ function attachProductEventListeners(products) {
     });
 }
 
-// function attachProductEventListeners(products) {
-//     const contentDiv = document.getElementById('content');
-//     const productItems = contentDiv.querySelectorAll('.item');
-
-//     productItems.forEach((item) => {
-//         // Lấy ID sản phẩm từ thuộc tính data-id gắn vào mỗi item
-//         const productId = item.getAttribute('data-id');
-//         item.addEventListener('click', () => {
-//             const product = products.find(p => p.productID == productId); // Tìm sản phẩm theo productID
-//             renderProductDetails(product);
-//         });
-//     });
-// }
 
 function closeProductDetails() {
     const mid = document.getElementById('mid');
@@ -338,19 +315,158 @@ function addProductToUI(product) {
     // Giá mới
     const productNewPrice = document.createElement('p');
     productNewPrice.classList.add('special-price');
-    productNewPrice.innerHTML = `<span>${product.newPrice}</span>`;
+    productNewPrice.innerHTML = `<span>${formatCurrency(product.newPrice)}</span>`;
     productItem.appendChild(productNewPrice);
 
     // Giá cũ
     const productOldPrice = document.createElement('p');
     productOldPrice.classList.add('old-price');
-    productOldPrice.innerHTML = `<span>${product.oldPrice}</span>`;
+    productOldPrice.innerHTML = `<span>${formatCurrency(product.oldPrice)}</span>`;
     productItem.appendChild(productOldPrice);
 
     // Thêm sản phẩm mới vào danh sách
     contentDiv.appendChild(productItem);
 }
- 
+
+//Begin Search
+const searchInput = document.getElementById('search-input'); 
+const searchInput2 = document.getElementById('search-input2'); 
+const priceRangeSelect = document.getElementById('priceRange');
+const categorySelect = document.getElementById('category-select');
+const minPriceInput = document.getElementById('minPrice');
+const maxPriceInput = document.getElementById('maxPrice');
+const contentDiv = document.getElementById('content');
+
+
+function filterProducts() {
+    const searchValue = searchInput.value.toLowerCase();
+    const selectedCategory = categorySelect.value;
+    const selectedPriceRange = priceRangeSelect.value;
+
+    const minPrice = parseFloat(minPriceInput.value) || 0;
+    const maxPrice = parseFloat(maxPriceInput.value) || Number.MAX_VALUE;
+
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+
+    // Lọc sản phẩm theo tên và thể loại
+    const filteredProducts = products.filter(product => {
+        const matchesName = product.productName.toLowerCase().includes(searchValue);
+        const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+
+        // Lọc theo phạm vi giá
+        const productPrice = product.newPrice;
+        let matchesPrice = true;
+
+        if (selectedPriceRange !== 'all') {
+            
+
+            switch (selectedPriceRange) {
+                case 'low':
+                    matchesPrice = productPrice < 50000;
+                    break;
+                case '50-150':
+                    matchesPrice = productPrice >= 50000 && productPrice <= 150000;
+                    break;
+                case '150-250':
+                    matchesPrice = productPrice >= 150000 && productPrice <= 250000;
+                    break;
+                case 'high':
+                    matchesPrice = productPrice > 250000;
+                    break;
+                default:
+                    matchesPrice = true;
+            }
+        }
+
+        const matchesCustomPriceRange = productPrice >= minPrice && productPrice <= maxPrice;
+
+        return matchesName && matchesCategory && matchesPrice && matchesCustomPriceRange;
+    });
+
+    // Cập nhật giao diện
+    displayProducts(filteredProducts);
+}
+
+function filterProducts2() {
+    const searchValue2 = searchInput2.value.toLowerCase();
+    const selectedCategory = categorySelect.value;
+
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+
+    // Lọc sản phẩm theo tên và thể loại
+    const filteredProducts2 = products.filter(product => {
+        const matchesName2 = product.productName.toLowerCase().includes(searchValue2);
+        const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+        return matchesName2 && matchesCategory;
+    });
+
+    // Cập nhật giao diện
+    displayProducts(filteredProducts2);
+}
+
+function displayProducts(products) {
+    contentDiv.innerHTML = ""; // Xóa sản phẩm hiện tại
+    products.forEach((product) => {
+      const productItem = document.createElement("div");
+      productItem.classList.add("item");
+  
+      // Ảnh sản phẩm
+      const productImage = document.createElement("img");
+      productImage.src = product.image || './src/img/default.jpg'; // Nếu không có ảnh thì dùng ảnh mặc định
+      productItem.appendChild(productImage);
+  
+      // Tên sản phẩm
+      const productName = document.createElement("h2");
+      productName.classList.add("product-name");
+      productName.innerHTML = `<div>${product.productName}</div>`;
+      productItem.appendChild(productName);
+  
+      // Phần giá
+      const priceLabel = document.createElement("div");
+      priceLabel.classList.add("price-label");
+  
+      const priceRow = document.createElement("div");
+      priceRow.classList.add("price-row");
+  
+      // Giá mới
+      const productNewPrice = document.createElement("div");
+      productNewPrice.classList.add("new-price");
+      productNewPrice.innerHTML = `<div>${formatCurrency(product.newPrice)} đ</div>`;
+      priceRow.appendChild(productNewPrice);
+  
+      // Tính phần trăm giảm giá
+      const productPricePercent = document.createElement("div");
+      productPricePercent.classList.add("price-percent");
+      const discountPercent = Math.floor(100 - (product.newPrice / product.oldPrice) * 100); // Tính phần trăm giảm giá
+      productPricePercent.innerHTML = `<div>-${discountPercent}%</div>`;
+      priceRow.appendChild(productPricePercent);
+  
+      priceLabel.appendChild(priceRow);
+  
+      // Giá cũ
+      const productOldPrice = document.createElement("div");
+      productOldPrice.classList.add("old-price");
+      productOldPrice.innerHTML = `<div>${formatCurrency(product.oldPrice)} đ</div>`;
+      priceLabel.appendChild(productOldPrice);
+  
+      productItem.appendChild(priceLabel);
+  
+      // Thêm phần tử sản phẩm vào div chứa nội dung
+      contentDiv.appendChild(productItem);
+    });
+    
+    attachProductEventListeners(products); // Gắn lại sự kiện click
+
+}
+
+// Lắng nghe sự kiện
+searchInput.addEventListener('input', filterProducts);
+categorySelect.addEventListener('change', filterProducts);
+priceRangeSelect.addEventListener('change', filterProducts);
+minPriceInput.addEventListener('input', filterProducts);
+maxPriceInput.addEventListener('input', filterProducts);
+searchInput2.addEventListener('input', filterProducts2);
+//End Search 
 
 function goBack() {
     location.reload(); // Tải lại trang để quay về giao diện ban đầu
@@ -358,7 +474,8 @@ function goBack() {
 
 
 
-window.onload = function () {
+// window.onload = function () {
+    function showProducts() {
 let products = JSON.parse(localStorage.getItem('products')) || [];
     const contentDiv = document.getElementById('content');
     var count=0,sotrang=1;
@@ -399,7 +516,7 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
             // Giá mới
             const productNewPrice = document.createElement('div');
             productNewPrice.classList.add('new-price');
-            productNewPrice.innerHTML = `<div>${products[i].newPrice}đ</div>`;
+            productNewPrice.innerHTML = `<div>${formatCurrency(products[i].newPrice)}đ</div>`;
             priceRow.appendChild(productNewPrice);
 
             const productPricePercent = document.createElement('div');
@@ -410,7 +527,7 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
             // Giá cũ
             const productOldPrice = document.createElement('div');
             productOldPrice.classList.add('old-price');
-            productOldPrice.innerHTML = `<div>${products[i].oldPrice}đ</div>`;
+            productOldPrice.innerHTML = `<div>${formatCurrency(products[i].oldPrice)}đ</div>`;
             priceLabel.appendChild(productOldPrice);
             productItem.appendChild(priceLabel);
             // Thêm sản phẩm mới vào danh sách
@@ -439,4 +556,23 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
 };
    attachProductEventListeners(products);
 };
-{/* <input type="text" id="book-type" name="book-type"></input> */}
+function handleCartNow() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (!loggedInUser) {
+        
+        alert("Bạn cần đăng nhập để thêm vào giỏ hàng!");    
+        return;
+    }
+}
+function checkLoggedUser() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (!loggedInUser || loggedInUser.length === 0) {
+        alert("Bạn cần đăng nhập để vào giỏ hàng!");
+        return;
+    }
+    else{
+        window.location.href = './giohang.html';
+    }
+}

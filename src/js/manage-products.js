@@ -1,17 +1,14 @@
-// Lấy danh sách sản phẩm từ localStorage
 function getProducts() {
     return JSON.parse(localStorage.getItem('products')) || [];
 }
 
-// Lưu danh sách sản phẩm vào localStorage
 function saveProducts(products) {
     localStorage.setItem('products', JSON.stringify(products));
 }
 
-// Lấy ID hiện tại từ localStorage (hoặc khởi tạo nếu chưa có)
 function getCurrentId() {
     const currentId = JSON.parse(localStorage.getItem('currentId'));
-    return currentId !== null ? currentId : 10000; // Nếu chưa có, khởi tạo 10000
+    return currentId !== null ? currentId : 10000; 
 }
 
 // Lưu ID hiện tại vào localStorage
@@ -24,6 +21,10 @@ function initializeCurrentId() {
     if (localStorage.getItem('currentId') === null) {
         saveCurrentId(10000); // Giá trị khởi tạo là 10000
     }
+}
+
+function formatCurrency(number) {
+    return Number(number).toLocaleString('vi-VN');
 }
 
 // Thêm sản phẩm mới
@@ -68,7 +69,7 @@ function renderProducts(page = 1) {
             <td>${product.productName}</td>
             <td>${product.category}</td>
             <td>${product.author}</td>
-            <td>${product.newPrice} VND</td>
+            <td>${formatCurrency(product.newPrice)} đ</td>
             <td>
                 <button class="delete-btn" onclick="deleteProduct(${product.productID})">Xóa</button>
                 <button class="edit-btn" onclick="editProduct(${product.productID})">Sửa</button>
@@ -97,18 +98,24 @@ function renderPagination(totalItems) {
         pageContainer.appendChild(pageButton);
     }
 }
-
-// Xóa sản phẩm
 function deleteProduct(id) {
-    const products = getProducts();
+    // Hiển thị hộp thoại xác nhận
+    const confirmDelete = confirm("Bạn có muốn xóa sản phẩm này không?");
+    
+    if (confirmDelete) {
+        const products = getProducts();
 
-    // Tìm và xóa sản phẩm dựa trên ID
-    const updatedProducts = products.filter(product => product.productID !== id);
-    saveProducts(updatedProducts);
+        // Tìm và xóa sản phẩm dựa trên ID
+        const updatedProducts = products.filter(product => product.productID !== id);
+        saveProducts(updatedProducts);
 
-    // Cập nhật giao diện
-    renderProducts();
+        // Cập nhật giao diện
+        renderProducts();
+
+        alert("Sản phẩm đã được xóa thành công!");
+    } 
 }
+
 
 // Sửa sản phẩm (Chưa hoàn thiện, thêm sau)
 function editProduct(id) {
@@ -140,16 +147,6 @@ function editProduct(id) {
 
                 <label for="new-price">Giá mới:</label>
                 <input type="number" id="new-price" name="new-price" value="${productToEdit.newPrice}">
-
-               <label for="book-type">Loại sách:</label>
-                <select id="book-type" name="book-type">
-                    <option value="" disabled ${!productToEdit.bookType ? 'selected' : ''}>Chọn Loại Sách</option>
-                    <option value="Văn Học" ${productToEdit.bookType === 'Văn Học' ? 'selected' : ''}>Văn Học</option>
-                    <option value="Kinh Tế" ${productToEdit.bookType === 'Kinh Tế' ? 'selected' : ''}>Kinh Tế</option>
-                    <option value="Sách giáo khoa" ${productToEdit.bookType === 'Sách giáo khoa' ? 'selected' : ''}>Sách giáo khoa</option>
-                    <option value="Tâm Lý - Kỹ Năng Sống" ${productToEdit.bookType === 'Tâm Lý - Kỹ Năng Sống' ? 'selected' : ''}>Tâm Lý - Kỹ Năng Sống</option>
-                    <option value="Truyện Tranh" ${productToEdit.bookType === 'Truyện Tranh' ? 'selected' : ''}>Truyện Tranh</option>
-                </select>
 
                 <label for="category">Thể Loại:</label>
                 <select id="category" name="category">
@@ -201,14 +198,10 @@ function editProduct(id) {
             </form>
         </div>
     `;
-    const { bookTypeSelect, genreSelect } = createBookTypeAndGenreSelects();
+
     
-    document.getElementById('book-type-container').appendChild(bookTypeSelect);
     document.getElementById('category-container').appendChild(genreSelect);
 
-    // Set the existing book type and category
-    bookTypeSelect.value = productToEdit.bookType;
-    updateGenreOptions(bookTypeSelect, genreSelect);
     genreSelect.value = productToEdit.category;
 }
 
@@ -230,7 +223,6 @@ function saveEditedProduct(productID) {
             productName: document.getElementById('product-name').value,
             oldPrice: document.getElementById('old-price').value,
             newPrice: document.getElementById('new-price').value,
-            bookType: document.getElementById('book-type').value,
             category: document.getElementById('category').value,
             supplier: document.getElementById('supplier').value,
             publisher: document.getElementById('publisher').value,
@@ -276,11 +268,77 @@ function normalizeProductData() {
     localStorage.setItem('currentId', JSON.stringify(currentId)); // Cập nhật currentId lớn nhất
 }
 
+// Begin search danh sách sản phẩm tại admin.html
+function searchProduct() {
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    const name = document.getElementById("searchproductname").value.toLowerCase().trim();
+    const category = document.getElementById("searchproductcategory").value.toLowerCase().trim();
+    
+    let filteredProducts = products;
+  
+    // Lọc theo tên sản phẩm nếu có nhập tên
+    if (name) {
+      filteredProducts = filteredProducts.filter(product =>
+        product.productName.toLowerCase().includes(name)
+      );
+    }
+  
+    // Lọc theo thể loại nếu có chọn thể loại
+    if (category && category !== "all") {
+      filteredProducts = filteredProducts.filter(product =>
+        product.category.toLowerCase() === category
+      );
+    }
+  
+    // Hiển thị kết quả
+    renderSearchResults(filteredProducts);
+  }
+  
+  // Hiển thị kết quả tìm kiếm trong bảng
+  function renderSearchResults(filteredProducts) {
+    const tableBody = document.querySelector("#product-table tbody");
+    tableBody.innerHTML = ""; // Xóa nội dung cũ
+    
+    if (filteredProducts.length === 0) {
+      tableBody.innerHTML = "<tr><td colspan='7'>Không tìm thấy sản phẩm nào!</td></tr>";
+      return;
+    }
+  
+    filteredProducts.forEach(product => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${product.productID}</td>
+        <td><img src="${product.image || "./src/img/default.jpg"}" alt="Image" style="width: 50px; height: 50px;"></td>
+        <td>${product.productName}</td>
+        <td>${product.category}</td>
+        <td>${product.author}</td>
+        <td>${formatCurrency(product.newPrice)} đ</td>
+        <td>
+          <button class="delete-btn" onclick="deleteProduct(${product.productID})">Xóa</button>
+          <button class="edit-btn" onclick="editProduct(${product.productID})">Sửa</button>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+  } // End search
+
+//Start thống kê
+function showThongKe() {
+    
+    const thongKeSection = document.getElementById('thongke');
+    const productManageSection = document.querySelector('.product-manage');
+    const searchContainer = document.querySelector('.search-container');
+    document.getElementById("pageadmin").style.display='none';
+
+    thongKeSection.style.display = 'block';
+    productManageSection.style.display = 'none';
+    searchContainer.style.display = 'none';
+}
+//End thống kê
+
 // Khi trang tải, đảm bảo currentId được khởi tạo và hiển thị danh sách sản phẩm
 document.addEventListener("DOMContentLoaded", () => {
     normalizeProductData();
     initializeCurrentId();
     renderProducts();
 });
-
-{/* <input type="text" id="book-type" name="book-type" value="${productToEdit.bookType}"></input> */}
