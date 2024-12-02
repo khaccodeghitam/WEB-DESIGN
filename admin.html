@@ -103,9 +103,9 @@
                         </table>
                     </div>
 
-                    <!-- Phần danh sách khách hàng -->
+                    <!-- Phần danh sách người dùng -->
                     <div class="dashboard">
-                            <h2>Danh sách khách hàng</h2>
+                            <h2>Danh sách người dùng</h2>
                             <button class="product" onclick="showsearchcustomer()" style ="display: inline-block;">
                                 Tìm khách hàng
                             </button>
@@ -130,9 +130,47 @@
             </div>
         </div>
     </div>
-   
+    <div id="admin-login-form" style="display: none;">
+        <form id="login-form">
+            <h2>Đăng nhập Admin</h2>
+            <label for="username">Tên đăng nhập:</label>
+            <input type="text" id="username" placeholder="Tên đăng nhập" required>
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" placeholder="Mật khẩu" required>
+            <button type="button" id="login-button">Đăng nhập</button>
+        </form>
+    </div>
+    
 </body>
 <script src="./src/js/manage-products.js"></script>
 <script src="./src/js/dndk.js"></script>
 <script src="./src/js/manage-user.js"></script>
+<script>
+   window.onload = function () {
+    const url = window.location.pathname;
+    const adminContent = document.querySelector('.wrapper'); // Phần nội dung gốc
+    const loginForm = document.getElementById('admin-login-form');
+
+    if (url.includes('/admin.html')) {
+        // Ẩn nội dung admin
+        adminContent.style.display = 'none';
+        // Hiển thị form đăng nhập
+        loginForm.style.display = 'block';
+
+        // Xử lý đăng nhập
+        document.getElementById('login-button').onclick = function () {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === 'admin') {
+                // Hiển thị lại nội dung admin
+                loginForm.style.display = 'none';
+                adminContent.style.display = 'block';
+            } else {
+                alert('Tên đăng nhập hoặc mật khẩu không đúng!');
+            }
+        };
+    }
+};
+</script>
 </html>
