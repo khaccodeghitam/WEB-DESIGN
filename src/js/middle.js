@@ -576,3 +576,35 @@ function checkLoggedUser() {
         window.location.href = './giohang.html';
     }
 }
+
+function showBill() {
+    console.log("showBill function called");
+
+    const billArray = JSON.parse(localStorage.getItem('bill'));
+    if (!billArray || billArray.length === 0) {
+        console.log("Không có hóa đơn nào!");
+        return;
+    } else {
+        console.log("Bill array:", billArray);
+    }
+
+    const billTable = document.getElementById('bill-items');
+    if (!billTable) {
+        console.error("Không tìm thấy hóa đơn");
+        return;
+    }
+
+    billTable.innerHTML = '';
+    for (let i = 0; i < billArray.length; i++) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${billArray[i].id}</td>
+        <td>${billArray[i].info}</td>
+        <td>${billArray[i].totalprice} Đ</td>
+        <td>${billArray[i].customer.username}</td>
+        <td>${billArray[i].date}</td>
+        <td class="status">${billArray[i].status}</td>
+        `;
+        billTable.appendChild(row);
+    }
+}

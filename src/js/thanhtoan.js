@@ -1,12 +1,24 @@
 function check() {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    console.log("loggedInUser:", loggedInUser);
+
     if (!loggedInUser) {
-        console.error("No logged in user found");
+        alert("Bạn cần đăng nhập để thanh toán!");
+        window.location.href = "index.html"; // Quay về trang chủ
         return;
     }
 
-    /*Lấy thông tin người dùng đưa vào trang thanh toán*/
+    // Lấy key giỏ hàng của tài khoản hiện tại
+    const cartKey = `cart_${loggedInUser.username}`;
+    const cartArray = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+    // Kiểm tra nếu giỏ hàng trống
+    if (cartArray.length === 0) {
+        alert("Giỏ hàng trống, không thể thanh toán!");
+        window.location.href = "index.html"; // Quay về trang chủ
+        return;
+    }
+
+    // Điền thông tin người dùng vào trang thanh toán
     var name = document.getElementById("name");
     var email = document.getElementById("email");
     var phone = document.getElementById("phone");
@@ -14,35 +26,35 @@ function check() {
     var district = document.getElementById("district");
     var ward = document.getElementById("ward");
     var address = document.getElementById("address");
-    name.value = loggedInUser.fullname;
-    email.value = loggedInUser.email;
-    phone.value = loggedInUser.phone;
-    city.value = loggedInUser.address.city;
-    district.value = loggedInUser.address.district;
-    ward.value = loggedInUser.address.ward;
-    address.value = loggedInUser.address.address;
 
-    /*Lấy thông tin từ giỏ hàng đưa vào trang thanh toán*/
-    const cartArray = JSON.parse(localStorage.getItem('cart'));
+    name.value = loggedInUser.fullname || "";
+    email.value = loggedInUser.email || "";
+    phone.value = loggedInUser.phone || "";
+    city.value = loggedInUser.address?.city || "";
+    district.value = loggedInUser.address?.district || "";
+    ward.value = loggedInUser.address?.ward || "";
+    address.value = loggedInUser.address?.address || "";
+
+    // Hiển thị thông tin sản phẩm trong giỏ hàng
     const product = document.getElementsByClassName('order-summary')[0];
     const paidPrice = document.getElementsByClassName('paid-price')[0];
-    var info = '';
-    var total = 0;
+    let info = '';
+    let total = 0;
+
     for (let i = 0; i < cartArray.length; i++) {
-        if (cartArray[i] && cartArray[i].productName) {  
-            info += cartArray[i].productName + ' x ' + (cartArray[i].quantity || 0) + '; ';
+        if (cartArray[i]?.productName) {  
+            info += `${cartArray[i].productName} x ${cartArray[i].quantity || 0}; `;
             total += Number(cartArray[i].newPrice || 0) * Number(cartArray[i].quantity || 0);
         }
     }
-    console.log("info:", info);
-    console.log("total:", total);
-    
+
     const listProducts = document.createElement('div');
     listProducts.innerHTML = `${info}`;
     product.appendChild(listProducts);
 
     paidPrice.innerHTML = `${total} Đ`;
 }
+
 function paymentMethod(){
     const paymentMethod = document.getElementById("payment-method").value;
     if(paymentMethod === "Tiền mặt khi nhận hàng"){
@@ -57,36 +69,57 @@ function paymentMethod(){
         document.getElementById("bank").style.display = "block";
     }
 }
-function buy(){
-    const cartArray= JSON.parse(localStorage.getItem('cart'));
-    const paymentMethod = document.getElementById("payment-method").value;
-    var info = '';
-    var total = 0;
+function buy() {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (!loggedInUser) {
+        alert("Bạn cần đăng nhập để thanh toán!");
+        window.location.href = "index.html"; // Quay về trang chủ
+        return;
+    }
+
+    // Lấy key giỏ hàng
+    const cartKey = `cart_${loggedInUser.username}`;
+    const cartArray = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+    // Kiểm tra giỏ hàng
+    if (cartArray.length === 0) {
+        alert("Giỏ hàng trống, không thể thanh toán!");
+        window.location.href = "index.html"; // Quay về trang chủ
+        return;
+    }
+
+    // Xử lý thông tin hóa đơn
+    let info = '';
+    let total = 0;
+
     for (let i = 0; i < cartArray.length; i++) {
-        if (cartArray[i] && cartArray[i].productName) {  
-            info += cartArray[i].productName + ' x ' + (cartArray[i].quantity || 0) + '; ';
+        if (cartArray[i]?.productName) {  
+            info += `${cartArray[i].productName} x ${cartArray[i].quantity || 0}; `;
             total += Number(cartArray[i].newPrice || 0) * Number(cartArray[i].quantity || 0);
         }
     }
-    var customer = JSON.parse(localStorage.getItem('loggedInUser'));
-	var date = new Date();
-	var d = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
-	if(localStorage.getItem('bill')===null){
-		var billArray = [];
-		var bill = {id: billArray.length +100, info: info, totalprice: total, customer: customer, date: d, status: 'Chưa xử lí'};
-		billArray.unshift(bill);
-		localStorage.setItem('bill', JSON.stringify(billArray));
-	}
-	else{
-		var billArray = JSON.parse(localStorage.getItem('bill'));
-		var bill = {id: billArray.length +100, info: info, totalprice: total, customer: customer, date: d, status: 'Chưa xử lí'};
-		billArray.unshift(bill);
-		localStorage.setItem('bill', JSON.stringify(billArray));
-	}
-    clearCart();	
-    window.location.href = "giohang.html"
-}
-function clearCart() {
-    localStorage.removeItem('cart');
-    console.log("Cart data cleared");
+
+    const customer = loggedInUser;
+    const date = new Date();
+    const d = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    let billArray = JSON.parse(localStorage.getItem('bill')) || [];
+
+    const bill = {
+        id: billArray.length + 100,
+        info,
+        totalprice: total,
+        customer,
+        date: d,
+        status: 'Chưa xử lí',
+    };
+
+    billArray.unshift(bill);
+    localStorage.setItem('bill', JSON.stringify(billArray));
+
+    // Xóa giỏ hàng sau khi thanh toán
+    localStorage.removeItem(cartKey);
+
+    alert("Thanh toán thành công!");
+    window.location.href = "giohang.html"; // Chuyển hướng sau thanh toán
 }

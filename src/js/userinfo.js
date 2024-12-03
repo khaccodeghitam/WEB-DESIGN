@@ -63,7 +63,9 @@ const showAddressFormLink = document.getElementById('showAddressForm');
 const formInfoSection = document.querySelector('.form-info');
 const addressFormSection = document.getElementById('addressFormSection');
 const changePasswordForm = document.getElementById('passwordForm');
-const passwordSection = document.querySelector('.passwordSection')
+const passwordSection = document.querySelector('.passwordSection');
+// const showBillSection = document.getElementById('billForm')
+
 // Thêm sự kiện click cho nút "Sổ địa chỉ"
 showAddressFormLink.addEventListener('click', () => {
     // Ẩn phần "form-info"
@@ -71,6 +73,7 @@ showAddressFormLink.addEventListener('click', () => {
     changePasswordForm.style.display='none';
     // Hiện phần "add-address-form"
     addressFormSection.style.display = 'block';
+    showBillSection.style.display = 'none';
     
 });
 
@@ -79,6 +82,7 @@ showUserInfoLink.addEventListener('click',() =>{
     addressFormSection.style.display = 'none';
     changePasswordForm.style.display='none';
     formInfoSection.style.display='block';
+    showBillSection.style.display = 'none';
     
 });
 
@@ -87,7 +91,32 @@ showChangePasswordLink.addEventListener('click',()=>{
     formInfoSection.style.display = 'none';
     addressFormSection.style.display='none';
     changePasswordForm.style.display='block';
+    showBillSection.style.display = 'none';
+
 });
+
+
+// const showBillFormLink = document.getElementById('showBillForm');
+// showBillFormLink.addEventListener('click',()=>{
+//     passwordSection.style.display='none';
+//     formInfoSection.style.display='none';
+//     addressFormSection.style.display='none';
+//     changePasswordForm.style.display='none';
+//     showBillSection.style.display = 'block';
+//     showBill();
+// });
+
+document.getElementById('showBillForm').addEventListener('click', function () {
+    hideAllSections(); // Ẩn tất cả các form khác
+    document.getElementById('billForm').style.display = 'block'; // Hiển thị bill-container
+    showBill();
+});
+
+function hideAllSections() {
+    document.querySelectorAll('.right-content > div').forEach(div => {
+        div.style.display = 'none';
+    });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const addNewAddressBtn = document.getElementById("addNewAddressBtn");
@@ -141,3 +170,4 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     }
 });
+

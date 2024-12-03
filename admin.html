@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="./src/css/middle.css">
     <link rel="stylesheet" href="./src/css/admin.css">
     <link rel="stylesheet" href="./src/css/thongke.css">
+    <link rel="stylesheet" href="./src/css/bill.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý sản phẩm</title>
@@ -18,7 +19,7 @@
                 <li><img src="src/icon/book.svg"><a href="admin.html">Sản phẩm</a></li>
                 <li><img src="src/icon/file-circle-plus-solid.svg"><button onclick="showEditForm()" class="add-product-btn">Thêm sản phẩm</button>
                 </li>
-                <li><img src="src/icon/bill.svg"><a href="bill.html">Đơn hàng</a></li>
+                <li><img src="src/icon/bill.svg"><a href="javascript:void(0);" onclick="showHoaDon()">Đơn hàng</a></li>
                 <li><img src="src/icon/groupuser.svg"><a href="users.html">Khách hàng</a></li>
                 <li><img src="src/icon/statistics-svgrepo-com.svg"><a href="javascript:void(0);" onclick="showThongKe()">Thống kê</a></li>
             </ul>
@@ -163,12 +164,74 @@
                         </div>
                     </div>
                 </div>
+                <div id="bill-admin-management" style="display: none;">
+                <div class="bill-admin">
+                    <div>
+                        <form class="search-form">
+                            <label for="billid">Bill ID</label>
+                            <input type="text" id="billid" name="billid" placeholder="">
+                            
+                            <label for="date">Ngày đặt</label>
+                            <input type="text" id="date" name="date" placeholder="ngày/tháng/năm">
+                            
+                            <label for="address">Địa chỉ</label>
+                            <select id="city-select" aria-label=".form-select-sm">
+                                <option value="all">Chọn tỉnh thành</option>
+                            </select>
+
+                            <label for="status">Trạng thái</label>
+                            <select name="status" id="status-bill">
+                                <option value="all">Tất cả</option>
+                                <option value="Chưa xử lí">Chưa xử lí</option>
+                                <option value="Đã xác nhận">Đã xác nhận</option>
+                                <option value="Đang giao">Đang giao</option>
+                                <option value="Hoàn thành">Hoàn thành</option>
+                                <option value="Hủy">Hủy</option>
+                            </select>
+                            
+                            <button type="submit" class="btn-search">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div>
+                        <!-- Phần danh sách sản phẩm -->
+                        <div class="bill-manage">
+                            <h2>Danh sách đơn hàng</h2>
+                            <table id="bill-table">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Người đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Danh sách được tạo tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> 
+
+                <div id="overlay" class="overlay">
+                    <div class="overlay-content">
+                        <span class="close-btn" onclick="closeOverlay()">&times;</span>
+                        <div id="order-details">
+                            <!-- Chi tiết hóa đơn cho admin -->
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>
    
 </body>
+
 <script src="./src/js/manage-products.js"></script>
 <script src="./src/js/dndk.js"></script>
 <script src="./src/js/middle.js"></script>
+<script src="./src/js/bill.js"></script>
+
 </html>

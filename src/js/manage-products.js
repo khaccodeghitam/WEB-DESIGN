@@ -336,6 +336,21 @@ function showThongKe() {
 }
 //End thống kê
 
+function showHoaDon() {
+    const hoaDonSection = document.getElementById('bill-admin-management')
+    const thongKeSection = document.getElementById('thongke');
+    const productManageSection = document.querySelector('.product-manage');
+    const searchContainer = document.querySelector('.search-container');
+    document.getElementById("pageadmin").style.display='none';
+
+    thongKeSection.style.display = 'none';
+    productManageSection.style.display = 'none';
+    searchContainer.style.display = 'none';
+    hoaDonSection.style.display ='block';
+    const orderInfo = JSON.parse(localStorage.getItem('bill')) || [];
+    renderOrders(orderInfo);
+}
+
 // Khi trang tải, đảm bảo currentId được khởi tạo và hiển thị danh sách sản phẩm
 document.addEventListener("DOMContentLoaded", () => {
     normalizeProductData();

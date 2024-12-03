@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./src/css/giohang.css">
         <link rel="stylesheet" href="./src/css/advancedsearch.css">
         <link rel="stylesheet" href="./src/css/password.css">
         <link rel="stylesheet" href="./src/css/sodiachi.css">
@@ -15,7 +16,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     </head>
-    <body onload="showProducts()">
+    <body onload="showProducts(),showBill(),cartList()">
         <div id="wrapper">
             <!-- Phần header -->
             <div id="nav">
@@ -238,7 +239,7 @@
                         </div>
                             <div class="but">
                             <!-- <button class="btn btn--buy" onclick="handleBuyNow()">Mua Ngay</button> -->
-                            <button class="btn btn--addcart" onclick="addToCart()"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
+                            <button class="btn btn--addcart" onclick="addToCart(productID)"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
                         </div>
                         </div>
                         </div>
@@ -395,7 +396,7 @@
                                             <img src="./src/icon/giaohang.svg">
                                         </div>
                                         <strong>
-                                            <a href="https://...">Đơn hàng của tôi</a>
+                                            <a href="javascript:void(0);" id="showBillForm">Đơn hàng của tôi</a>
                                         </strong>
                                     </div>
                                 </li>
@@ -504,6 +505,16 @@
                         </form>
                     </div>
                 </div>
+                <div class="bill-container" id="billForm" style="display: none;">
+                    <h4>Đơn hàng của bạn</h4>
+                    <div class="bill-list">
+                        <table>
+                            <tbody id="bill-items">
+                                <!-- Các sản phẩm đã đặt -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
                 </div>
             </div>
 
@@ -529,7 +540,7 @@
              </div>
         </div>    
     </body>
-    <script src="./src/js/cart.js"></script>
+    
     <script src="./src/js/advancedsearch.js"></script>
     <script src="./src/js/userinfo.js"></script>
     <script src="./src/js/manage-products.js"></script>
@@ -538,5 +549,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="./src/js/sodiachijs.js"></script>
     <script src="./src/js/trangspjs.js"></script>
-    
+    <script src="./src/js/cart.js"></script>
 </html>
