@@ -70,21 +70,17 @@ function ktDangKi() {
 
     // Kiểm tra tên người dùng đã tồn tại chưa
     const users = JSON.parse(localStorage.getItem('users')) || [];
+    const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
     const userExists = users.some(user => user.username === username);
     if (userExists) {
         alert("Tên người dùng đã tồn tại!");
         return false;
     }
 
-    // Lấy ngày đăng ký
-    const currentDate = new Date();
-    const day = String(currentDate.getDate()).padStart(2, '0');  
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');  
-    const year = currentDate.getFullYear();
-    const registrationDate = `${day}-${month}-${year}`;  
+    // Tạo ID mới không trùng lặp
+    const userId = generateUniqueId(users, deletedUsers);
 
     // Tạo đối tượng người dùng
-    const userId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1001; // Tạo ID tự động
     const user = {
         id: userId,  // Gán id duy nhất cho người dùng
         username: username,
@@ -99,7 +95,7 @@ function ktDangKi() {
             gioiTinh: "",
             birthday: { ngay: "", thang: "", nam: "" },
         },
-        ngaydangki: registrationDate, 
+        registrationDate: new Date().toISOString().split('T')[0], // Ngày đăng ký
     };
 
     // Lưu thông tin người dùng vào localStorage
@@ -480,34 +476,49 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCustomerTable(users); // Gọi hàm để cập nhật bảng sau khi trang tải
 });
 
+//Sao chép người dùng bị xóa sang localStorage khác
+function generateUniqueId(users, deletedUsers) {
+    const allIds = users.map(u => u.id).concat(deletedUsers.map(u => u.id));
+    let newId = allIds.length > 0 ? Math.max(...allIds) + 1 : 1001;
+
+    // Kiểm tra và thay đổi ID nếu trùng
+    while (allIds.includes(newId)) {
+        newId += 1;
+    }
+    return newId;
+}
+
 
 // Thêm người dùng mới
 function addUser(ho, ten, username) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1001;
+    const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
+
+    const newId = generateUniqueId(users, deletedUsers);
+
     const newUser = {
-        id: newId, // ID cố định
+        id: newId,
         info: { ho, ten },
         username,
-        registrationDate: new Date().toISOString().split('T')[0], // Ngày đăng ký
+        registrationDate: new Date().toISOString().split('T')[0],
     };
     users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users)); // Lưu vào localStorage
-    updateCustomerTable(users); // Cập nhật bảng sau khi thêm
+    localStorage.setItem('users', JSON.stringify(users));
+    updateCustomerTable(users);
 }
+
 
 
 // Cập nhật bảng danh sách người dùng
 function updateCustomerTable(users) {
     const customerList = document.getElementById('customer-list');
-    customerList.innerHTML = ''; // Xóa dữ liệu cũ
+    customerList.innerHTML = '';
 
     if (users.length === 0) {
         customerList.innerHTML = '<tr><td colspan="5">Không tìm thấy người dùng nào</td></tr>';
         return;
     }
 
-    // Duyệt qua danh sách người dùng và hiển thị
     users.forEach(user => {
         const row = document.createElement('tr');
         const userId = user.id;
@@ -530,6 +541,7 @@ function updateCustomerTable(users) {
 }
 
 
+
 // Sửa thông tin người dùng
 function editCustomer(id) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -545,26 +557,30 @@ function editCustomer(id) {
         updateCustomerTable(users); // Cập nhật bảng
     }
 }
-
-// Xóa người dùng
 function deleteCustomer(userId) {
-    // Xác nhận xem người dùng có muốn xóa không
     if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
-        // Lấy danh sách người dùng từ localStorage
         const users = JSON.parse(localStorage.getItem('users')) || [];
+        const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
 
-        // Tìm và xóa người dùng có id khớp
+        // Tìm người dùng bị xóa
+        const userToDelete = users.find(user => user.id === userId);
+
+        // Lưu thông tin người dùng bị xóa vào 'deletedUsers'
+        if (userToDelete) {
+            deletedUsers.push(userToDelete);
+            localStorage.setItem('deletedUsers', JSON.stringify(deletedUsers));
+        }
+
+        // Tạo danh sách người dùng mới không chứa người dùng bị xóa
         const updatedUsers = users.filter(user => user.id !== userId);
 
-        // Lưu lại danh sách người dùng đã được cập nhật vào localStorage
         localStorage.setItem('users', JSON.stringify(updatedUsers));
-
-        // Cập nhật lại bảng danh sách người dùng
-        updateCustomerTable(updatedUsers); // Cập nhật lại bảng hiển thị
+        updateCustomerTable(updatedUsers);
 
         alert("Người dùng đã được xóa!");
     }
 }
+
 // Tìm kiếm người dùng
 
 // Tìm kiếm người dùng

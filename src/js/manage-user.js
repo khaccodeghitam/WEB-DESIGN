@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     updateCustomerTable(users); // Gọi hàm để cập nhật bảng sau khi trang tải
 });
+// Đănng nhập admin bằng URL, sau khi đăng xuất thì đăng nhập lại
 document.addEventListener('DOMContentLoaded', function () {
     const url = window.location.pathname;
     const adminContent = document.querySelector('.wrapper'); // Phần nội dung gốc
