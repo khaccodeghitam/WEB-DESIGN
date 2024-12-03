@@ -342,3 +342,75 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeCurrentId();
     renderProducts();
 });
+
+// Khi trang tải, đảm bảo currentId được khởi tạo và hiển thị danh sách sản phẩm
+document.addEventListener("DOMContentLoaded", () => {
+    normalizeProductData();
+    initializeCurrentId();
+    renderProducts();
+});
+
+// Hiển thị bảng tìm kiếm khách hàng
+function showsearchcustomer() {
+    const searchCustomer = document.getElementById('search-customer'); // Lấy div tìm kiếm khách hàng
+    const customerButton = document.querySelector('.dashboard .product'); // Lấy nút tìm kiếm khách hàng
+
+    // Hiển thị div tìm kiếm và ẩn nút tìm kiếm
+    searchCustomer.style.display = 'block';
+    customerButton.style.display = 'none';
+}
+
+// Đóng bảng tìm kiếm
+function closesearch() {
+    const searchProduct = document.getElementById('search-product');
+    const productButton = document.querySelector('.product-manage .product');
+
+    const searchCustomer = document.getElementById('search-customer');
+    const customerButton = document.querySelector('.dashboard .product');
+
+    // Ẩn cả hai div tìm kiếm và hiển thị lại nút tìm kiếm
+    searchProduct.style.display = 'none';
+    productButton.style.display = 'inline-block';
+
+    searchCustomer.style.display = 'none';
+    customerButton.style.display = 'inline-block';
+}
+
+
+// Hàm hiển thị danh sách sản phẩm
+function showproductlist() {
+    const productManage = document.querySelector('.product-manage');
+    const dashboard = document.querySelector('.dashboard');
+    const searchCustomer = document.getElementById('search-customer');
+    
+
+    // Hiển thị product-manage, ẩn dashboard
+    productManage.style.display = 'block';
+    dashboard.style.display = 'none';
+    searchCustomer.style.display = 'none';
+}
+
+// Hàm hiển thị danh sách khách hàng
+function showcustomerlist() {
+    const productManage = document.querySelector('.product-manage');
+    const dashboard = document.querySelector('.dashboard');
+    const searchProduct = document.getElementById('search-product');
+    const editFormContainer = document.getElementById("edit-form-container");
+
+
+
+    // Hiển thị dashboard, ẩn product-manage
+    dashboard.style.display = 'block';
+    productManage.style.display = 'none';
+    searchProduct.style.display = 'none';
+    editFormContainer.style.display = 'none';
+
+}
+
+// Ẩn cả hai div ban đầu để không hiển thị cùng lúc
+window.onload = function() {
+    const productManage = document.querySelector('.product-manage');
+    const dashboard = document.querySelector('.dashboard');
+    productManage.style.display = 'none';
+    dashboard.style.display = 'none';
+};

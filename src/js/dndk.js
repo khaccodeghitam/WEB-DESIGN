@@ -226,82 +226,82 @@ document.getElementById("updateButton").addEventListener("click", function() {
 //     });
 // });
 
-    function updateUI() {
-        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); 
-    
-        const notiMenu = document.querySelector('.noti-menu');
-        const notiDropdown = notiMenu.querySelector('.noti-dropdown');
-        const welcomeMessage = document.getElementById('welcome-message');
-        const usernameDisplay = document.getElementById('username-display');
-        if (loggedInUser) {
-            // Đã đăng nhập: ẩn bảng đăng nhập/đăng ký, hiển thị tên người dùng
-            notLoggedInMenu.style.display = "none";
-            notiDropdown.style.display="none";
-            welcomeMessage.style.display = 'flex';
-            usernameDisplay.textContent = loggedInUser.username;
-        } else {
-            // Chưa đăng nhập: hiển thị bảng đăng nhập/đăng ký khi hover
-            welcomeMessage.style.display = 'none';
-            accountMenu.addEventListener('mouseenter', () => {
-                notLoggedInMenu.style.display = "block"; 
-            });
-    
-            accountMenu.addEventListener('mouseleave', () => {
-                // Ẩn bảng khi rời khỏi nút tài khoản sau 200ms (để xử lý vùng trống nhỏ)
-                setTimeout(() => {
-                    if (!notLoggedInMenu.matches(':hover')) {
-                        notLoggedInMenu.style.display = "none";
-                    }
-                }, 200);
-            });
-    
-            notLoggedInMenu.addEventListener('mouseleave', () => {
-                // Ẩn bảng khi rời khỏi bảng
-                notLoggedInMenu.style.display = "none";
-            });
-            notiMenu.addEventListener('mouseenter', () => {
-                if (!loggedInUser) {
-                    notiDropdown.style.display = "block";
+  
+function updateUI() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); 
+
+    const accountMenu = document.querySelector('.account-menu'); 
+    const notLoggedInMenu = document.querySelector('.account-dropdown');  
+    const notiMenu = document.querySelector('.noti-menu');
+    const notiDropdown = notiMenu.querySelector('.noti-dropdown');
+    const welcomeMessage = document.getElementById('welcome-message');
+    const usernameDisplay = document.getElementById('username-display');
+    if (loggedInUser) {
+        // Đã đăng nhập: ẩn bảng đăng nhập/đăng ký, hiển thị tên người dùng
+        notLoggedInMenu.style.display = "none";
+        notiDropdown.style.display="none";
+        welcomeMessage.style.display = 'flex';
+        usernameDisplay.textContent = loggedInUser.username;
+    } else {
+        // Chưa đăng nhập: hiển thị bảng đăng nhập/đăng ký khi hover
+        welcomeMessage.style.display = 'none';
+        accountMenu.addEventListener('mouseenter', () => {
+            notLoggedInMenu.style.display = "block"; 
+        });
+
+        accountMenu.addEventListener('mouseleave', () => {
+            // Ẩn bảng khi rời khỏi nút tài khoản sau 200ms (để xử lý vùng trống nhỏ)
+            setTimeout(() => {
+                if (!notLoggedInMenu.matches(':hover')) {
+                    notLoggedInMenu.style.display = "none";
                 }
-            });
-    
-            notiMenu.addEventListener('mouseleave', () => {
-                setTimeout(() => {
-                    if (!notiDropdown.matches(':hover')) {
-                        notiDropdown.style.display = "none";
-                    }
-                }, 200);
-            });
-    
-            notiDropdown.addEventListener('mouseleave', () => {
-                notiDropdown.style.display = "none";
-            });
-        }
+            }, 200);
+        });
 
-        if (loggedInUser && loggedInUser.info) {
-            const { ho, ten, sdt, email, gioiTinh, birthday } = loggedInUser.info;
-    
-            // Gán các giá trị vào form
-            document.getElementById("ho").value = ho || "";
-            document.getElementById("ten").value = ten || "";
-            document.getElementById("sdt").value = sdt || "";
-            document.getElementById("email").value = email || "";
-            if (gioiTinh) {
-                document.querySelector(`input[name="gioi_tinh"][value="${gioiTinh}"]`).checked = true;
+        notLoggedInMenu.addEventListener('mouseleave', () => {
+            // Ẩn bảng khi rời khỏi bảng
+            notLoggedInMenu.style.display = "none";
+        });
+        notiMenu.addEventListener('mouseenter', () => {
+            if (!loggedInUser) {
+                notiDropdown.style.display = "block";
             }
-            if (birthday) {
-                document.getElementById("ngay").value = birthday.ngay || "";
-                document.getElementById("thang").value = birthday.thang || "";
-                document.getElementById("nam").value = birthday.nam || "";
-            }
-        } else {
-            console.log("Không có người dùng nào đăng nhập hoặc thông tin bị thiếu.");
-        }
+        });
 
-       
-        
+        notiMenu.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                if (!notiDropdown.matches(':hover')) {
+                    notiDropdown.style.display = "none";
+                }
+            }, 200);
+        });
 
+        notiDropdown.addEventListener('mouseleave', () => {
+            notiDropdown.style.display = "none";
+        });
     }
+
+    if (loggedInUser && loggedInUser.info) {
+        const { ho, ten, sdt, email, gioiTinh, birthday } = loggedInUser.info;
+
+        // Gán các giá trị vào form
+        document.getElementById("ho").value = ho || "";
+        document.getElementById("ten").value = ten || "";
+        document.getElementById("sdt").value = sdt || "";
+        document.getElementById("email").value = email || "";
+        if (gioiTinh) {
+            document.querySelector(`input[name="gioi_tinh"][value="${gioiTinh}"]`).checked = true;
+        }
+        if (birthday) {
+            document.getElementById("ngay").value = birthday.ngay || "";
+            document.getElementById("thang").value = birthday.thang || "";
+            document.getElementById("nam").value = birthday.nam || "";
+        }
+    } else {
+        console.log("Không có người dùng nào đăng nhập hoặc thông tin bị thiếu.");
+    }
+
+}
 
 
 
