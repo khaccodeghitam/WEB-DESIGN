@@ -322,39 +322,36 @@ function searchProduct() {
     });
   } // End search
 
-
-
 //Start thống kê
 function showThongKe() {
-
+    
     const thongKeSection = document.getElementById('thongke');
     const productManageSection = document.querySelector('.product-manage');
     const searchContainer = document.querySelector('.search-container');
-    const editFormContainer = document.getElementById("edit-form-container");
-    const dashboard = document.querySelector('.dashboard');
-    const searchProduct = document.getElementById('search-product');
-
-
-    
     document.getElementById("pageadmin").style.display='none';
 
     thongKeSection.style.display = 'block';
     productManageSection.style.display = 'none';
     searchContainer.style.display = 'none';
-    dashboard.style.display = 'none';
-    editFormContainer.style.display = 'none';
-    searchProduct.style.display = 'none';
-
-
 }
 //End thống kê
 
-// Khi trang tải, đảm bảo currentId được khởi tạo và hiển thị danh sách sản phẩm
-document.addEventListener("DOMContentLoaded", () => {
-    normalizeProductData();
-    initializeCurrentId();
-    renderProducts();
-});
+function showHoaDon() {
+    const hoaDonSection = document.getElementById('bill-admin-management')
+    const thongKeSection = document.getElementById('thongke');
+    const productManageSection = document.querySelector('.product-manage');
+    const searchContainer = document.querySelector('.search-container');
+    document.getElementById("pageadmin").style.display='none';
+
+    thongKeSection.style.display = 'none';
+    productManageSection.style.display = 'none';
+    searchContainer.style.display = 'none';
+    hoaDonSection.style.display ='block';
+    const orderInfo = JSON.parse(localStorage.getItem('bill')) || [];
+    renderOrders(orderInfo);
+}
+
+
 
 // Khi trang tải, đảm bảo currentId được khởi tạo và hiển thị danh sách sản phẩm
 document.addEventListener("DOMContentLoaded", () => {
@@ -363,7 +360,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts();
 });
 
-// Hiển thị bảng tìm kiếm khách hàng
 function showsearchcustomer() {
     const searchCustomer = document.getElementById('search-customer'); // Lấy div tìm kiếm khách hàng
     const customerButton = document.querySelector('.dashboard .product'); // Lấy nút tìm kiếm khách hàng
@@ -421,19 +417,19 @@ function showcustomerlist() {
     editFormContainer.style.display = 'none';
     editThongKe.style.display = 'none';
 }
-// Ẩn cả hai div ban đầu để không hiển thị cùng lúc
-window.onload = function() {
-    const productManage = document.querySelector('.product-manage');
-    const dashboard = document.querySelector('.dashboard');
-    const searchProduct = document.getElementById('search-product');
-    const editFormContainer = document.getElementById("edit-form-container");
-    const editThongKe = document.getElementById('thongke');
+// // Ẩn cả hai div ban đầu để không hiển thị cùng lúc
+// window.onload = function() {
+//     const productManage = document.querySelector('.product-manage');
+//     const dashboard = document.querySelector('.dashboard');
+//     const searchProduct = document.getElementById('search-product');
+//     const editFormContainer = document.getElementById("edit-form-container");
+//     const editThongKe = document.getElementById('thongke');
 
-    // Hiển thị dashboard, ẩn product-manage
-    dashboard.style.display = 'none';
-    productManage.style.display = 'block';
-    searchProduct.style.display = 'none';
-    editFormContainer.style.display = 'none';
-    editThongKe.style.display = 'none';
+//     // Hiển thị dashboard, ẩn product-manage
+//     dashboard.style.display = 'none';
+//     productManage.style.display = 'block';
+//     searchProduct.style.display = 'none';
+//     editFormContainer.style.display = 'none';
+//     editThongKe.style.display = 'none';
 
-};
+// };
