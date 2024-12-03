@@ -45,6 +45,10 @@ function showEditForm() {
     document.querySelector('.product-manage').style.display = 'none';
     document.querySelector('.search-container').style.display = 'none';
     document.getElementById("pageadmin").style.display='none';
+    document.getElementById
+    document.querySelector('.dashboard').style.display = 'none';
+    document.getElementById('thongke').style.display = 'none';
+
     //form thêm sản phẩm
     const editFormContainer = document.getElementById("edit-form-container");
     editFormContainer.style.display = 'block';

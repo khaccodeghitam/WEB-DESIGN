@@ -322,17 +322,120 @@ function searchProduct() {
     });
   } // End search
 
+
+  function showEditForm() {
+    // Ẩn phần quản lý sản phẩm và tìm kiếm
+    document.querySelector('.product-manage').style.display = 'none';
+    document.querySelector('.search-container').style.display = 'none';
+    document.getElementById("pageadmin").style.display='none';
+    document.getElementById
+    document.querySelector('.dashboard').style.display = 'none';
+    document.getElementById('thongke').style.display = 'none';
+
+    //form thêm sản phẩm
+    const editFormContainer = document.getElementById("edit-form-container");
+    editFormContainer.style.display = 'block';
+    
+    editFormContainer.innerHTML = `
+        <div class="form-container">
+            <h3>Thêm sản phẩm mới</h3>
+            <form id="edit-form">
+                <label for="product-name">Tên sản phẩm:</label>
+                <input type="text" id="product-name" name="product-name">
+
+                <label for="old-price">Giá cũ:</label>
+                <input type="number" id="old-price" name="old-price">
+
+                <label for="new-price">Giá mới:</label>
+                <input type="number" id="new-price" name="new-price">
+
+            <label for="category">Thể Loại:</label>
+            <select id="category" name="category">
+            <option value="" disabled selected>Chọn Thể Loại</option>
+
+                    <option value="Tiểu thuyết">Tiểu thuyết</option>
+                    <option value="Truyện ngắn">Truyện ngắn</option>
+                    <option value="Ngôn tình">Ngôn tình</option>
+               
+               
+                    <option value="Bài học kinh doanh">Bài học kinh doanh</option>
+                    <option value="Quản trị - Lãnh đạo">Quản trị - Lãnh đạo</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Phân tích kinh tế">Phân tích kinh tế</option>
+                
+                
+                    <option value="Chọn thể loại">Chọn thể loại</option>
+                    <option value="Sách giáo khoa">Sách giáo khoa</option>
+                    <option value="Sách luyện thi THPTQG">Sách luyện thi THPTQG</option>
+                    <option value="Sách mẫu giáo">Sách mẫu giáo</option>
+                
+                
+                    <option value="Kỹ năng sống">Kỹ năng sống</option>
+                    <option value="Rèn luyện nhân cách">Rèn luyện nhân cách</option>
+                    <option value="Tâm lý">Tâm lý</option>
+                    <option value="Sách cho tuổi mới lớn">Sách cho tuổi mới lớn</option>
+                
+                
+                    <option value="Manga (Nhật Bản)">Manga (Nhật Bản)</option>
+                    <option value="Manhwa (Hàn Quốc)">Manhwa (Hàn Quốc)</option>
+                    <option value="Manhua (Trung Quốc)">Manhua (Trung Quốc)</option>
+                    <option value="Comic (Phương Tây)">Comic (Phương Tây)</option>
+                    <option value="Truyện tranh thiếu nhi">Truyện tranh thiếu nhi</option>
+                
+            </select>
+
+
+                <label for="supplier">Nhà cung cấp:</label>
+                <input type="text" id="supplier" name="supplier">
+
+                <label for="publisher">Nhà xuất bản:</label>
+                <input type="text" id="publisher" name="publisher">
+
+                <label for="author">Tác giả:</label>
+                <input type="text" id="author" name="author">
+
+                <label for="form">Hình thức:</label>
+                <input type="text" id="form" name="form">
+
+                <label for="description">Mô tả sản phẩm:</label>
+                <textarea id="description" name="description" oninput="adjustHeight(this)"></textarea>
+                
+                <label for="product-image">Thêm hình ảnh:</label>
+                <input type="file" id="product-image" name="product-image" accept="image/*" onchange="previewImage(event)">
+                <img id="image-preview" style="display: none; max-width: 200px; margin-top: 10px;">
+                <div class="btn-edit-form">
+                    <button type="button" onclick="goBack()">Quay lại</button>
+                    <button type="button" onclick="submitEditForm()">Thêm</button>
+                </div>
+            </form>
+        </div>
+    `;
+    return false;
+}
+
+
 //Start thống kê
 function showThongKe() {
-    
+
     const thongKeSection = document.getElementById('thongke');
     const productManageSection = document.querySelector('.product-manage');
     const searchContainer = document.querySelector('.search-container');
+    const editFormContainer = document.getElementById("edit-form-container");
+    const dashboard = document.querySelector('.dashboard');
+    const searchProduct = document.getElementById('search-product');
+
+
+    
     document.getElementById("pageadmin").style.display='none';
 
     thongKeSection.style.display = 'block';
     productManageSection.style.display = 'none';
     searchContainer.style.display = 'none';
+    dashboard.style.display = 'none';
+    editFormContainer.style.display = 'none';
+    searchProduct.style.display = 'none';
+
+
 }
 //End thống kê
 
@@ -382,12 +485,15 @@ function showproductlist() {
     const productManage = document.querySelector('.product-manage');
     const dashboard = document.querySelector('.dashboard');
     const searchCustomer = document.getElementById('search-customer');
-    
+    const editFormContainer = document.getElementById("edit-form-container");
+
 
     // Hiển thị product-manage, ẩn dashboard
     productManage.style.display = 'block';
     dashboard.style.display = 'none';
     searchCustomer.style.display = 'none';
+    editFormContainer.style.display = 'none';
+
 }
 
 // Hàm hiển thị danh sách khách hàng
@@ -396,21 +502,28 @@ function showcustomerlist() {
     const dashboard = document.querySelector('.dashboard');
     const searchProduct = document.getElementById('search-product');
     const editFormContainer = document.getElementById("edit-form-container");
-
-
+    const editThongKe = document.getElementById('thongke');
 
     // Hiển thị dashboard, ẩn product-manage
     dashboard.style.display = 'block';
     productManage.style.display = 'none';
     searchProduct.style.display = 'none';
     editFormContainer.style.display = 'none';
-
+    editThongKe.style.display = 'none';
 }
-
 // Ẩn cả hai div ban đầu để không hiển thị cùng lúc
 window.onload = function() {
     const productManage = document.querySelector('.product-manage');
     const dashboard = document.querySelector('.dashboard');
-    productManage.style.display = 'none';
+    const searchProduct = document.getElementById('search-product');
+    const editFormContainer = document.getElementById("edit-form-container");
+    const editThongKe = document.getElementById('thongke');
+
+    // Hiển thị dashboard, ẩn product-manage
     dashboard.style.display = 'none';
+    productManage.style.display = 'block';
+    searchProduct.style.display = 'none';
+    editFormContainer.style.display = 'none';
+    editThongKe.style.display = 'none';
+
 };
