@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./src/css/middle.css">
+    <link rel="stylesheet" href="./src/css/admin.css">
+    <link rel="stylesheet" href="./src/css/thongke.css">
+    <link rel="stylesheet" href="./src/css/bill.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm</title>
+    
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="logo"><img src="./src/img/BookBay2.png" alt="BOOKBAY"></div>
+            <ul>
+                <li><img src="src/icon/home.svg"><a href="index.html">Trang chủ</a></li>
+                <li><img src="src/icon/book.svg"><a href="admin.html">Sản phẩm</a></li>
+                <li><img src="src/icon/file-circle-plus-solid.svg"><button onclick="showEditForm()" class="add-product-btn">Thêm sản phẩm</button>
+                </li>
+                <li><img src="src/icon/bill.svg"><a href="javascript:void(0);" onclick="showHoaDon()">Đơn hàng</a></li>
+                <li><img src="src/icon/groupuser.svg"><a href="users.html">Khách hàng</a></li>
+                <li><img src="src/icon/statistics-svgrepo-com.svg"><a href="javascript:void(0);" onclick="showThongKe()">Thống kê</a></li>
+            </ul>
+        </div>
+
+        <!-- Phần header -->
+        <div class="main_content">
+            <div class="header">
+                <div class="admin-header">
+                    <div id="welcome-admin">
+                        Chủ Quán Sách
+                        <button class="btn-admin-logout" onclick="logout()">Đăng Xuất</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Phần middle -->
+            <div class="info">
+                <div>
+                    <!-- Phần danh sách sản phẩm -->
+                    <div class="product-manage">
+                        <h2>Danh sách sản phẩm</h2>
+                        <table id="product-table">
+                            <thead>
+                                <tr>
+                                    <th>#ID</th>
+                                    <th>Ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Thể loại</th>
+                                    <th>Tác giả</th>
+                                    <th>Giá</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Sản phẩm sẽ được thêm động từ JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="pageadmin">
+                                
+                    </div>
+                    <!-- Phần tìm kiếm -->
+                    <div class="search-container">
+                        <form action="/search" method="GET">
+                            <!-- Ô nhập dữ liệu tìm kiếm -->
+                            <label for="category" class="category-label">Tên</label>
+                            <input type="text" name="query" id="searchproductname" class="search-box" placeholder="Nhập từ khóa tìm kiếm..." oninput="searchProduct()">
+
+                            <!-- Dropdown chọn thể loại -->
+                            <label for="category" class="category-label">Thể loại</label>
+                            <select name="category" id="searchproductcategory" class="category-select" onchange="searchProduct()" >
+                                <option value="all">Tất cả</option>
+                                <option value="Tiểu thuyết">Tiểu Thuyết</option>
+                                <option value="Truyện ngắn">Truyện Ngắn</option>
+                                <option value="Ngôn tình">Ngôn Tình</option>
+                                <option value="Bài học kinh doanh">Bài Học Kinh Doanh</option>
+                                <option value="Quản trị - Lãnh đạo">Quản Trị - Lãnh Đạo</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Phân tích kinh tế">Phân Tích Kinh Tế</option>
+                                <option value="Sách giáo khoa">Sách Giáo Khoa</option>
+                                <option value="Sách luyện thi THPTQG">Sách Luyện Thi THPTQG</option>
+                                <option value="Sách mẫu giáo">Sách Mẫu Giáo</option>
+                                <option value="Kỹ năng sống">Kỹ Năng Sống</option>
+                                <option value="Rèn luyện nhân cách">Rèn Luyện Nhân Cách</option>
+                                <option value="Tâm lý">Tâm Lý</option>
+                                <option value="Sách cho tuổi mới lớn">Sách Cho Tuổi Mới Lớn</option>
+                                <option value="Manga (Nhật Bản)">Manga (Nhật Bản)</option>
+                                <option value="Manhwa (Hàn Quốc)">Manhwa (Hàn Quốc)</option>
+                                <option value="Manhua (Trung Quốc)">Manhua (Trung Quốc)</option>
+                                <option value="Comic (Phương Tây)">Comic (Phương Tây)</option>
+                                <option value="Truyện tranh thiếu nhi">Truyện tranh thiếu nhi</option>
+                            </select>
+
+                        </form>
+                    </div>
+                    <div id="edit-form-container" class="edit-form-container"></div>
+                    <div id="thongke" style="display: none;">
+                        <div class="thongke-sanpham">
+                            <h2>Thống kê sản phẩm</h2>
+                            <table id="bang-thongke">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng bán ra</th>
+                                        <th>Tổng tiền thu được</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Sản phẩm sẽ được thêm động từ JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="thongke-banchay">
+                            <h2>5 Sản phẩm bán chạy nhất</h2>
+                            <table id="sanpham-banchay">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng bán ra</th>
+                                        <th>Tổng tiền thu được</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- sản phẩm được thống kê tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="thongke-bane">
+                            <h2>5 Sản phẩm bán ế nhất</h2>
+                            <table id="sanpham-bane">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng bán ra</th>
+                                        <th>Tổng tiền thu được</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- sản phẩm được thống kê tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="thongke-khachhang">
+                            <h2>5 Khách hàng chi nhiều nhất</h2>
+                            <table id="khachhang-chitieu">
+                                <thead>
+                                    <tr>
+                                        <th>ID Khách hàng</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Tổng chi</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- khách hàng được thống kê tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="bill-admin-management" style="display: none;">
+                <div class="bill-admin">
+                    <div>
+                        <form class="search-form">
+                            <label for="billid">Bill ID</label>
+                            <input type="text" id="billid" name="billid" placeholder="">
+                            
+                            <label for="date">Ngày đặt</label>
+                            <input type="text" id="date" name="date" placeholder="ngày/tháng/năm">
+                            
+                            <label for="address">Địa chỉ</label>
+                            <select id="city-select" aria-label=".form-select-sm">
+                                <option value="all">Chọn tỉnh thành</option>
+                                <option value="01">Thành phố Hà Nội</option>
+                                <option value="02">Tỉnh Hà Giang</option>
+                                <option value="04">Tỉnh Cao Bằng</option>
+                                <option value="06">Tỉnh Bắc Kạn</option>
+                                <option value="08">Tỉnh Tuyên Quang</option>
+                                <option value="10">Tỉnh Lào Cai</option>
+                                <option value="11">Tỉnh Điện Biên</option>
+                                <option value="12">Tỉnh Lai Châu</option>
+                                <option value="14">Tỉnh Sơn La</option>
+                                <option value="15">Tỉnh Yên Bái</option>
+                                <option value="17">Tỉnh Hoà Bình</option>
+                                <option value="19">Tỉnh Thái Nguyên</option>
+                                <option value="20">Tỉnh Lạng Sơn</option>
+                                <option value="22">Tỉnh Quảng Ninh</option>
+                                <option value="24">Tỉnh Bắc Giang</option>
+                                <option value="25">Tỉnh Phú Thọ</option>
+                                <option value="26">Tỉnh Vĩnh Phúc</option>
+                                <option value="27">Tỉnh Bắc Ninh</option>
+                                <option value="30">Tỉnh Hải Dương</option>
+                                <option value="31">Thành phố Hải Phòng</option>
+                                <option value="33">Tỉnh Hưng Yên</option>
+                                <option value="34">Tỉnh Thái Bình</option>
+                                <option value="35">Tỉnh Hà Nam</option>
+                                <option value="36">Tỉnh Nam Định</option>
+                                <option value="37">Tỉnh Ninh Bình</option>
+                                <option value="38">Tỉnh Thanh Hóa</option>
+                                <option value="40">Tỉnh Nghệ An</option>
+                                <option value="42">Tỉnh Hà Tĩnh</option>
+                                <option value="44">Tỉnh Quảng Bình</option>
+                                <option value="45">Tỉnh Quảng Trị</option>
+                                <option value="46">Tỉnh Thừa Thiên Huế</option>
+                                <option value="48">Thành phố Đà Nẵng</option>
+                                <option value="49">Tỉnh Quảng Nam</option>
+                                <option value="51">Tỉnh Quảng Ngãi</option>
+                                <option value="52">Tỉnh Bình Định</option>
+                                <option value="54">Tỉnh Phú Yên</option>
+                                <option value="56">Tỉnh Khánh Hòa</option>
+                                <option value="58">Tỉnh Ninh Thuận</option>
+                                <option value="60">Tỉnh Bình Thuận</option>
+                                <option value="62">Tỉnh Kon Tum</option>
+                                <option value="64">Tỉnh Gia Lai</option>
+                                <option value="66">Tỉnh Đắk Lắk</option>
+                                <option value="67">Tỉnh Đắk Nông</option>
+                                <option value="68">Tỉnh Lâm Đồng</option>
+                                <option value="70">Tỉnh Bình Phước</option>
+                                <option value="72">Tỉnh Tây Ninh</option>
+                                <option value="74">Tỉnh Bình Dương</option>
+                                <option value="75">Tỉnh Đồng Nai</option>
+                                <option value="77">Tỉnh Bà Rịa - Vũng Tàu</option>
+                                <option value="79">Thành phố Hồ Chí Minh</option>
+                                <option value="80">Tỉnh Long An</option>
+                                <option value="82">Tỉnh Tiền Giang</option>
+                                <option value="83">Tỉnh Bến Tre</option>
+                                <option value="84">Tỉnh Trà Vinh</option>
+                                <option value="86">Tỉnh Vĩnh Long</option>
+                                <option value="87">Tỉnh Đồng Tháp</option>
+                                <option value="89">Tỉnh An Giang</option>
+                                <option value="91">Tỉnh Kiên Giang</option>
+                                <option value="92">Thành phố Cần Thơ</option>
+                                <option value="93">Tỉnh Hậu Giang</option>
+                                <option value="94">Tỉnh Sóc Trăng</option>
+                                <option value="95">Tỉnh Bạc Liêu</option>
+                                <option value="96">Tỉnh Cà Mau</option>
+                            </select>
+
+                            <label for="status">Trạng thái</label>
+                            <select name="status" id="status-bill">
+                                <option value="all">Tất cả</option>
+                                <option value="Chưa xử lí">Chưa xử lí</option>
+                                <option value="Đã xác nhận">Đã xác nhận</option>
+                                <option value="Đang giao">Đang giao</option>
+                                <option value="Hoàn thành">Hoàn thành</option>
+                                <option value="Hủy">Hủy</option>
+                            </select>
+                            
+                            <button type="submit" class="btn-search">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div>
+                        <!-- Phần danh sách sản phẩm -->
+                        <div class="bill-manage">
+                            <h2>Danh sách đơn hàng</h2>
+                            <table id="bill-table">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Người đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Danh sách được tạo tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> 
+
+                <div id="overlay" class="overlay">
+                    <div class="overlay-content">
+                        <span class="close-btn" onclick="closeOverlay()">&times;</span>
+                        <div id="order-details">
+                            <!-- Chi tiết hóa đơn cho admin -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+   
+</body>
+
+<script src="./src/js/manage-products.js"></script>
+<script src="./src/js/dndk.js"></script>
+<script src="./src/js/middle.js"></script>
+<script src="./src/js/bill.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</html>

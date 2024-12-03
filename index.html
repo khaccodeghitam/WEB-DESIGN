@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./src/css/giohang.css">
+        <link rel="stylesheet" href="./src/css/advancedsearch.css">
+        <link rel="stylesheet" href="./src/css/password.css">
+        <link rel="stylesheet" href="./src/css/sodiachi.css">
+        <link rel="stylesheet" href="./src/css/trangspcss.css">
+        <link rel="stylesheet" href="./src/css/dndk.css">
+        <link rel="stylesheet" href="./src/css/middle.css">
+        <link rel="stylesheet" href="./src/css/userinfo.css" type="text/css" media="all">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    </head>
+    <body onload="showProducts(),showBill(),cartList()">
+        <div id="wrapper">
+            <!-- Phần header -->
+            <div id="nav">
+                <div class="container">
+                    <!-- Phần top head -->
+                    <div class="topnav">
+                        <div class="logo">
+                            <a href="./index.html">
+                                <img src="./src/img/BookBay2.png">
+                            </a>
+                        </div>
+                        
+                        <ul id="navmenu">
+                            <li>
+                                <a href="javascript:void(0);" onclick="showAdvancedSearch()" style="font-size: 20px;"><i class="fa-solid fa-filter" style="font-size: 20px;"></i>LỌC THỂ LOẠI</a>
+                            </li>
+                                               
+                        </ul>
+                        <div id="advancedSearch" style="display: none">
+                            <h1 id="advSearch-h1">Tìm Kiếm Nâng Cao</h1>
+                            <div class="form-group">
+                                <label for="priceRange">Phân Loại Theo Giá:</label><br />
+                                <input type="number" id="minPrice" placeholder="Giá thấp nhất" />
+                                -
+                                <input type="number" id="maxPrice" placeholder="Giá cao nhất" />
+                                <select id="priceRange">
+                                    <option value="all">Tất cả</option>
+                                    <option value="low">Dưới 50.000</option>
+                                    <option value="50-150">50.000 - 150.000</option>
+                                    <option value="150-250">150.000 - 250.000</option>
+                                    <option value="high">Trên 250.000</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Thể Loại:</label><br />
+                                <select id="category-select"> 
+                                <option value="all">Tất Cả</option>
+                                <option value="Tiểu thuyết">Tiểu Thuyết</option>
+                                <option value="Truyện ngắn">Truyện Ngắn</option>
+                                <option value="Ngôn tình">Ngôn Tình</option>
+                                <option value="Bài học kinh doanh">Bài Học Kinh Doanh</option>
+                                <option value="Quản trị - Lãnh đạo">Quản Trị - Lãnh Đạo</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Phân tích kinh tế">Phân Tích Kinh Tế</option>
+                                <option value="Sách giáo khoa">Sách Giáo Khoa</option>
+                                <option value="Sách luyện thi THPTQG">Sách Luyện Thi THPTQG</option>
+                                <option value="Sách mẫu giáo">Sách Mẫu Giáo</option>
+                                <option value="Kỹ năng sống">Kỹ Năng Sống</option>
+                                <option value="Rèn luyện nhân cách">Rèn Luyện Nhân Cách</option>
+                                <option value="Tâm lý">Tâm Lý</option>
+                                <option value="Sách cho tuổi mới lớn">Sách Cho Tuổi Mới Lớn</option>
+                                <option value="Manga (Nhật Bản)">Manga (Nhật Bản)</option>
+                                <option value="Manhwa (Hàn Quốc)">Manhwa (Hàn Quốc)</option>
+                                <option value="Manhua (Trung Quốc)">Manhua (Trung Quốc)</option>
+                                <option value="Comic (Phương Tây)">Comic (Phương Tây)</option>
+                                <option value="Truyện tranh thiếu nhi">Truyện tranh thiếu nhi</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Overlay background to dim the page -->
+                        <div id="advancedSearchOverlay" onclick="closeAdvancedSearch()"></div>
+                    </div>
+                    
+                    <!-- Phần bot head -->
+                    <div class="botnav">
+                        <ul class="leftnav">
+                            <li>
+                                <a href="https://www.facebook.com/">
+                                    <img src="./src/icon/facebook.svg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/">
+                                    <img src="./src/icon/instagram.svg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com">
+                                    <img src="./src/icon/x-twitter.svg">
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- Phần search bar -->
+                         <div class="search-bar">
+                            <!-- nút thể loại -->
+                            <div class="dropdown">
+                                <div class="dropdown-text" id="drop-text">
+                                    <span>THỂ LOẠI</span>
+                                    <img src="./src/icon/xuong.svg">
+                                </div>
+                            </div>
+                            <!-- khung tìm kiếm -->
+                            <div class="search-box">
+                                <input id="search-input2" type="text" placeholder="Tìm kiếm">
+                                <img src="./src/icon/kinhlup.svg">
+                            </div>
+                        </div>
+                        <!-- Khung tìm kiếm full màn -->
+                        <div class="search-bar2">
+                            <input id="search-input" type="text" placeholder="">
+                            <button><img src="./src/icon/kinhlup.svg"></button>
+                        </div>
+
+                    <!-- Phần nút rightmenu -->
+                        <ul class="rightmenu">
+                            <li class="account-menu">
+                                <button onClick="showform()">
+                                    <img src="./src/icon/user.svg">
+                                </button>
+                                <p>Tài khoản</p>
+                                <div id="not-logged-in" class="account-dropdown">
+                                    <button type="button" onclick="showDndk('login')" class="btn-login">Đăng nhập</button>
+                                    <button type="button" onclick="showDndk('register')" class="btn-signin">Đăng ký</button>
+                                </div>
+                            </li>
+                            <li class="cart-menu">
+                                <button onclick="checkLoggedUser()">
+                                    <img src="./src/icon/giohang.svg">
+                                </button>
+                                <p>Giỏ hàng</p>
+                                <div class="account-dropdown">
+                                    <button class="btn-login">Đăng nhập</button>
+                                    <button class="btn-signin">Đăng ký</button>
+                                </div>
+                            </li>
+                            <li class="noti-menu">
+                                <button onClick="showThongbao()">
+                                    <img src="./src/icon/thongbao.svg">
+                                </button>
+                                <p>Thông báo</p>
+                                <div id="not-logged-in" class="noti-dropdown">
+                                    <button type="button" onclick="showDndk('login')" class="btn-login">Đăng nhập</button>
+                                    <button type="button" onclick="showDndk('register')" class="btn-signin">Đăng ký</button>
+                                </div>
+                            </li>
+                        </ul>
+                        <div id="welcome-message" class="welcome-message" style="display: none;">
+                            Chào, <span id="username-display">Người dùng</span>!
+                        <button type="button" onclick="logout()" class="btn-logout">Đăng xuất</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--phần đăng nhập/đăng kí  -->
+            <div id="user-dndk">
+            <div id="form-dndk" style="display: none;">
+                <form id="dangnhap">
+                    <button onclick="closeForm()" style="float: right;" class="btn-close">X</button>
+                    <h2 id="question">Đăng nhập</h2>
+                    <input type="text" name="username" placeholder="Tên đăng nhập*">
+                    <input type="password" name="password" placeholder="Mật khẩu*">
+                    <button type="submit" onclick="ktDangNhap()">Đăng nhập</button>
+                    <div id="question" >Chưa có tài khoản? <a href="#" onclick="showRegister()" style="color: #2489F4;margin-left: 10px;"> Đăng kí</a></div>
+                </form>     
+                <form id="dangki">
+                    <button onclick="closeForm()" style="float: right;" class="btn-close" >X</button> 
+                    <h2 id="question">Đăng kí</h2>
+                    <!-- <input type="text" name="fullname" placeholder="Họ và tên"> -->
+                    <input type="text" name="username" placeholder="Tên đăng nhập*">
+                    <input type="password" name="password" placeholder="Mật khẩu*">
+                    <input type="password" name="repassword" placeholder="Nhập lại mật khẩu*">
+                    <input type="email" name="email" placeholder="Email">
+                    <span id="emailError" class="error">Email không hợp lệ</span>
+                    <input type="text" name="phone" placeholder="Số điện thoại*">
+                    <span id="sdtError" class="error">Số điện thoại không hợp lệ</span>
+                    <button type="submit" onclick="ktDangKi()">Đăng kí</button>
+                    <div id="question" >Đã có tài khoản? <a href="#" onclick="showLogin()" style="color: #2489F4; margin-left: 10px;"> Đăng nhập</a></div>
+                </form>
+            </div>
+        </div>
+                    <!-- Phần middle -->
+                    <div class="middle">
+                        <div class="slideshow">
+                            <div class="slide-container">
+                                <div class="slide">
+                                    <img src="./src/img/banner2.jpg">
+                                </div>
+                                <div class="slide">
+                                    <img src="./src/img/banner1.jpg">
+                                </div>
+                                <div class="slide">
+                                    <img src="./src/img/banner3.jpg">
+                                </div>
+                            </div>
+                            <div class="buttons-slide">
+                                <button id="prev"><</button>
+                                <button id="next">></button>
+                            </div>
+                            <ul class="dots">
+                                <li class="active"></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div id="content">
+                            
+                        </div>
+                        <div id="page">
+                                
+                        </div>
+                    </div>
+                    <div id="product-details">
+                    <div style="border: 3px solid  #f0f0f0; background-color:#f0f0f0; display: none;" id="mid">
+                        <button onclick="closeProductDetails()" style="position: fixed; top: 10px; right: 10px;">✖</button>
+                        <div class="leftmenu">
+                        <div class="content-product" id="content-product">
+                        <div class="content-item">
+                            <div class="slider">
+                            <div class="img-slides">
+                            <div class="slide-product"><img src="" alt="ảnh sách 1" width="100%"  onclick="openFullScreen(this)"></div>
+                            <div class="slide-product"><img src="" alt="ảnh sách 2" width="100%"  onclick="openFullScreen(this)"></div> 
+                        </div>
+                           
+                        </div>
+                        <div id="fullScreenImage" class="full-screen" onclick="closeFullScreen()">
+                            <img id="fullImage" src="" alt="Full Screen Image">
+                        </div>
+                            <div class="but">
+                            <!-- <button class="btn btn--buy" onclick="handleBuyNow()">Mua Ngay</button> -->
+                            <button class="btn btn--addcart" onclick="addToCart(productID)"><i class="fa-solid fa-cart-shopping icon"></i>Thêm vào giỏ hàng</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="rightproduct">
+                            <div class="block-content-product-info">
+                            <h1 class="book-title"></h1>
+                            <div class="book-info">
+                                <div class="book-info1">
+                                <div class="book-supplier">
+                                <span>Nhà cung cấp:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                <div class="book-author">
+                                <span>Nhà xuất bản:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                </div>
+                                <div class="book-info2-test">
+                                <div class="book-info2">
+                                <div class="book-supplier">
+                                <span>Tác giả:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                                <div class="book-author">
+                                <span>Hình thức bìa:</span>
+                                <span style="font-weight: bold;"></span>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="book-category">
+                                <span>Thể loại:</span>
+                                <span style="font-weight: bold;"></span>
+                            </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="price" id="product-price"></span>
+                                <span class="price" id="old-price"></span>
+                            </div>
+                        </div>
+                            <div class="detail-info">
+                                <h2 class="detail-head">Thông tin chi tiết</h2>
+                                <table class="detail">
+                                    <tbody>
+                                        <tr>
+                                            <th class="detail-label">Mã hàng</th>
+                                            <td class="data_0">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label" >Tên nhà cung cấp</th>
+                                            <td class="data_1">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Tác giả</th>
+                                            <td class="data_2">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Nhà xuất bản</th>
+                                            <td class="data_3">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Ngôn Ngữ</th>
+                                            <td class="data_4">
+                                                <div class="data-container">Tiếng Việt</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="detail-label">Hình thức</th>
+                                            <td class="data_5">
+                                                <div class="data-container"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="description-info">
+                                <h2 class="description-head">Mô tả sản phẩm</h2>
+                                <div id="description-content">
+                                    <p style="text-align: justify;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            <div id="user-info" class="user-info" style="display: none;">
+                <div class="left-content">
+                    <!-- Bảng lựa chọn -->
+                    <div class="user-content">
+                        <ul>
+                            <!-- Thông tin tài khoản -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div>
+                                            <img src="./src/icon/user.svg">
+                                        </div>
+                                        <strong>
+                                            <a  >Thông tin tài khoản</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                            <!-- Hồ sơ cá nhân -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div style="width: 20px; height: 20px; margin: 0 12px">
+                                        </div>
+                                        <strong>
+                                            <a href="javascript:void(0)" id="showUserInfo"  style="font-weight: normal">Hồ sơ cá nhân</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                            <!-- Sổ địa chỉ -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div style="width: 20px; height: 20px; margin: 0 12px">
+                                        </div>
+                                        <strong>
+                                            <a href="javascript:void(0);" id="showAddressForm" style="font-weight: normal">Sổ địa chỉ</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                            <!-- Đổi mật khẩu -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div style="width: 20px; height: 20px; margin: 0 12px">
+                                        </div>
+                                        <strong>
+                                            <a href="javascript:void(0);" id="showChangePassword" style="font-weight: normal">Đổi mật khẩu</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                            <!-- Dòng kẻ ngăn cách -->
+                            <hr class="hr-mobile" style="margin: 5px 20px">
+                            <!-- Đơn hàng của tôi -->
+                            <div class="tab-user">
+                                <li class="current-spacial">
+                                    <div class="leftcontent-item">
+                                        <div>
+                                            <img src="./src/icon/giaohang.svg">
+                                        </div>
+                                        <strong>
+                                            <a href="javascript:void(0);" id="showBillForm">Đơn hàng của tôi</a>
+                                        </strong>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- Form thông tin khách hàng -->
+                <div class="right-content">
+                    <div class="form-info" >
+                        <form id="accountForm" onsubmit="return validateForm()">
+                            <h2>HỒ SƠ CÁ NHÂN</h2>
+                            <!-- HỌ -->
+                            <label for="ho">Họ <em>*</em></label>
+                            <input type="text" id="ho" name="ho" placeholder="Nhập họ" required>
+                            <span id="hoError" class="error">Vui lòng nhập họ</span>
+
+                            <!-- TÊN -->
+                            <label for="ten">Tên <em>*</em> </label>
+                            <input type="text" id="ten" name="ten" placeholder="Nhập tên" required>
+                            <span id="tenError" class="error">Vui lòng nhập tên</span>
+                    
+                            <!-- SỐ ĐIẸN THOẠI -->
+                            <label for="sdt">Số điện thoại: </label>
+                            <input type="tel" id="sdt" name="sdt" placeholder="Nhập số điện thoại">
+                            <span id="sdtError" class="error">Số điện thoại không hợp lệ</span>
+                    
+                            <!-- EMAIL -->
+                            <label for="email">Email: </label>
+                            <input type="email" id="email" name="email" placeholder="Nhập email">
+                            <span id="emailError" class="error">Email không hợp lệ</span>
+                    
+                            <!-- GIỚI TÍNH -->
+                            <label>Giới tính <em>*</em> </label>
+                            <div class="gender">
+                                <input type="radio" id="boy" name="gioi_tinh" value="boy" required>
+                                <label for="boy">Nam</label>
+                                <input type="radio" id="nu" name="gioi_tinh" value="nu" required>
+                                <label for="nu">Nữ</label>
+                            </div>
+                            <span id="genderError" class="error">Vui lòng chọn giới tính</span>
+                    
+                            <!-- NGÀY SINH -->
+                            <label>Ngày sinh: </label>
+
+                            <div class="birthdate">
+                                <input type="number" id="ngay" name="ngay" placeholder="Ngày" min="1" max="31" required>
+                                <input type="number" id="thang" name="thang" placeholder="Tháng" min="1" max="12" required>
+                                <input type="number" id="nam" name="nam" placeholder="Năm" min="1900" max="2023" required>
+                            </div>
+                            <span id="birthdateError" class="error">Vui lòng nhập ngày sinh hợp lệ</span>
+
+                                        
+                            <!-- Nut submit -->
+                            <button type="button" id="updateButton">Cập nhật</button>
+                        </form>
+                    </div>
+                 
+                    <!-- Form thêm địa chỉ -->
+                    <div class="address-form" id="addressFormSection" style="display: none;">
+                        <h1 style="text-transform: unset;" class="add-address-head">Thêm địa chỉ mới</h1>
+                        <form id="frmAddress" name="frmAddress" method="post">
+                        <div>
+                                <label for="cboCity" class="frmLabel">Tỉnh/Thành Phố*</label>
+                                <select class="form-select form-select-sm mb-3" id="city" name="city" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn tỉnh thành</option>           
+                                </select>
+                                <span class="error-message" id="errorCity"></span><br>
+                                <label for="cboDistrict" class="frmLabel">Quận/Huyện*</label>
+                                <select class="form-select form-select-sm mb-3" id="district" name="district" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn Quận/Huyện</option>
+                                </select>
+                                <span class="error-message" id="errorDistrict"></span><br>
+                                <label for="cboWard" class="frmLabel">Phường/Xã*</label>
+                                <select class="form-select form-select-sm" id="ward" name="ward" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn Phường/Xã</option>
+                                </select>
+                                <span class="error-message" id="errorWard"></span><br>
+                        </div>
+                        <label for="txtDiachi" class="frmLabel">Địa chỉ*</label>
+                        <input type="text" name="txtDiachi" id="txtDiachi"><br>
+                        <span class="error-message" id="errorDiachi"></span><br>
+                    </form>
+                    <div class="button-sets">
+                    <button type="button" id="btnSave" name="btnSave">Lưu địa chỉ</button>
+                  </div>    
+                    </div>
+                    <div class="passwordSection">
+                    <div class="password-container" id="passwordForm" style="display: none;">
+                        <h2>Đổi Mật Khẩu</h2>
+                        <form  method="post"  onsubmit="updatePassword(event)">
+                            <div class="password-group">
+                                <label for="old-password">Mật khẩu cũ</label>
+                                <input type="password" id="old-password" name="old-password" placeholder="Nhập mật khẩu cũ" required>
+                            </div>
+                            <div class="password-group">
+                                <label for="new-password">Mật khẩu mới</label>
+                                <input type="password" id="new-password" name="new-password" placeholder="Nhập mật khẩu mới" required>
+                            </div>
+                            <div class="password-group">
+                                <label for="confirm-password">Nhập lại mật khẩu mới</label>
+                                <input type="password" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu mới" required>
+                            </div>
+                            <button type="submit" class="btn-update-password" onclick="updatePassword()">Cập Nhật Mật Khẩu</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="bill-container" id="billForm" style="display: none;">
+                    <h4>Đơn hàng của bạn</h4>
+                    <div class="bill-list">
+                        <table>
+                            <tbody id="bill-items">
+                                <!-- Các sản phẩm đã đặt -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                </div>
+            </div>
+
+            <!-- Phần footer -->
+             <div id="footer">
+                <div class="container">
+                    <div class="topfoot">
+                        <div class="footmenu" id="left">
+                            <img src="./src/img/BookBay2.png">
+                        </div>
+                        <div class="footmenu" id="right">
+                            <h4>Thông tin liên hệ</h4>
+                            <p><img src="./src/icon/map.svg">Trụ sở chính: 273 An Dương Vương, Phường 3, Quận 5, TPHCM</p>
+                            <p><img src="./src/icon/map.svg">Chi nhánh 1: 27/5 Ấp Tam Thới, Phường Tân Thới Nhì , Huyện Hóc Môn, TPHCM</p>
+                            <p><img src="./src/icon/map.svg">Chi nhánh 2: 149 Trường Chinh, Phường 7, Quận 12, TPHCM</p>
+                            <p><img src="./src/icon/phone.svg">Liên hệ: 0855619205</p>
+                            <p><img src="./src/icon/mail.svg">cskh@bookbay.com.vn</p>     
+                        </div>
+
+                        
+                    </div>
+                </div>
+             </div>
+        </div>    
+    </body>
+    
+    <script src="./src/js/advancedsearch.js"></script>
+    <script src="./src/js/userinfo.js"></script>
+    <script src="./src/js/manage-products.js"></script>
+    <script src="./src/js/middle.js"></script>
+    <script src="./src/js/dndk.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="./src/js/sodiachijs.js"></script>
+    <script src="./src/js/trangspjs.js"></script>
+    <script src="./src/js/cart.js"></script>
+</html>

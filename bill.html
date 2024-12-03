@@ -1,0 +1,98 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bill Management</title>
+        <link rel="stylesheet" href="path/to/your/styles.css">
+        <link rel="stylesheet" href="./src/css/admin.css">
+        <link rel="stylesheet" href="./src/css/bill.css">
+        <script src="./src/js/bill.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="logo"><img src="./src/img/BookBay2.png" alt="BOOKBAY"></div>
+                <ul>
+                    <li><img src="src/icon/home.svg"><a href="index.html">Trang chủ</a></li>
+                    <li><img src="src/icon/book.svg"><a href="admin.html">Sản phẩm</a></li>
+                    <li><img src="src/icon/file-circle-plus-solid.svg"><a href="index.html">Thêm sản phẩm</a></li>
+                    <li><img src="src/icon/bill.svg"><a href="bill.html">Đơn hàng</a></li>
+                    <li><img src="src/icon/groupuser.svg"><a href="users.html">Khách hàng</a></li>
+                </ul>
+            </div>
+    
+            <!-- Phần header -->
+            <div class="main_content">
+                <div class="header">
+                    <div class="admin-header">
+                        <div id="welcome-admin">
+                            Chủ Quán Sách
+                            <button class="btn-admin-logout" onclick="logout()">Đăng Xuất</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Phần middle -->
+                <div class="info">
+                   <div class="bill-admin">
+                    <div>
+                        <form class="search-form">
+                            <label for="billid">Bill ID</label>
+                            <input type="text" id="billid" name="billid" placeholder="">
+                            
+                            <label for="date">Ngày đặt</label>
+                            <input type="text" id="date" name="date" placeholder="ngày/tháng/năm">
+                            
+                            <label for="address">Địa chỉ</label>
+                            <select id="city-select" aria-label=".form-select-sm">
+                                <option value="all">Chọn tỉnh thành</option>
+                            </select>
+
+                            <label for="status">Trạng thái</label>
+                            <select name="status" id="status-bill">
+                                <option value="all">Tất cả</option>
+                                <option value="Chưa xử lí">Chưa xử lí</option>
+                                <option value="Đã xác nhận">Đã xác nhận</option>
+                                <option value="Đang giao">Đang giao</option>
+                                <option value="Hoàn thành">Hoàn thành</option>
+                                <option value="Hủy">Hủy</option>
+                            </select>
+                            
+                            <button type="submit" class="btn-search">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div>
+                        <!-- Phần danh sách sản phẩm -->
+                        <div class="bill-manage">
+                            <h2>Danh sách đơn hàng</h2>
+                            <table id="bill-table">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Người đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Danh sách được tạo tự động -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> 
+                </div>
+            </div>
+        </div>
+        <div id="overlay" class="overlay">
+            <div class="overlay-content">
+                <span class="close-btn" onclick="closeOverlay()">&times;</span>
+                <div id="order-details">
+                    <!-- Chi tiết hóa đơn cho admin -->
+                </div>
+            </div>
+        </div>
+        <script src="path/to/your/bill.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    </body>
+</html>
