@@ -27,7 +27,7 @@ function check() {
     var ward = document.getElementById("ward");
     var address = document.getElementById("address");
 
-    name.value = loggedInUser.fullname || "";
+    name.value = `${loggedInUser.info.ho} ${loggedInUser.info.ten}` || "";
     email.value = loggedInUser.email || "";
     phone.value = loggedInUser.phone || "";
     city.value = loggedInUser.address?.city || "";
@@ -90,6 +90,13 @@ function buy() {
     }
 
     // Xử lý thông tin hóa đơn
+    const city = document.getElementById("city").value;
+    const district = document.getElementById("district").value;
+    const ward = document.getElementById("ward").value;
+    const address = document.getElementById("address").value;
+    const phone = document.getElementById("phone").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
     let info = '';
     let total = 0;
 
@@ -110,6 +117,13 @@ function buy() {
         info,
         totalprice: total,
         customer,
+        name,
+        email,
+        city,
+        district,
+        ward,
+        address,
+        phone,
         date: d,
         status: 'Chưa xử lí',
     };
