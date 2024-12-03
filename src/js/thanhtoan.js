@@ -97,6 +97,10 @@ function buy() {
     const phone = document.getElementById("phone").value;
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
+    if (!name || !email || !phone || !city || !district || !ward || !address) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+    }
     let info = '';
     let total = 0;
 

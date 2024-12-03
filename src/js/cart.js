@@ -193,10 +193,10 @@ function showBill() {
     // }
 
     const billArray = JSON.parse(localStorage.getItem('bill')) || [];
-    if (billArray.length === 0) {
-        alert("Không có hóa đơn nào!");
-        return;
-    }
+    // if (billArray.length === 0) {
+    //     alert("Không có hóa đơn nào!");
+    //     return;
+    // }
 
     // Lấy bảng hiển thị hóa đơn
     const billTable = document.getElementById('bill-items');

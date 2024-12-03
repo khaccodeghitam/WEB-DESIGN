@@ -45,7 +45,7 @@ function ktDangKi() {
     const phone = document.querySelector('#dangki input[name="phone"]').value;
 
     // Kiểm tra tính hợp lệ
-    if ( !username || !password || !repassword || !phone) {
+    if ( !username || !email || !password || !repassword || !phone) {
         alert("Vui lòng điền đầy đủ thông tin bắt buộc!");
         return false;
     }
