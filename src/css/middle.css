@@ -204,6 +204,13 @@ textarea {
     text-overflow: ellipsis;
     min-height: 35px;
 }
+.product-name div{
+    margin-left: 40%;
+}
+.price-label{
+    display: column;
+    margin-left: 25px;
+}
 .new-price {
     margin-left: 5px;
     font-size: 1.15em;
@@ -221,13 +228,14 @@ textarea {
     margin-bottom: 7px;
 }
 .price-percent{
-    color: white;
-    background-color: #36b8ff;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(0deg, #fef1b1, hsl(0, 98%, 57%));
     font-size: 1em;
     float: left;
-    padding: 2px;
-    margin-left: 5px;
-    border: solid 1px white;
+    padding: 4px;
+    margin-left: 25px;
+    border: solid 1px rgb(248, 177, 177);
+    box-shadow: 0 0 10px rgb(850, 17, 0);
     border-radius: 5px;
 }
 @media only screen and (max-width: 1200px){

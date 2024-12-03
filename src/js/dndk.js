@@ -229,8 +229,6 @@ document.getElementById("updateButton").addEventListener("click", function() {
     function updateUI() {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); 
     
-        const accountMenu = document.querySelector('.account-menu'); 
-        const notLoggedInMenu = document.querySelector('.account-dropdown');  
         const notiMenu = document.querySelector('.noti-menu');
         const notiDropdown = notiMenu.querySelector('.noti-dropdown');
         const welcomeMessage = document.getElementById('welcome-message');
@@ -239,7 +237,6 @@ document.getElementById("updateButton").addEventListener("click", function() {
             // Đã đăng nhập: ẩn bảng đăng nhập/đăng ký, hiển thị tên người dùng
             notLoggedInMenu.style.display = "none";
             notiDropdown.style.display="none";
-            document.querySelector('.account-menu p').textContent = loggedInUser.username;
             welcomeMessage.style.display = 'flex';
             usernameDisplay.textContent = loggedInUser.username;
         } else {

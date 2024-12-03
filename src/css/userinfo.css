@@ -20,25 +20,18 @@ body.modal-open {
     /* border: 2px solid red; */
     /* align-items: center; */
 }
-#nav{
-    background-color: #36B8FF;
-}
+
 #nav .container{
     padding: 10px 25px;
 }
 /* Cố định phần header */
 #nav {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000; /* Đảm bảo hiển thị trên các phần tử khác */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng bóng */
-}
-
-/* Đẩy nội dung xuống dưới tránh bị chồng chéo với header */
-.middle {
-    margin-top: 200px; /* Tương ứng với chiều cao của header */
+    background-color: #36B8FF;
 }
 
 #nav .topnav{
@@ -80,10 +73,27 @@ body.modal-open {
     box-shadow: 0 0 10px rgb(24, 250, 250);
     background: linear-gradient(0deg, #c8eefc, hsl(193, 85%, 63%));
 }
+
+.welcome-message {
+    position: absolute;
+    top: 10px;
+    left: 26%;
+    transform: translateX(-50%);
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 #nav .botnav{
     display: flex;
     align-items: center;
-    height: 60px;
 }
 #nav .botnav .leftnav{
     display: flex;
@@ -347,7 +357,7 @@ input[type="number"],
 select{
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
+    margin-top: 15px;
     border-radius: 4px;
     border: 1px solid #ccc;
 }

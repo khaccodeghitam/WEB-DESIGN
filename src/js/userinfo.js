@@ -59,6 +59,9 @@ if (!ngay || !thang || !nam || ngay < 1 || ngay > 31 || thang < 1 || thang > 12 
 
 return isValid;
 }
+
+
+// Hiển thị sổ địa chỉ khi nhấn vào nút user
 const showAddressFormLink = document.getElementById('showAddressForm');
 const formInfoSection = document.querySelector('.form-info');
 const addressFormSection = document.getElementById('addressFormSection');
@@ -71,14 +74,14 @@ showAddressFormLink.addEventListener('click', () => {
     changePasswordForm.style.display='none';
     // Hiện phần "add-address-form"
     addressFormSection.style.display = 'block';
-    
+
 });
 
 const showUserInfoLink= document.getElementById('showUserInfo');
 showUserInfoLink.addEventListener('click',() =>{
     addressFormSection.style.display = 'none';
     changePasswordForm.style.display='none';
-    formInfoSection.style.display='block';
+    formInfoSection.style.display='flex';
     
 });
 
