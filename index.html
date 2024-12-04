@@ -174,7 +174,7 @@
                     <button type="submit" >Đăng nhập</button>
                     <div id="question" >Chưa có tài khoản? <a href="#" onclick="showRegister()" style="color: #2489F4;margin-left: 10px;"> Đăng kí</a></div>
                 </form>     
-                <form id="dangki">
+                <form id="dangki" onsubmit="ktDangKi(event)">
                     <button onclick="closeForm()" style="float: right;" class="btn-close" >X</button> 
                     <h2 id="question">Đăng kí</h2>
                     <!-- <input type="text" name="fullname" placeholder="Họ và tên"> -->
@@ -185,7 +185,7 @@
                     <span id="emailError" class="error">Email không hợp lệ</span>
                     <input type="text" name="phone" placeholder="Số điện thoại*">
                     <span id="sdtError" class="error">Số điện thoại không hợp lệ</span>
-                    <button type="submit" onclick="ktDangKi()">Đăng kí</button>
+                    <button type="submit">Đăng kí</button>
                     <div id="question" >Đã có tài khoản? <a href="#" onclick="showLogin()" style="color: #2489F4; margin-left: 10px;"> Đăng nhập</a></div>
                 </form>
             </div>
@@ -486,7 +486,7 @@
                   </div>    
                     </div>
                     <div class="passwordSection">
-                    <div class="password-container" id="passwordForm" >
+                    <div class="password-container" id="passwordForm" style="display: none;">
                         <h2>Đổi Mật Khẩu</h2>
                         <form  method="post"  onsubmit="updatePassword(event)">
                             <div class="password-group">

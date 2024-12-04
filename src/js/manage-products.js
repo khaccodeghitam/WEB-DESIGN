@@ -87,6 +87,11 @@ function renderPagination(totalItems) {
     const pageContainer = document.getElementById("pageadmin");
     const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
+    if (totalPages <= 1) {
+        pageContainer.style.display = "none";
+        return;
+    }
+
     pageContainer.innerHTML = "";
     for (let i = 1; i <= totalPages; i++) {
         const pageButton = document.createElement("button");
@@ -109,8 +114,13 @@ function deleteProduct(id) {
         const updatedProducts = products.filter(product => product.productID !== id);
         saveProducts(updatedProducts);
 
+        let productStats = JSON.parse(localStorage.getItem('productStats')) || [];
+        const updatedProductStats = productStats.filter(stat => stat.productID !== id);
+        localStorage.setItem('productStats', JSON.stringify(updatedProductStats));
+
         // Cập nhật giao diện
         renderProducts();
+        renderProductStatistics();
 
         alert("Sản phẩm đã được xóa thành công!");
     } 
@@ -218,7 +228,8 @@ function saveEditedProduct(productID) {
     const image = imageInput.files[0];
 
     const updateProduct = () => {
-        products[productIndex] = {
+        // products[productIndex] = {
+            const updatedProductData = {
             productID: productID,
             productName: document.getElementById('product-name').value,
             oldPrice: document.getElementById('old-price').value,
@@ -232,8 +243,20 @@ function saveEditedProduct(productID) {
             image: image ? currentImage : products[productIndex].image
         };
 
+        products[productIndex] = updatedProductData;
         saveProducts(products);
+
+        let productStats = JSON.parse(localStorage.getItem('productStats')) || [];
+        const productStatIndex = productStats.findIndex(stat => stat.productID === productID);
+
+        if (productStatIndex !== -1) {
+            
+            productStats[productStatIndex].productName = updatedProductData.productName;
+            localStorage.setItem('productStats', JSON.stringify(productStats));
+        }
+
         renderProducts();
+        renderProductStatistics();
         goBack();
         alert("Đã cập nhật sản phẩm thành công!");
     };
@@ -324,12 +347,14 @@ function searchProduct() {
 
 //Start thống kê
 function showThongKe() {
-    
+    document.getElementById('bill-admin-management').style.display='none';
     const thongKeSection = document.getElementById('thongke');
     const productManageSection = document.querySelector('.product-manage');
     const searchContainer = document.querySelector('.search-container');
+    const dashboard = document.querySelector('.dashboard');
     document.getElementById("pageadmin").style.display='none';
 
+    dashboard.style.display='none';
     thongKeSection.style.display = 'block';
     productManageSection.style.display = 'none';
     searchContainer.style.display = 'none';
@@ -337,7 +362,7 @@ function showThongKe() {
 //End thống kê
 
 function showHoaDon() {
-    const hoaDonSection = document.getElementById('bill-admin-management')
+    const hoaDonSection = document.getElementById('bill-admin-management');
     const thongKeSection = document.getElementById('thongke');
     const productManageSection = document.querySelector('.product-manage');
     const searchContainer = document.querySelector('.search-container');
@@ -411,6 +436,7 @@ function showcustomerlist() {
     const searchProduct = document.getElementById('search-product');
     // const editFormContainer = document.getElementById('edit-form-container'); 
     const editThongKe = document.getElementById('thongke');
+    const thongKeSection = document.getElementById('thongke');
     // const searchContainer = document.querySelector('.search-container');
     // const pageAdmin = document.getElementById('pageadmin');
     document.getElementById("pageadmin").style.display='none';
@@ -419,6 +445,7 @@ function showcustomerlist() {
     // document.querySelector('bill-admin').style.display='none';
     document.getElementById('bill-admin-management').style.display='none';
 
+    thongKeSection.style.display = 'none';
     dashboard.style.display = 'block';
     productManage.style.display = 'none';
     searchProduct.style.display = 'none';

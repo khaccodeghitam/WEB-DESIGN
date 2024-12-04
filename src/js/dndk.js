@@ -37,7 +37,8 @@ function ktDangNhap(event) {
     
 
 }
-function ktDangKi() {
+function ktDangKi(event) {
+    event.preventDefault();
     // Lấy giá trị từ các ô input
     const username = document.querySelector('#dangki input[name="username"]').value.trim();
     const password = document.querySelector('#dangki input[name="password"]').value;
@@ -105,7 +106,7 @@ function ktDangKi() {
     localStorage.setItem('users', JSON.stringify(users));
 
     alert("Đăng ký thành công!");
-
+    window.location.href = "index.html";
     // Cập nhật bảng danh sách khách hàng sau khi đăng ký thành công
     updateCustomerTable(users);  // Gọi hàm này để cập nhật bảng
 
@@ -432,7 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //Sao chép người dùng bị xóa sang localStorage khác
 function generateUniqueId(users, deletedUsers) {
-    const allIds = users.map(u => u.id).concat(deletedUsers.map(u => u.id));
+    const allIds = users.map(u => u.id).concat(deletedUsers.map(u => u.id)).filter(id => id != null);;
     let newId = allIds.length > 0 ? Math.max(...allIds) + 1 : 1001;
 
     // Kiểm tra và thay đổi ID nếu trùng
@@ -478,7 +479,7 @@ function updateCustomerTable(users) {
         const userId = user.id;
         const fullName = `${user.info.ho || ""} ${user.info.ten || "(Chưa Cập Nhật)"}`.trim();
         const username = user.username || "(Chưa Cập Nhật)";
-        const registrationDate = user.ngaydangki || "(Không rõ)";
+        const registrationDate = user.registrationDate || "(Không rõ)";
 
         row.innerHTML = `
             <td>${userId}</td>

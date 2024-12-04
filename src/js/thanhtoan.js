@@ -135,6 +135,23 @@ function buy() {
     billArray.unshift(bill);
     localStorage.setItem('bill', JSON.stringify(billArray));
 
+     // THÊM ĐOẠN MÃ CẬP NHẬT THỐNG KÊ SẢN PHẨM
+     let productStats = JSON.parse(localStorage.getItem('productStats')) || [];
+
+     for (let i = 0; i < cartArray.length; i++) {
+         const product = cartArray[i];
+         if (product?.productName) {
+             const statIndex = productStats.findIndex(stat => stat.productID === product.productID);
+             
+             if (statIndex !== -1) {
+                 productStats[statIndex].quantitySold += product.quantity;
+                 productStats[statIndex].totalRevenue += Number(product.newPrice) * Number(product.quantity);
+             }
+         }
+     }
+ 
+     localStorage.setItem('productStats', JSON.stringify(productStats));
+     //Kết thúc thống kê
     // Xóa giỏ hàng sau khi thanh toán
     localStorage.removeItem(cartKey);
 

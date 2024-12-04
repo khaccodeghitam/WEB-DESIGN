@@ -227,11 +227,6 @@ function showBill() {
             billTable.appendChild(row);
         }
     }
-
-    // Nếu không có hóa đơn nào cho tài khoản hiện tại
-    // if (!hasBills) {
-    //     alert("Bạn chưa có hóa đơn nào!");
-    // }
 }
 
 function init() {
@@ -239,46 +234,3 @@ function init() {
     checkCart();
     showBill();
 }
-
-// function showBill() {
-//     console.log("showBill function called");
-
-//     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-//     if (!loggedInUser) {
-//         alert("Bạn cần đăng nhập để xem hóa đơn!");
-//         return;
-//     }
-
-//     const billArray = JSON.parse(localStorage.getItem('bill')) || [];
-//     const billTable = document.getElementById('bill-items');
-//     if (!billTable) {
-//         console.error("Không tìm thấy bảng hiển thị hóa đơn");
-//         return;
-//     }
-
-//     console.log("Logged in user:", loggedInUser);
-//     console.log("Bills:", billArray);
-
-//     billTable.innerHTML = ''; // Xóa nội dung cũ
-
-//     let hasBills = false;
-
-//     for (let i = 0; i < billArray.length; i++) {
-//         if (billArray[i].customer.username === loggedInUser.username) {
-//             hasBills = true;
-//             const row = document.createElement('tr');
-//             row.innerHTML = `
-//                 <td>${billArray[i].info}</td>
-//                 <td>${billArray[i].totalprice} Đ</td>
-//                 <td>${billArray[i].customer.username}</td>
-//                 <td>${billArray[i].date}</td>
-//                 <td class="status">${billArray[i].status}</td>
-//             `;
-//             billTable.appendChild(row);
-//         }
-//     }
-
-//     if (!hasBills) {
-//         alert("Bạn chưa có hóa đơn nào!");
-//     }
-// }

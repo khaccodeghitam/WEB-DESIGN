@@ -215,11 +215,14 @@ function saveProduct(product) {
 
     products.push(product);
     localStorage.setItem('products', JSON.stringify(products));
-    /* */ localStorage.setItem('currentId', JSON.stringify(product.productID));
+    localStorage.setItem('currentId', JSON.stringify(product.productID));
 
+
+    updateProductStatistics(product);
     alert("Đã thêm sản phẩm!");
     addProductToUI(product);
     
+   
 }
 
 function renderProductDetails(product,productID) {
