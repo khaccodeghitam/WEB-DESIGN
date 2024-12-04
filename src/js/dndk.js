@@ -524,7 +524,7 @@ function updateCustomerTable(users) {
         const userId = user.id;
         const fullName = `${user.info.ho || ""} ${user.info.ten || "(Chưa Cập Nhật)"}`.trim();
         const username = user.username || "(Chưa Cập Nhật)";
-        const registrationDate = user.ngaydangki || "(Không rõ)";
+        const registrationDate = user.registrationDate || "(Không rõ)";
 
         row.innerHTML = `
             <td>${userId}</td>
