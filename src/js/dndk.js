@@ -6,19 +6,39 @@ function showLogin(){
     document.getElementById("dangki").style.display = "none";
     document.getElementById("dangnhap").style.display = "block";
 }
-function ktDangNhap() {
-    const username = document.querySelector('#dangnhap input[name="username"]').value;
-    const password = document.querySelector('#dangnhap input[name="password"]').value;
-    if(username =='admin'&& password=='admin'){
-        window.location.href = "admin.html";
-    }
+function showAddUserForm() {
+    document.getElementById('addUserForm').style.display = 'block';
+}
+
+function hideAddUserForm() {
+    document.getElementById('addUserForm').style.display = 'none';
+}
+
+function ktDangNhap(event) {
+    event.preventDefault(); // Ngăn chặn form gửi dữ liệu theo cách thông thường
+    const username = document.querySelector('#dangnhap input[name="username"]').value.trim();
+    const password = document.querySelector('#dangnhap input[name="password"]').value.trim();
+
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(u => u.username === username && u.password === password);
-    if(username =='admin'&& password=='admin'){
-        alert("Admin đăng nhập!");
-    }
+    const user = users.find(u => u.username === username);
+
     if (!user) {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+        return false;
+    }
+
+    if (user.isBlocked) {
+        alert("Tài khoản của bạn đã bị khóa!");
+        return false;
+    }
+
+    if (user.password !== password) {
+        alert("Mật khẩu không đúng!");
+        return false;
+    }
+
+    if (user.userType === 'admin') {
+        alert("Admin không thể đăng nhập từ đây!");
         return false;
     }
 
@@ -32,18 +52,18 @@ function ktDangNhap() {
     // Đóng form đăng nhập
     closeForm();
 
-    // Chuyển về trang chính (nếu cần)
-    // window.location.href = "./index.html";
+    // Chuyển về trang chính
+    window.location.href = "./index.html";
 }
+
+
 function ktDangKi() {
-    // Lấy giá trị từ các ô input
     const username = document.querySelector('#dangki input[name="username"]').value.trim();
     const password = document.querySelector('#dangki input[name="password"]').value;
     const repassword = document.querySelector('#dangki input[name="repassword"]').value;
     const email = document.querySelector('#dangki input[name="email"]').value.trim();
     const phone = document.querySelector('#dangki input[name="phone"]').value.trim();
 
-    // Kiểm tra tính hợp lệ
     if (!username || !password || !repassword || !phone) {
         alert("Vui lòng điền đầy đủ thông tin bắt buộc!");
         return false;
@@ -54,21 +74,18 @@ function ktDangKi() {
         return false;
     }
 
-    // Kiểm tra email hợp lệ
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (email && !emailRegex.test(email)) {
         alert("Email không hợp lệ!");
         return false;
     }
 
-    // Kiểm tra số điện thoại hợp lệ
     const phoneRegex = /^[0-9]{10,11}$/;
     if (phone && !phoneRegex.test(phone)) {
         alert("Số điện thoại không hợp lệ!");
         return false;
     }
 
-    // Kiểm tra tên người dùng đã tồn tại chưa
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
     const userExists = users.some(user => user.username === username);
@@ -77,12 +94,13 @@ function ktDangKi() {
         return false;
     }
 
-    // Tạo ID mới không trùng lặp
     const userId = generateUniqueId(users, deletedUsers);
 
-    // Tạo đối tượng người dùng
+    const currentDate = new Date();
+    const registrationDate = `${String(currentDate.getDate()).padStart(2, '0')}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${currentDate.getFullYear()}`;
+
     const user = {
-        id: userId,  // Gán id duy nhất cho người dùng
+        id: userId,
         username: username,
         password: password,
         email: email,
@@ -95,19 +113,65 @@ function ktDangKi() {
             gioiTinh: "",
             birthday: { ngay: "", thang: "", nam: "" },
         },
-        registrationDate: new Date().toISOString().split('T')[0], // Ngày đăng ký
+        registrationDate,
+        userType: 'customer', // Mặc định là Khách hàng
+        isBlocked: false
     };
 
-    // Lưu thông tin người dùng vào localStorage
     users.push(user);
     localStorage.setItem('users', JSON.stringify(users));
 
     alert("Đăng ký thành công!");
+    updateCustomerTable(users);
+    showLogin();
+}
 
-    // Cập nhật bảng danh sách khách hàng sau khi đăng ký thành công
-    updateCustomerTable(users);  // Gọi hàm này để cập nhật bảng
 
-    showLogin();  // Giả sử hàm này sẽ chuyển đến trang đăng nhập sau khi đăng ký thành công
+// Khóa người dùng
+function blockCustomer(userId) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(user => user.id === userId);
+    
+    if (userIndex !== -1) {
+        users[userIndex].isBlocked = !users[userIndex].isBlocked;
+        localStorage.setItem('users', JSON.stringify(users));
+        updateCustomerTable(users);
+        
+        if (users[userIndex].isBlocked) {
+            alert("Người dùng đã bị khóa!");
+        } else {
+            alert("Người dùng đã được mở khóa!");
+        }
+    }
+}
+
+
+function handleLogin() {
+    const username = document.querySelector('#login input[name="username"]').value.trim();
+    const password = document.querySelector('#login input[name="password"]').value;
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.username === username);
+
+    if (!user) {
+        alert("Tên đăng nhập không tồn tại!");
+        return false;
+    }
+
+    if (user.isBlocked) {
+        alert("Tài khoản của bạn đã bị khóa!");
+        return false;
+    }
+
+    if (user.password !== password) {
+        alert("Mật khẩu không đúng!");
+        return false;
+    }
+
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+    alert("Đăng nhập thành công!");
+    updateUI();
+    return true;
 }
 
 
@@ -357,6 +421,7 @@ function toggleUserInfo() {
         userInfo.classList.remove('user-info-active');
     }
 }
+
 function backToMain() {
     const userInfo = document.getElementById('user-info');
     const middleContent = document.querySelector('.middle');
@@ -364,109 +429,6 @@ function backToMain() {
     userInfo.style.display = 'none';
     middleContent.style.display = 'block';
 }
-
-
-document.getElementById("btnSave").addEventListener("click", function (e) {
-    e.preventDefault();
-
-    // Lấy các giá trị từ form
-    const txtHo = document.getElementById("txtHo");
-    const txtTen = document.getElementById("txtTen");
-    const txtSdt = document.getElementById("txtSdt");
-    const txtDiachi = document.getElementById("txtDiachi");
-    const citySelect = document.getElementById("city");
-    const districtSelect = document.getElementById("district");
-    const wardSelect = document.getElementById("ward");
-
-    // Biến kiểm tra xem có lỗi không
-    let hasError = false;
-
-    // Hàm hiển thị lỗi
-    const showError = (input, message) => {
-        let errorSpan = input.nextElementSibling;
-        if (!errorSpan || !errorSpan.classList.contains("error-message")) {
-            errorSpan = document.createElement("span");
-            errorSpan.classList.add("error-message");
-            errorSpan.style.color = "red";
-            errorSpan.style.fontSize = "12px";
-            input.parentNode.appendChild(errorSpan);
-        }
-        errorSpan.textContent = message;
-        hasError = true;
-    };
-
-    // Hàm xóa lỗi
-    const clearError = (input) => {
-        const errorSpan = input.nextElementSibling;
-        if (errorSpan && errorSpan.classList.contains("error-message")) {
-            errorSpan.textContent = "";
-        }
-    };
-
-    // Kiểm tra các trường
-    if (txtHo.value.trim() === "") {
-        showError(txtHo, "Thông tin này quan trọng. Vui lòng không để trống.");
-    } else {
-        clearError(txtHo);
-    }
-
-    if (txtTen.value.trim() === "") {
-        showError(txtTen, "Thông tin này quan trọng. Vui lòng không để trống.");
-    } else {
-        clearError(txtTen);
-    }
-
-    if (txtSdt.value.trim() === "") {
-        showError(txtSdt, "Thông tin này quan trọng. Vui lòng không để trống.");
-    } else if (!/^\d{10}$/.test(txtSdt.value.trim())) {
-        showError(txtSdt, "Số điện thoại phải nhập là số và gồm 10 chữ số.");
-    } else {
-        clearError(txtSdt);
-    }
-
-    if (txtDiachi.value.trim() === "") {
-        showError(txtDiachi, "Thông tin này quan trọng. Vui lòng không để trống.");
-    } else {
-        clearError(txtDiachi);
-    }
-
-    if (citySelect.value === "") {
-        showError(citySelect, "Thông tin này quan trọng. Vui lòng không để trống.");
-    } else {
-        clearError(citySelect);
-    }
-
-    if (districtSelect.value === "") {
-        showError(districtSelect, "Thông tin này quan trọng. Vui lòng không để trống.");
-    } else {
-        clearError(districtSelect);
-    }
-
-    if (wardSelect.value === "") {
-        showError(wardSelect, "Thông tin này quan trọng. Vui lòng không để trống.");
-    } else {
-        clearError(wardSelect);
-    }
-
-    // Nếu có lỗi, dừng xử lý tiếp
-    if (hasError) {
-        return;
-    }
-
-    // Tiếp tục lưu địa chỉ nếu không có lỗi
-    const newAddress = {
-        ho: txtHo.value.trim(),
-        ten: txtTen.value.trim(),
-        sdt: txtSdt.value.trim(),
-        diachi: txtDiachi.value.trim(),
-        city: citySelect.options[citySelect.selectedIndex].text,
-        district: districtSelect.options[districtSelect.selectedIndex].text,
-        ward: wardSelect.options[wardSelect.selectedIndex].text,
-    };
-
-    // Gọi các bước tiếp theo như lưu vào localStorage, cập nhật danh sách, ...
-    alert("Địa chỉ đã được lưu thành công!");
-});
 
 
 document.addEventListener('DOMContentLoaded', updateUI);
@@ -490,23 +452,43 @@ function generateUniqueId(users, deletedUsers) {
 
 
 // Thêm người dùng mới
-function addUser(ho, ten, username) {
+function addUserFromForm() {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
 
     const newId = generateUniqueId(users, deletedUsers);
+    const userType = document.getElementById('userType').value;
+    const ho = document.getElementById('newHo').value;
+    const ten = document.getElementById('newTen').value;
+    const username = document.getElementById('newUsername').value;
+    const password = document.getElementById('newPassword').value;
+    const email = document.getElementById('newEmail').value;
+    const phone = document.getElementById('newPhone').value;
+    const gender = document.getElementById('newGender').value;
+    const birthday = document.getElementById('newBirthday').value;
+
+    if (!username || !password) {
+        alert("Tên đăng nhập và mật khẩu là bắt buộc!");
+        return;
+    }
+
+    const currentDate = new Date();
+    const registrationDate = `${String(currentDate.getDate()).padStart(2, '0')}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${currentDate.getFullYear()}`;
 
     const newUser = {
         id: newId,
-        info: { ho, ten },
+        info: { ho, ten, email, phone, gioiTinh: gender, birthday: { ngay: birthday.split('-')[0], thang: birthday.split('-')[1], nam: birthday.split('-')[2] } },
         username,
-        registrationDate: new Date().toISOString().split('T')[0],
+        password,
+        registrationDate,
+        userType,
     };
+
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
     updateCustomerTable(users);
+    hideAddUserForm(); // Ẩn form sau khi thêm
 }
-
 
 
 // Cập nhật bảng danh sách người dùng
@@ -515,7 +497,7 @@ function updateCustomerTable(users) {
     customerList.innerHTML = '';
 
     if (users.length === 0) {
-        customerList.innerHTML = '<tr><td colspan="5">Không tìm thấy người dùng nào</td></tr>';
+        customerList.innerHTML = '<tr><td colspan="6">Không tìm thấy người dùng nào</td></tr>';
         return;
     }
 
@@ -525,23 +507,29 @@ function updateCustomerTable(users) {
         const fullName = `${user.info.ho || ""} ${user.info.ten || "(Chưa Cập Nhật)"}`.trim();
         const username = user.username || "(Chưa Cập Nhật)";
         const registrationDate = user.registrationDate || "(Không rõ)";
+        const userType = user.userType || "Khách hàng"; // Mặc định là Khách hàng nếu không xác định
+        const isBlocked = user.isBlocked ? " (Đã khóa)" : "";
+
+        const blockIconSrc = user.isBlocked ? "src/icon/unlock.svg" : "src/icon/lock.svg";
+        const editIconSrc = "src/icon/rewrite.svg";
+        const deleteIconSrc = "src/icon/delete.svg";
 
         row.innerHTML = `
             <td>${userId}</td>
             <td>${fullName}</td>
-            <td>${username}</td>
+            <td>${username}${isBlocked}</td>
             <td>${registrationDate}</td>
+            <td>${userType}</td>
             <td>
-                <button onclick="editCustomer(${userId})">Sửa</button>
-                <button onclick="deleteCustomer(${userId})">Xóa</button>
+                <button onclick="editCustomer(${userId})"><img src="${editIconSrc}" alt="Edit Icon" style="width: 20px; height: 20px;"></button>
+                <button onclick="deleteCustomer(${userId})"><img src="${deleteIconSrc}" alt="Delete Icon" style="width: 20px; height: 20px;"></button>
+                <button onclick="blockCustomer(${userId})"><img src="${blockIconSrc}" alt="Block Icon" style="width: 20px; height: 20px;"></button>
             </td>
         `;
         customerList.appendChild(row);
     });
 }
-
-
-
+s
 // Sửa thông tin người dùng
 function editCustomer(id) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -549,14 +537,30 @@ function editCustomer(id) {
     if (userIndex === -1) return alert("Không tìm thấy người dùng");
 
     const user = users[userIndex];
-    const newUsername = prompt("Nhập tên đăng nhập mới:", user.username || "");
+    let newUsername = prompt("Nhập tên đăng nhập mới:", user.username || "");
+    const newPassword = prompt("Nhập mật khẩu mới:", ""); // Yêu cầu mật khẩu mới
+
+    // Kiểm tra trùng tên đăng nhập
+    if (newUsername && users.some(u => u.username === newUsername && u.id !== id)) {
+        alert("Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.");
+        return;
+    }
 
     if (newUsername) {
         users[userIndex].username = newUsername;
+    }
+
+    if (newPassword) {
+        users[userIndex].password = newPassword;
+    }
+
+    if (newUsername || newPassword) {
         localStorage.setItem('users', JSON.stringify(users)); // Cập nhật lại localStorage
         updateCustomerTable(users); // Cập nhật bảng
+        alert("Thông tin người dùng đã được cập nhật!");
     }
 }
+
 function deleteCustomer(userId) {
     if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
         const users = JSON.parse(localStorage.getItem('users')) || [];

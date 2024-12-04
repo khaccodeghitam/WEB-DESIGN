@@ -113,26 +113,60 @@
                     </div>
                     <div class="dashboard">
                         <h2>Danh sách khách hàng</h2>
-                        <button class="product" onclick="showsearchcustomer()" style ="display: inline-block;">
+                        <button class="product" onclick="showsearchcustomer()" style="display: inline-block;">
                             Tìm khách hàng
                         </button>
-                    <div id="customer-table">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>ID</th>
-                            <th>Họ tên</th>
-                            <th>Tên Đăng Nhập</th>
-                            <th>Ngày Đăng Ký</th>
-                            <th>Chỉnh Sửa</th>
-                          </tr>
-                        </thead>
-                        <tbody id="customer-list">
-                          <!-- Dữ liệu khách hàng sẽ được thêm vào đây -->
-                        </tbody>
-                      </table>
+                        <button class="product" onclick="showAddUserForm()" style="display: inline-block;">
+                            Thêm người dùng
+                        </button>
+                        <div id="customer-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Họ tên</th>
+                                        <th>Tên Đăng Nhập</th>
+                                        <th>Ngày Đăng Ký</th>
+                                        <th>Loại Người Dùng</th>
+                                        <th>Chỉnh Sửa</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customer-list">
+                                    <!-- Dữ liệu khách hàng sẽ được thêm vào đây -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                  </div>
+                    
+                    <!-- Form thêm người dùng mới -->
+                    <div id="addUserForm" style="display: none;">
+                        <h2>Thêm người dùng mới</h2>
+                        <label for="userType">Loại tài khoản:</label>
+                        <select id="userType">
+                            <option value="admin">Admin</option>
+                            <option value="customer">Khách hàng</option>
+                            <option value="staff">Nhân viên</option>
+                        </select>
+                        <label for="newHo">Họ:</label>
+                        <input type="text" id="newHo" name="newHo">
+                        <label for="newTen">Tên:</label>
+                        <input type="text" id="newTen" name="newTen">
+                        <label for="newUsername">Tên đăng nhập:</label>
+                        <input type="text" id="newUsername" name="newUsername" required>
+                        <label for="newPassword">Mật khẩu:</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                        <label for="newEmail">Email:</label>
+                        <input type="email" id="newEmail" name="newEmail">
+                        <label for="newPhone">Số điện thoại:</label>
+                        <input type="text" id="newPhone" name="newPhone">
+                        <label for="newGender">Giới tính:</label>
+                        <input type="text" id="newGender" name="newGender">
+                        <label for="newBirthday">Ngày sinh:</label>
+                        <input type="text" id="newBirthday" name="newBirthday">
+                        <button onclick="addUserFromForm()">Thêm</button>
+                        <button onclick="hideAddUserForm()">Hủy</button>
+                    </div>
+                    
                     <div id="pageadmin">
                                 
                     </div>

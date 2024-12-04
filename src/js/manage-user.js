@@ -26,8 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value.trim();
 
+                // Lấy danh sách người dùng từ localStorage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+
                 // Kiểm tra thông tin đăng nhập
-                if (username === 'admin' && password === 'admin') {
+                const user = users.find(u => u.username === username && u.password === password && u.userType === 'admin');
+
+                if (user) {
                     // Thông báo đăng nhập thành công
                     alert('Đăng nhập thành công!');
 
@@ -39,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     adminContent.style.display = 'block';
                 } else {
                     // Thông báo lỗi
-                    alert('Tên đăng nhập hoặc mật khẩu không đúng!');
+                    alert('Tên đăng nhập hoặc mật khẩu không đúng hoặc bạn không phải là admin!');
                 }
             };
         }
