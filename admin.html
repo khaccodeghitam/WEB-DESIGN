@@ -124,33 +124,7 @@
                             </div>
                         </form>
                      </div>
-                     <div class="dashboard">
-                        <h2>Danh sách khách hàng</h2>
-                        <button class="product" onclick="showsearchcustomer()" style="display: inline-block;">
-                            Tìm khách hàng
-                        </button>
-                        <button class="product" onclick="showAddUserForm()" style="display: inline-block;">
-                            Thêm người dùng
-                        </button>
-                        <div id="customer-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Họ tên</th>
-                                        <th>Tên Đăng Nhập</th>
-                                        <th>Ngày Đăng Ký</th>
-                                        <th>Loại Người Dùng</th>
-                                        <th>Chỉnh Sửa</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="customer-list">
-                                    <!-- Dữ liệu khách hàng sẽ được thêm vào đây -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Form thêm người dùng mới -->
+                     <!-- Form thêm người dùng mới -->
                     <div id="addUserForm" style="display: none;">
                         <h2>Thêm người dùng mới</h2>
                         <label for="userType">Loại tài khoản:</label>
@@ -177,6 +151,33 @@
                         <input type="text" id="newBirthday" name="newBirthday">
                         <button onclick="addUserFromForm()">Thêm</button>
                         <button onclick="hideAddUserForm()">Hủy</button>
+                    </div>
+                    <!-- Danh sách người dùng -->
+                     <div class="dashboard">
+                        <h2>Danh sách người dùng</h2>
+                        <button class="product" onclick="showsearchcustomer()" style="display: inline-block;">
+                            Tìm người dùng
+                        </button>
+                        <button class="product" onclick="showAddUserForm()" style="display: inline-block;">
+                            Thêm người dùng
+                        </button>
+                        <div id="customer-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Họ tên</th>
+                                        <th>Tên Đăng Nhập</th>
+                                        <th>Ngày Đăng Ký</th>
+                                        <th>Loại Người Dùng</th>
+                                        <th>Chỉnh Sửa</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customer-list">
+                                    <!-- Dữ liệu khách hàng sẽ được thêm vào đây -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     
                     <div id="pageadmin">

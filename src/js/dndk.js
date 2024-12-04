@@ -505,7 +505,7 @@ function updateCustomerTable(users) {
         const userType = user.userType || "Khách hàng"; // Mặc định là Khách hàng nếu không xác định
         const isBlocked = user.isBlocked ? " (Đã khóa)" : "";
 
-        const blockIconSrc = user.isBlocked ? "src/icon/unlock.svg" : "src/icon/lock.svg";
+        const blockIconSrc = user.isBlocked ? "src/icon/lock-open.svg" : "src/icon/lock.svg";
         const editIconSrc = "src/icon/rewrite.svg";
         const deleteIconSrc = "src/icon/delete.svg";
 

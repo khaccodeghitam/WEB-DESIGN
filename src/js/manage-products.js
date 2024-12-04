@@ -389,11 +389,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function showsearchcustomer() {
     const searchCustomer = document.getElementById('search-customer'); // Lấy div tìm kiếm khách hàng
-    const customerButton = document.querySelector('.dashboard .product'); // Lấy nút tìm kiếm khách hàng
 
     // Hiển thị div tìm kiếm và ẩn nút tìm kiếm
     searchCustomer.style.display = 'block';
-    customerButton.style.display = 'none';
 }
 
 // Đóng bảng tìm kiếm
@@ -402,14 +400,12 @@ function closesearch() {
     const productButton = document.querySelector('.product-manage .product');
 
     const searchCustomer = document.getElementById('search-customer');
-    const customerButton = document.querySelector('.dashboard .product');
 
     // Ẩn cả hai div tìm kiếm và hiển thị lại nút tìm kiếm
     searchProduct.style.display = 'none';
     productButton.style.display = 'inline-block';
 
     searchCustomer.style.display = 'none';
-    customerButton.style.display = 'inline-block';
 }
 
 
