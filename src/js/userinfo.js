@@ -72,7 +72,7 @@ showAddressFormLink.addEventListener('click', () => {
     // Ẩn phần "form-info"
     formInfoSection.style.display = 'none';
     changePasswordForm.style.display='none';
-    // Hiện phần "add-address-form"
+    passwordSection.style.display='none';
     addressFormSection.style.display = 'block';
 
 });
@@ -81,6 +81,7 @@ const showUserInfoLink= document.getElementById('showUserInfo');
 showUserInfoLink.addEventListener('click',() =>{
     addressFormSection.style.display = 'none';
     changePasswordForm.style.display='none';
+    passwordSection.style.display='none';
     formInfoSection.style.display='flex';
     
 });
@@ -90,6 +91,7 @@ showChangePasswordLink.addEventListener('click',()=>{
     formInfoSection.style.display = 'none';
     addressFormSection.style.display='none';
     changePasswordForm.style.display='block';
+    passwordSection.style.display='flex';
 });
 
 document.addEventListener("DOMContentLoaded", function () {
