@@ -6,7 +6,8 @@ function showLogin(){
     document.getElementById("dangki").style.display = "none";
     document.getElementById("dangnhap").style.display = "block";
 }
-function ktDangNhap() {
+function ktDangNhap(event) {
+    event.preventDefault();
     const username = document.querySelector('#dangnhap input[name="username"]').value;
     const password = document.querySelector('#dangnhap input[name="password"]').value;
     if(username =='admin'&& password=='admin'){
@@ -25,7 +26,7 @@ function ktDangNhap() {
     // Lưu thông tin đăng nhập
     localStorage.setItem('loggedInUser', JSON.stringify(user));
     alert("Đăng nhập thành công!");
-
+    window.location.href = "index.html";
     // Cập nhật giao diện
     updateUI();
 
@@ -33,55 +34,57 @@ function ktDangNhap() {
     closeForm();
 
     loadUserAddress();
+    
 
 }
 function ktDangKi() {
     // Lấy giá trị từ các ô input
-    
-    const username = document.querySelector('#dangki input[name="username"]').value;
+    const username = document.querySelector('#dangki input[name="username"]').value.trim();
     const password = document.querySelector('#dangki input[name="password"]').value;
     const repassword = document.querySelector('#dangki input[name="repassword"]').value;
-    const email = document.querySelector('#dangki input[name="email"]').value;
-    const phone = document.querySelector('#dangki input[name="phone"]').value;
+    const email = document.querySelector('#dangki input[name="email"]').value.trim();
+    const phone = document.querySelector('#dangki input[name="phone"]').value.trim();
 
     // Kiểm tra tính hợp lệ
-    if ( !username || !email || !password || !repassword || !phone) {
+    if (!username || !email || !password || !repassword || !phone) {
         alert("Vui lòng điền đầy đủ thông tin bắt buộc!");
         return false;
     }
+
     if (password !== repassword) {
         alert("Mật khẩu nhập lại không khớp!");
         return false;
     }
 
- // Kiểm tra số điện thoại hợp lệ
- const phonePattern = /^[0-9]{10}$/;
- if (!phonePattern.test(phone)) {
-     alert("Vui lòng nhập số điện thoại hợp lệ (10 chữ số)!");
-     return false;
- }
+    // Kiểm tra email hợp lệ
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (email && !emailRegex.test(email)) {
+        alert("Email không hợp lệ!");
+        return false;
+    }
 
- // Kiểm tra email hợp lệ
- const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
- if (email && !emailPattern.test(email)) {
-     alert("Vui lòng nhập email hợp lệ!");
-     return false;
- }
+    // Kiểm tra số điện thoại hợp lệ
+    const phoneRegex = /^[0-9]{10,11}$/;
+    if (phone && !phoneRegex.test(phone)) {
+        alert("Số điện thoại không hợp lệ!");
+        return false;
+    }
 
-  // Lấy danh sách người dùng từ localStorage
-  const users = JSON.parse(localStorage.getItem('users')) || [];
- 
+    // Kiểm tra tên người dùng đã tồn tại chưa
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
+    const userExists = users.some(user => user.username === username);
+    if (userExists) {
+        alert("Tên người dùng đã tồn tại!");
+        return false;
+    }
 
-  // Kiểm tra trùng tên đăng nhập
-  const isUsernameTaken = users.some(user => user.username === username);
-  if (isUsernameTaken) {
-      alert("Tên đăng nhập đã có người sử dụng!");
-      return false;
-  }
+    // Tạo ID mới không trùng lặp
+    const userId = generateUniqueId(users, deletedUsers);
 
     // Tạo đối tượng người dùng
     const user = {
-        
+        id: userId,  // Gán id duy nhất cho người dùng
         username: username,
         password: password,
         email: email,
@@ -94,14 +97,19 @@ function ktDangKi() {
             gioiTinh: "",
             birthday: { ngay: "", thang: "", nam: "" },
         },
+        registrationDate: new Date().toISOString().split('T')[0], // Ngày đăng ký
     };
 
-   
+    // Lưu thông tin người dùng vào localStorage
     users.push(user);
     localStorage.setItem('users', JSON.stringify(users));
 
     alert("Đăng ký thành công!");
-    showLogin(); 
+
+    // Cập nhật bảng danh sách khách hàng sau khi đăng ký thành công
+    updateCustomerTable(users);  // Gọi hàm này để cập nhật bảng
+
+    showLogin();  // Giả sử hàm này sẽ chuyển đến trang đăng nhập sau khi đăng ký thành công
 }
 
 function handleBuyNow() {
@@ -239,7 +247,7 @@ document.getElementById("updateButton").addEventListener("click", function() {
             // Đã đăng nhập: ẩn bảng đăng nhập/đăng ký, hiển thị tên người dùng
             notLoggedInMenu.style.display = "none";
             notiDropdown.style.display="none";
-            document.querySelector('.account-menu p').textContent = loggedInUser.username;
+            // document.querySelector('.account-menu p').textContent = loggedInUser.username;
             welcomeMessage.style.display = 'flex';
             usernameDisplay.textContent = loggedInUser.username;
         } else {
@@ -415,12 +423,154 @@ function backToMain() {
     middleContent.style.display = 'block';
 }
 
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', updateUI);
 
+document.addEventListener('DOMContentLoaded', () => {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    updateCustomerTable(users); // Gọi hàm để cập nhật bảng sau khi trang tải
+});
+
+//Sao chép người dùng bị xóa sang localStorage khác
+function generateUniqueId(users, deletedUsers) {
+    const allIds = users.map(u => u.id).concat(deletedUsers.map(u => u.id));
+    let newId = allIds.length > 0 ? Math.max(...allIds) + 1 : 1001;
+
+    // Kiểm tra và thay đổi ID nếu trùng
+    while (allIds.includes(newId)) {
+        newId += 1;
+    }
+    return newId;
+}
+
+
+// Thêm người dùng mới
+function addUser(ho, ten, username) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
+
+    const newId = generateUniqueId(users, deletedUsers);
+
+    const newUser = {
+        id: newId,
+        info: { ho, ten },
+        username,
+        registrationDate: new Date().toISOString().split('T')[0],
+    };
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    updateCustomerTable(users);
+}
+
+
+
+// Cập nhật bảng danh sách người dùng
+function updateCustomerTable(users) {
+    const customerList = document.getElementById('customer-list');
+    customerList.innerHTML = '';
+
+    if (users.length === 0) {
+        customerList.innerHTML = '<tr><td colspan="5">Không tìm thấy người dùng nào</td></tr>';
+        return;
+    }
+
+    users.forEach(user => {
+        const row = document.createElement('tr');
+        const userId = user.id;
+        const fullName = `${user.info.ho || ""} ${user.info.ten || "(Chưa Cập Nhật)"}`.trim();
+        const username = user.username || "(Chưa Cập Nhật)";
+        const registrationDate = user.ngaydangki || "(Không rõ)";
+
+        row.innerHTML = `
+            <td>${userId}</td>
+            <td>${fullName}</td>
+            <td>${username}</td>
+            <td>${registrationDate}</td>
+            <td>
+                <button onclick="editCustomer(${userId})">Sửa</button>
+                <button onclick="deleteCustomer(${userId})">Xóa</button>
+            </td>
+        `;
+        customerList.appendChild(row);
+    });
+}
+
+
+
+// Sửa thông tin người dùng
+function editCustomer(id) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(u => u.id === id); // Tìm người dùng theo ID
+    if (userIndex === -1) return alert("Không tìm thấy người dùng");
+
+    const user = users[userIndex];
+    const newUsername = prompt("Nhập tên đăng nhập mới:", user.username || "");
+
+    if (newUsername) {
+        users[userIndex].username = newUsername;
+        localStorage.setItem('users', JSON.stringify(users)); // Cập nhật lại localStorage
+        updateCustomerTable(users); // Cập nhật bảng
+    }
+}
+function deleteCustomer(userId) {
+    if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
+
+        // Tìm người dùng bị xóa
+        const userToDelete = users.find(user => user.id === userId);
+
+        // Lưu thông tin người dùng bị xóa vào 'deletedUsers'
+        if (userToDelete) {
+            deletedUsers.push(userToDelete);
+            localStorage.setItem('deletedUsers', JSON.stringify(deletedUsers));
+        }
+
+        // Tạo danh sách người dùng mới không chứa người dùng bị xóa
+        const updatedUsers = users.filter(user => user.id !== userId);
+
+        localStorage.setItem('users', JSON.stringify(updatedUsers));
+        updateCustomerTable(updatedUsers);
+
+        alert("Người dùng đã được xóa!");
+    }
+}
+
+// Tìm kiếm người dùng
+
+// Tìm kiếm người dùng
+function searchCustomer() {
+    // Lấy giá trị từ các ô input
+    const idInput = document.querySelector('#search-customer input[placeholder="Nhập ID"]').value.trim();
+    const nameInput = document.querySelector('#search-customer input[placeholder="Nhập họ tên"]').value.trim();
+    const usernameInput = document.querySelector('#search-customer input[placeholder="Nhập tên đăng nhập"]').value.trim();
+
+    // Lấy danh sách người dùng từ localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Lọc danh sách người dùng dựa trên các trường nhập liệu
+    const filteredUsers = users.filter(user => {
+        const fullName = `${user.info.ho || ""} ${user.info.ten || ""}`.trim().toLowerCase();
+        const idMatch = idInput ? user.id.toString().startsWith(idInput) : true; // Tìm theo ID bắt đầu bằng idInput
+        const nameMatch = nameInput ? fullName.includes(nameInput.toLowerCase()) : true; // Tìm theo họ tên
+        const usernameMatch = usernameInput ? user.username.toLowerCase().includes(usernameInput.toLowerCase()) : true; // Tìm theo username
+
+        return idMatch && nameMatch && usernameMatch; // Chỉ giữ lại những người dùng khớp
+    });
+
+    // Cập nhật lại bảng với danh sách đã lọc
+    updateCustomerTable(filteredUsers);
+}
+
+// Đóng phần tìm kiếm và hiển thị toàn bộ danh sách
+function closeSearch() {
+    const searchCustomer = document.getElementById('search-customer');
+    const customerButton = document.querySelector('.dashboard .product');
+
+    // Ẩn form tìm kiếm và hiện nút tìm kiếm
+    if (searchCustomer) searchCustomer.style.display = 'none';
+    if (customerButton) customerButton.style.display = 'inline-block';
+
+    // Hiển thị toàn bộ danh sách khách hàng
+    const allUsers = JSON.parse(localStorage.getItem('users')) || [];
+    updateCustomerTable(allUsers); // Hiển thị toàn bộ danh sách
+}

@@ -341,8 +341,10 @@ function showHoaDon() {
     const thongKeSection = document.getElementById('thongke');
     const productManageSection = document.querySelector('.product-manage');
     const searchContainer = document.querySelector('.search-container');
+    const dashboard = document.querySelector('.dashboard');
     document.getElementById("pageadmin").style.display='none';
 
+    dashboard.style.display='none';
     thongKeSection.style.display = 'none';
     productManageSection.style.display = 'none';
     searchContainer.style.display = 'none';
@@ -387,49 +389,41 @@ function closesearch() {
 
 
 // Hàm hiển thị danh sách sản phẩm
-function showproductlist() {
-    const productManage = document.querySelector('.product-manage');
-    const dashboard = document.querySelector('.dashboard');
-    const searchCustomer = document.getElementById('search-customer');
-    const editFormContainer = document.getElementById("edit-form-container");
+// function showproductlist() {
+//     const productManage = document.querySelector('.product-manage');
+//     const dashboard = document.querySelector('.dashboard');
+//     const searchCustomer = document.getElementById('search-customer');
+//     const editFormContainer = document.getElementById("edit-form-container");
 
 
-    // Hiển thị product-manage, ẩn dashboard
-    productManage.style.display = 'block';
-    dashboard.style.display = 'none';
-    searchCustomer.style.display = 'none';
-    editFormContainer.style.display = 'none';
+//     // Hiển thị product-manage, ẩn dashboard
+//     productManage.style.display = 'block';
+//     dashboard.style.display = 'none';
+//     searchCustomer.style.display = 'none';
+//     editFormContainer.style.display = 'none';
 
-}
+// }
 
 // Hàm hiển thị danh sách khách hàng
 function showcustomerlist() {
     const productManage = document.querySelector('.product-manage');
     const dashboard = document.querySelector('.dashboard');
     const searchProduct = document.getElementById('search-product');
-    const editFormContainer = document.getElementById("edit-form-container");
+    // const editFormContainer = document.getElementById('edit-form-container'); 
     const editThongKe = document.getElementById('thongke');
+    // const searchContainer = document.querySelector('.search-container');
+    // const pageAdmin = document.getElementById('pageadmin');
+    document.getElementById("pageadmin").style.display='none';
+    document.querySelector('.search-container').style.display='none';
+    document.getElementById('edit-form-container').style.display='none';
+    // document.querySelector('bill-admin').style.display='none';
+    document.getElementById('bill-admin-management').style.display='none';
 
-    // Hiển thị dashboard, ẩn product-manage
     dashboard.style.display = 'block';
     productManage.style.display = 'none';
     searchProduct.style.display = 'none';
-    editFormContainer.style.display = 'none';
+    searchContainer.style.display = 'none';
+    // pageAdmin.style.display = 'none';
+    // editFormContainer.style.display = 'none'; 
     editThongKe.style.display = 'none';
 }
-// // Ẩn cả hai div ban đầu để không hiển thị cùng lúc
-// window.onload = function() {
-//     const productManage = document.querySelector('.product-manage');
-//     const dashboard = document.querySelector('.dashboard');
-//     const searchProduct = document.getElementById('search-product');
-//     const editFormContainer = document.getElementById("edit-form-container");
-//     const editThongKe = document.getElementById('thongke');
-
-//     // Hiển thị dashboard, ẩn product-manage
-//     dashboard.style.display = 'none';
-//     productManage.style.display = 'block';
-//     searchProduct.style.display = 'none';
-//     editFormContainer.style.display = 'none';
-//     editThongKe.style.display = 'none';
-
-// };

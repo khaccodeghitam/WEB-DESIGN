@@ -129,7 +129,7 @@
                                 <button onClick="showform()">
                                     <img src="./src/icon/user.svg">
                                 </button>
-                                <p>Tài khoản</p>
+                                
                                 <div id="not-logged-in" class="account-dropdown">
                                     <button type="button" onclick="showDndk('login')" class="btn-login">Đăng nhập</button>
                                     <button type="button" onclick="showDndk('register')" class="btn-signin">Đăng ký</button>
@@ -139,7 +139,7 @@
                                 <button onclick="checkLoggedUser()">
                                     <img src="./src/icon/giohang.svg">
                                 </button>
-                                <p>Giỏ hàng</p>
+                              
                                 <div class="account-dropdown">
                                     <button class="btn-login">Đăng nhập</button>
                                     <button class="btn-signin">Đăng ký</button>
@@ -149,7 +149,7 @@
                                 <button onClick="showThongbao()">
                                     <img src="./src/icon/thongbao.svg">
                                 </button>
-                                <p>Thông báo</p>
+                                
                                 <div id="not-logged-in" class="noti-dropdown">
                                     <button type="button" onclick="showDndk('login')" class="btn-login">Đăng nhập</button>
                                     <button type="button" onclick="showDndk('register')" class="btn-signin">Đăng ký</button>
@@ -166,12 +166,12 @@
             <!--phần đăng nhập/đăng kí  -->
             <div id="user-dndk">
             <div id="form-dndk" style="display: none;">
-                <form id="dangnhap">
+                <form id="dangnhap" onsubmit="ktDangNhap(event)">
                     <button onclick="closeForm()" style="float: right;" class="btn-close">X</button>
                     <h2 id="question">Đăng nhập</h2>
                     <input type="text" name="username" placeholder="Tên đăng nhập*">
                     <input type="password" name="password" placeholder="Mật khẩu*">
-                    <button type="submit" onclick="ktDangNhap()">Đăng nhập</button>
+                    <button type="submit" >Đăng nhập</button>
                     <div id="question" >Chưa có tài khoản? <a href="#" onclick="showRegister()" style="color: #2489F4;margin-left: 10px;"> Đăng kí</a></div>
                 </form>     
                 <form id="dangki">
@@ -486,7 +486,7 @@
                   </div>    
                     </div>
                     <div class="passwordSection">
-                    <div class="password-container" id="passwordForm" style="display: none;">
+                    <div class="password-container" id="passwordForm" >
                         <h2>Đổi Mật Khẩu</h2>
                         <form  method="post"  onsubmit="updatePassword(event)">
                             <div class="password-group">
@@ -519,25 +519,35 @@
             </div>
 
             <!-- Phần footer -->
-             <div id="footer">
+            <div id="footer">
                 <div class="container">
                     <div class="topfoot">
                         <div class="footmenu" id="left">
                             <img src="./src/img/BookBay2.png">
                         </div>
                         <div class="footmenu" id="right">
-                            <h4>Thông tin liên hệ</h4>
+                            <h4>THÔNG TIN LIÊN HỆ</h4>
+                            <p><img src="./src/icon/phone.svg">Liên hệ: 0855619205</p>
+                            <p><img src="./src/icon/mail.svg">cskh@bookbay.com.vn</p>     
                             <p><img src="./src/icon/map.svg">Trụ sở chính: 273 An Dương Vương, Phường 3, Quận 5, TPHCM</p>
                             <p><img src="./src/icon/map.svg">Chi nhánh 1: 27/5 Ấp Tam Thới, Phường Tân Thới Nhì , Huyện Hóc Môn, TPHCM</p>
                             <p><img src="./src/icon/map.svg">Chi nhánh 2: 149 Trường Chinh, Phường 7, Quận 12, TPHCM</p>
-                            <p><img src="./src/icon/phone.svg">Liên hệ: 0855619205</p>
-                            <p><img src="./src/icon/mail.svg">cskh@bookbay.com.vn</p>     
                         </div>
-
+                        <div class="footmenu" id="right">
+                            <h4>DỊCH VỤ</h4>
+                            <p onclick="showTermsAndConditions1()">Điều khoản sử dụng</p>
+                            <p onclick="showTermsAndConditions2()">Chính sách bảo mật thanh toán</p>
+                            <p onclick="showTermsAndConditions3()">Chính sách bảo mật thông tin cá nhân</p>
+                        </div>
+                        <div class="footmenu" id="right">
+                            <h4>HỖ TRỢ</h4>
+                            <p onclick="showWholesalePolicy()">Chính sách khách sỉ</p> 
+                            <p onclick="showShippingPolicy()">Chính sách vận chuyển</p>
+                            <p onclick="showWarrantyPolicy()">Chính sách bảo hành - bồi hoàn</p>
+                        </div>
                         
                     </div>
                 </div>
-             </div>
         </div>    
     </body>
     
