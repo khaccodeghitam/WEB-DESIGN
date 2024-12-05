@@ -332,7 +332,6 @@ function addProductToUI(product) {
 }
 
 //Begin Search
-const searchInput = document.getElementById('search-input'); 
 const searchInput2 = document.getElementById('search-input2'); 
 const priceRangeSelect = document.getElementById('priceRange');
 const categorySelect = document.getElementById('category-select');
@@ -342,7 +341,7 @@ const contentDiv = document.getElementById('content');
 
 
 function filterProducts() {
-    const searchValue = searchInput.value.toLowerCase();
+    const searchValue = searchInput2.value.toLowerCase();
     const selectedCategory = categorySelect.value;
     const selectedPriceRange = priceRangeSelect.value;
 
@@ -463,7 +462,7 @@ function displayProducts(products) {
 }
 
 // Lắng nghe sự kiện
-searchInput.addEventListener('input', filterProducts);
+searchInput2.addEventListener('input', filterProducts);
 categorySelect.addEventListener('change', filterProducts);
 priceRangeSelect.addEventListener('change', filterProducts);
 minPriceInput.addEventListener('input', filterProducts);
