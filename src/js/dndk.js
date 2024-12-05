@@ -52,6 +52,40 @@ function ktDangNhap(event) {
     // Chuyển về trang chính
     window.location.href = "./index.html";
 }
+// Tạo 1 tài khoản admin mặc định khi chạy chương trình
+function createDefaultAdmin() {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Kiểm tra xem đã có tài khoản admin nào chưa
+    const adminExists = users.some(user => user.userType === 'admin');
+
+    if (!adminExists) {
+        const adminUser = {
+            id: generateUniqueId(users, []),
+            username: 'admin',
+            password: 'admin',
+            email: 'admin@example.com',
+            phone: '',
+            info: {
+                ho: 'Admin',
+                ten: 'User',
+                sdt: '',
+                email: 'admin@example.com',
+                gioiTinh: '',
+                birthday: { ngay: '', thang: '', nam: '' }
+            },
+            registrationDate: new Date().toISOString().split('T')[0],
+            userType: 'admin',
+            isBlocked: false
+        };
+
+        users.push(adminUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        console.log('Tài khoản admin mặc định đã được tạo');
+    } else {
+        console.log('Tài khoản admin đã tồn tại');
+    }
+}
 
 
 function ktDangKi() {

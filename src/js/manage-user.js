@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // Đănng nhập admin bằng URL, sau khi đăng xuất thì đăng nhập lại
 document.addEventListener('DOMContentLoaded', function () {
+    createDefaultAdmin();
     const url = window.location.pathname;
     const adminContent = document.querySelector('.wrapper'); // Phần nội dung gốc
     const loginForm = document.getElementById('admin-login-form');
