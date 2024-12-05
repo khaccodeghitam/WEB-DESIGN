@@ -158,13 +158,13 @@ body.modal-open {
     background: linear-gradient(0deg, #c8eefc, hsl(193, 85%, 63%));
 }
 #nav .botnav .search-bar{
-    display: none;
+    display: flex;
     background-color: #fff;
     border-radius: 50px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    min-width: 50%;
+    /* min-width: 50%; */
     margin-left: 10px;
-    width: auto;
+    width: 80%;
     height: 45px;
 }
 #nav .botnav .search-bar img{
@@ -201,7 +201,7 @@ body.modal-open {
 }
 
 #nav .botnav .search-box{
-    max-width: calc(90% - 70px);
+    width: 87%;
     display: flex;
     align-items: center;
     color: #36B8FF;
