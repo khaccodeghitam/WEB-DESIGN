@@ -48,6 +48,7 @@ function ktDangNhap(event) {
     // Đóng form đăng nhập
     closeForm();
 
+    loadUserAddress();
     // Chuyển về trang chính
     window.location.href = "./index.html";
 }

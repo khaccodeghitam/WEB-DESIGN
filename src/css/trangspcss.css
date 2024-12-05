@@ -52,7 +52,7 @@ ol{
     display: flex;
     justify-content: space-around; 
     width: 100%;
-    height: 100vh;
+    height: 85%;
     z-index: 10000;
     transform: translate(-50%, -50%);
     top: 50%;
@@ -60,16 +60,17 @@ ol{
     bottom: 50%;
     position: fixed;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    /* justify-content: center;
-    align-items: center; */
+    justify-content: center;
+    align-items: center;
     max-width: 800px;
-    /* background-color: rgba(0, 0, 0,0.3); */
+    background-color: rgba(0, 0, 0,0.3);
     background-color: black;
     overflow-y: auto;
 }
 .leftmenu{  
 width: 40%;
 height: 80%;
+margin: 10px;
 padding:10px;
 border-radius: 10px;
 background-color: #fff;
@@ -77,7 +78,8 @@ position: sticky;
 top: 0;
 }
 .rightproduct{
-width: 55%;
+width: 50%;
+height: 80%;
 border-radius: 10px;
 background-color:#f0f0f0 ;   
 }
@@ -201,7 +203,6 @@ margin: auto;
     margin-bottom: 12px;
     background-color: #fff;
     border-radius: 10px;
-
 }
 .book-title{
     margin-bottom: 30px;
@@ -209,32 +210,33 @@ margin: auto;
     line-height: 1.5;
 }
 .book-info{
-
-    margin-bottom: 50px;
-    
-}
-.book-info2{
-    width: 50%;
-  margin-bottom: 14px;
-
-}
-.book-info1{
-    max-width: 50%;
-    margin-bottom: 14px;
+    margin-bottom: 50px;   
 }
 .book-supplier{
     display: inline-block;
-    width: 60%;
     margin-bottom:10px ;
     white-space: nowrap;
 }
 .book-author{
     display: inline-block;
-    width: 40%;
     white-space: nowrap;
 
 }
+.book-info1, .book-info2 {
+    display: flex;
+    flex-direction: column; /* Xếp thông tin theo chiều dọc */
+}
 
+/* Định dạng cho từng dòng thông tin */
+.book-supplier, .book-author, .book-category {
+    display: flex;
+    justify-content: flex-start;
+    margin: 5px 0; /* Khoảng cách giữa các dòng thông tin */
+}
+
+.book-supplier span, .book-author span, .book-category span {
+    margin: 5px;
+}
 #product-price{
     font-size: 32px;
     font-weight: 600;
@@ -338,29 +340,21 @@ padding: 0;
 }
 @media  (max-width: 700px){
     .rightmenu{
-        width: 500px;
-        border-radius: 10px;
-        display: block;
-        order: 1;
-        margin-top: 12px;
+
     }
     #mid{
-        display: flex;
-        flex-direction: column;
-        /* width: 80%; */
         text-align: center;
-        margin: auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        justify-content: center;
         align-items: center;
-        
     }
     .leftmenu{  
-        width: 483px;
-        height: 497px;
         padding:10px;
+        margin: 10px;
         border-radius: 10px;
         background-color: #fff;
         position: static;
-        top: 0;
+        top: 0;;
         }
       
 }
@@ -369,7 +363,6 @@ padding: 0;
     padding: 12px 30px;
    }
    .leftmenu{
-    width: 390px;
    }
    .rightmenu{
     width: 55%;

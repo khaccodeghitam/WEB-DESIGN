@@ -382,9 +382,14 @@ function showHoaDon() {
 
 // Khi trang tải, đảm bảo currentId được khởi tạo và hiển thị danh sách sản phẩm
 document.addEventListener("DOMContentLoaded", () => {
+    const dashboard = document.querySelector('.dashboard');
+
     normalizeProductData();
     initializeCurrentId();
     renderProducts();
+    dashboard.style.display = 'none';
+    document.querySelector('.search-container').style.display = 'block';
+
 });
 
 function showsearchcustomer() {
@@ -430,15 +435,11 @@ function showcustomerlist() {
     const productManage = document.querySelector('.product-manage');
     const dashboard = document.querySelector('.dashboard');
     const searchProduct = document.getElementById('search-product');
-    // const editFormContainer = document.getElementById('edit-form-container'); 
     const editThongKe = document.getElementById('thongke');
     const thongKeSection = document.getElementById('thongke');
-    // const searchContainer = document.querySelector('.search-container');
-    // const pageAdmin = document.getElementById('pageadmin');
     document.getElementById("pageadmin").style.display='none';
     document.querySelector('.search-container').style.display='none';
     document.getElementById('edit-form-container').style.display='none';
-    // document.querySelector('bill-admin').style.display='none';
     document.getElementById('bill-admin-management').style.display='none';
 
     thongKeSection.style.display = 'none';
@@ -446,7 +447,5 @@ function showcustomerlist() {
     productManage.style.display = 'none';
     searchProduct.style.display = 'none';
     searchContainer.style.display = 'none';
-    // pageAdmin.style.display = 'none';
-    // editFormContainer.style.display = 'none'; 
     editThongKe.style.display = 'none';
 }
