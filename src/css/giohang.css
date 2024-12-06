@@ -18,7 +18,7 @@
 .cart-list th, .cart-list td, .cart-total td, .bill-list th, .bill-list td, .bill-total td {
     border: 1px solid #ddd;
     padding: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 .cart-list th, .bill-list th {
