@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Thanh Toán</title>
+    <link rel="stylesheet" href="./src/css/thanhtoan.css">
+</head>
+<body onload="check()">
+    <div class="container">
+        <h1>Thanh Toán</h1>
+        <!-- Khung thông tin đơn hàng và người nhận -->
+        <div class="box">
+            <h2>Tóm Tắt Đơn Hàng</h2>
+            <div class="order-summary">
+                    
+            </div>
+
+            <div class="total">
+                <span>Tổng cộng:</span>
+                <span class="paid-price"></span>
+            </div>
+
+            <div class="payment-info">
+                <h2>Thông tin người nhận</h2>
+                <form action="#">
+                    <label for="name">Họ và tên:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+
+
+                    <!-- Các trường địa chỉ (tỉnh, quận, phường) -->
+                    <label for="location">Địa chỉ:</label>
+                    <div id="location-fields" class="location-fields">
+                        <select id="city" aria-label=".form-select-sm">
+                            <option value="">Chọn tỉnh thành</option>
+                        </select>
+
+                        <select id="district" aria-label=".form-select-sm">
+                            <option value="">Chọn quận huyện</option>
+                        </select>
+
+                        <select id="ward" aria-label=".form-select-sm">
+                            <option value="">Chọn phường xã</option>
+                        </select>
+                        <input type="text" id="address" name="address" placeholder="Số nhà, đường" required>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Khung Phương Thức Thanh Toán -->
+        <div class="box payment-box">
+            <h2>Phương Thức Thanh Toán</h2>
+            <form action="#">
+                <label for="payment-method">Chọn phương thức:</label>
+                <select id="payment-method" name="payment-method" onchange="paymentMethod()">
+                    <option value="Tiền mặt khi nhận hàng">Tiền mặt khi nhận hàng</option>
+                    <option value="Thẻ tín dụng">Thẻ tín dụng</option>
+                    <option value="Chuyển khoản ngân hàng">Chuyển khoản ngân hàng</option>
+                </select>
+            </form>
+            <div id="bank" style="display: none;">
+                <h3>Thông tin chuyển khoản</h3>
+                <p>Ngân hàng: <span>Ngân hàng ABC</span></p>
+                <p>Số tài khoản: <span>123456789</span></p>
+                <p>Chủ tài khoản: <span>Nguyễn Văn A</span></p>
+            </div>
+            <div id="credit" style="display: none;">
+                <input type="text" id="stk" placeholder="Số thẻ">
+                <input type="text" id="tenstk" placeholder="Họ và tên chủ thẻ">
+                <input type="date" id="ngay" placeholder="Ngày hết hạn">
+                <input type="text" id="cvv" placeholder="CVV">
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit" onclick="showConfirmation()" >Xác Nhận Thanh Toán</button>
+    </div>
+
+    <div id="confirmation">
+        <div>
+            <h2>Tóm tắt hóa đơn</h2>
+            <div class="order-list-check">
+                
+            </div>
+            <div class="total-check" style="margin-top: 10px;margin-bottom: 10px">
+                <strong>Tổng cộng:</strong>
+                <span class="paid-price-check">a</span>
+            </div>
+            <h2>Thông tin người nhận</h2>
+            <p id="confirm-name"></p>
+            <p id="confirm-email"></p>
+            <p id="confirm-phone"></p>
+            <p id="confirm-address"></p>
+            <p id="confirm-payment"></p>
+            <div id="confirm-bank" style="display: none;">
+                <h3>Thông tin chuyển khoản</h3>
+                <p>Ngân hàng: <span>Ngân hàng ABC</span></p>
+                <p>Số tài khoản: <span>123456789</span></p>
+                <p>Chủ tài khoản: <span>Nguyễn Văn A</span></p>
+            </div>
+            <div id="confirm-credit" style="display: block;">
+                <p id="confirm-stk"></p>
+                <p id="confirm-tenstk"></p>
+                <p id="confirm-ngay"></p>
+                <p id="confirm-cvv"></p>
+            </div>
+            <button onclick="buy()">Xác nhận</button>
+            <button onclick="closeConfirmation()">Đóng</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="./src/js/thanhtoan.js"></script>
+    <script src="./src/js/sodiachijs.js"></script>
+    <script src="./src/js/manage-products.js"></script>
+</body>
+</html>
