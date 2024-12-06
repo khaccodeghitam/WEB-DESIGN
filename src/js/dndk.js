@@ -370,7 +370,7 @@ document.getElementById("updateButton").addEventListener("click", function() {
             });
             notiMenu.addEventListener('mouseenter', () => {
                 if (!loggedInUser) {
-                    notiDropdown.style.display = "block";
+                    notiDropdown.style.display = "flex";
                 }
             });
     

@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="./src/css/dndk.css">
         <link rel="stylesheet" href="./src/css/middle.css">
         <link rel="stylesheet" href="./src/css/userinfo.css" type="text/css" media="all">
+        <link rel="stylesheet" href="./src/css/thongbao.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -133,16 +134,21 @@
                                     <button class="btn-signin">Đăng ký</button>
                                 </div>
                             </li>
-                            <li class="noti-menu">
+                            <li class="noti-menu" id="thongbao">
                                 <button onClick="showThongbao()">
                                     <img src="./src/icon/thongbao.svg">
                                 </button>
                                 
-                                <div id="not-logged-in" class="noti-dropdown">
-                                    <button type="button" onclick="showDndk('login')" class="btn-login">Đăng nhập</button>
-                                    <button type="button" onclick="showDndk('register')" class="btn-signin">Đăng ký</button>
+                                <div id="notification-panel" class="noti-dropdown">
+                                    <table class="notification-table">
+                                        <img src="./src/icon/bullhorn-solid.svg" style="width: 50px; height: 50px;">
+                                        <tr>
+                                            <td>Chưa có thông báo nào cho bạn</td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </li>
+                            
                         </ul>
                         <div id="welcome-message" class="welcome-message" style="display: none;">
                             Chào<span id="username-display">Người dùng</span>!
@@ -548,4 +554,5 @@
     <script src="./src/js/sodiachijs.js"></script>
     <script src="./src/js/trangspjs.js"></script>
     <script src="./src/js/cart.js"></script>
+    <script src="./src/js/thongbao.js"></script>
 </html>

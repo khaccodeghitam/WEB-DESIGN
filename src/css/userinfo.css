@@ -490,7 +490,7 @@ select{
     display: block;
 }
 .noti-menu:hover .noti-dropdown {
-    display: block;
+    display: flex;
 }
 .account-dropdown button, .noti-dropdown button{
 display: block;
