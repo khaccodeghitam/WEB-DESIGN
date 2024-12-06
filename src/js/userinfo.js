@@ -478,16 +478,16 @@ function showShippingPolicy() {
     // Nội dung chính sách
     policyContainer.innerHTML = `
         <h1 style="text-align: center; color: #333; font-size: 2rem; margin: 10px 0;">CHÍNH SÁCH VẬN CHUYỂN/ĐÓNG GÓI</h1>
-        <p>Áp dụng cho toàn bộ đơn hàng của Quý Khách tại Fahasa.com</p>
+        <p>Áp dụng cho toàn bộ đơn hàng của Quý Khách tại BOOKBAY.com</p>
         <h2>1. Chính sách vận chuyển:</h2>
         <p>
-            Fahasa.com cung cấp dịch vụ giao hàng toàn quốc, gửi hàng tận nơi đến địa chỉ cung cấp của Quý khách.
+            BOOKBAY.com cung cấp dịch vụ giao hàng toàn quốc, gửi hàng tận nơi đến địa chỉ cung cấp của Quý khách.
             Thời gian giao hàng dự kiến phụ thuộc vào kho có hàng và địa chỉ nhận hàng của Quý khách.
         </p>
         <p>
-            Với đa phần đơn hàng, Fahasa.com cần vài giờ làm việc để kiểm tra thông tin và đóng gói hàng. Nếu các sản phẩm
-            đều có sẵn hàng, Fahasa.com sẽ nhanh chóng bàn giao cho đối tác vận chuyển. Nếu đơn hàng có sản phẩm sắp phát hành,
-            Fahasa.com sẽ ưu tiên giao những sản phẩm có hàng trước cho Quý khách hàng.
+            Với đa phần đơn hàng, BOOKBAY.com cần vài giờ làm việc để kiểm tra thông tin và đóng gói hàng. Nếu các sản phẩm
+            đều có sẵn hàng, BOOKBAY.com sẽ nhanh chóng bàn giao cho đối tác vận chuyển. Nếu đơn hàng có sản phẩm sắp phát hành,
+            BOOKBAY.com sẽ ưu tiên giao những sản phẩm có hàng trước cho Quý khách hàng.
         </p>
         <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
             <thead>
@@ -565,16 +565,16 @@ function showWarrantyPolicy() {
     // Nội dung chính sách
     policyContainer.innerHTML = `
         <h1 style="text-align: center; color: #333; font-size: 2rem; margin: 10px 0;">CHÍNH SÁCH BẢO HÀNH – BỒI HOÀN</h1>
-        <p>Áp dụng cho toàn bộ đơn hàng của Quý Khách tại Fahasa.com</p>
+        <p>Áp dụng cho toàn bộ đơn hàng của Quý Khách tại BOOKBAY.com</p>
         <h2 style="margin: 10px 0;">1. Tôi có thể bảo hành sản phẩm tại đâu?</h2>
         <ul>
             <li>
                 <b>Bảo hành chính hãng:</b> Đối với các sản phẩm điện tử, đồ chơi điện tử,... có tem phiếu cam kết bảo hành từ Hãng,
-                khách hàng có thể mang sản phẩm đến trực tiếp Hãng để bảo hành mà không cần thông qua Fahasa.com.
+                khách hàng có thể mang sản phẩm đến trực tiếp Hãng để bảo hành mà không cần thông qua BOOKBAY.com.
             </li>
             <li>
-                <b>Bảo hành thông qua Fahasa.com:</b> Khách hàng liên hệ hotline <b>1900636467</b> hoặc truy cập 
-                <a href="https://www.fahasa.com/chinh-sach-bao-hanh-san-pham" target="_blank">www.fahasa.com/chinh-sach-bao-hanh-san-pham</a>
+                <b>Bảo hành thông qua BOOKBAY.com:</b> Khách hàng liên hệ hotline <b>1900636467</b> hoặc truy cập 
+                <a href="https://www.BOOKBAY.com/chinh-sach-bao-hanh-san-pham" target="_blank">www.BOOKBAY.com/chinh-sach-bao-hanh-san-pham</a>
                 để được hỗ trợ tư vấn về thực hiện bảo hành.
             </li>
         </ul>
@@ -593,11 +593,11 @@ function showWarrantyPolicy() {
         </ul>
         <h2 style="margin: 10px 0;">3. Sau bao lâu tôi có thể nhận lại sản phẩm bảo hành?</h2>
         <p>
-            Nếu sản phẩm của quý khách vẫn còn trong thời hạn bảo hành, Fahasa khuyến khích quý khách gửi trực tiếp đến trung tâm của Hãng
-            để được hỗ trợ bảo hành nhanh nhất. Nếu gửi hàng về Fahasa.com, thời gian bảo hành dự kiến trong vòng <b>21 – 45 ngày</b>,
+            Nếu sản phẩm của quý khách vẫn còn trong thời hạn bảo hành, BOOKBAY khuyến khích quý khách gửi trực tiếp đến trung tâm của Hãng
+            để được hỗ trợ bảo hành nhanh nhất. Nếu gửi hàng về BOOKBAY.com, thời gian bảo hành dự kiến trong vòng <b>21 – 45 ngày</b>,
             tùy thuộc vào điều kiện linh kiện thay thế và lỗi sản phẩm (không tính thời gian vận chuyển).
         </p>
-        <h2 style="margin: 10px 0;">4. Fahasa.com bảo hành bằng các hình thức nào?</h2>
+        <h2 style="margin: 10px 0;">4. BOOKBAY.com bảo hành bằng các hình thức nào?</h2>
         <ul>
             <li>
                 <b>Hóa đơn:</b> Khách hàng mang theo hóa đơn trực tiếp hoặc hóa đơn giá trị gia tăng có thông tin sản phẩm để được bảo hành.
@@ -612,10 +612,10 @@ function showWarrantyPolicy() {
                 <b>Bảo hành điện tử:</b> Nhắn tin SMS kích hoạt, quét mã QR-Code, đăng ký trên website hoặc ứng dụng bảo hành.
             </li>
         </ul>
-        <h2 style="margin: 10px 0;">5. Fahasa.com có bảo hành quà tặng kèm sản phẩm không?</h2>
-        <p>Fahasa.com rất tiếc hiện chưa hỗ trợ bảo hành quà tặng đi kèm sản phẩm chính.</p>
+        <h2 style="margin: 10px 0;">5. BOOKBAY.com có bảo hành quà tặng kèm sản phẩm không?</h2>
+        <p>BOOKBAY.com rất tiếc hiện chưa hỗ trợ bảo hành quà tặng đi kèm sản phẩm chính.</p>
         <p>
-            <b>Lưu ý:</b> Quý khách cần cung cấp hình ảnh hoặc clip sản phẩm lỗi khi yêu cầu bảo hành. Fahasa.com sẽ từ chối xử lý khi không nhận đủ thông tin cần thiết.
+            <b>Lưu ý:</b> Quý khách cần cung cấp hình ảnh hoặc clip sản phẩm lỗi khi yêu cầu bảo hành. BOOKBAY.com sẽ từ chối xử lý khi không nhận đủ thông tin cần thiết.
         </p>
         <p style="margin-top: 20px;">Chính sách sẽ được áp dụng và có hiệu lực từ ngày <b>01/08/2022</b>.</p>
     `;
@@ -646,13 +646,13 @@ function showWholesalePolicy() {
     policyContainer.innerHTML = `
         <h1 style="text-align: center; color: #333; font-size: 2rem; margin: 10px 0;">CHÍNH SÁCH KHÁCH SỈ</h1>
         <p>
-            Hiện nay, do mức chiết khấu trên Fahasa.com rất cao, đặc biệt vào các thời điểm chạy chương trình. 
+            Hiện nay, do mức chiết khấu trên BOOKBAY.com rất cao, đặc biệt vào các thời điểm chạy chương trình. 
             Do đó, đối với mỗi chương trình số lượng sản phẩm giảm sốc có giới hạn nhất định, để đảm bảo quyền lợi của từng khách hàng, 
             chúng tôi xin thông báo chính sách “Đơn Hàng Sỉ” như sau:
         </p>
         <h2>Chính sách giá (% chiết khấu giảm giá)</h2>
         <p>
-            Đây là chính sách chung chỉ mang tính tương đối. Đối với khách hàng có nhu cầu đặt sỉ, xin Quý khách vui lòng liên lạc với Fahasa để được tư vấn chính sách giá chính xác nhất:
+            Đây là chính sách chung chỉ mang tính tương đối. Đối với khách hàng có nhu cầu đặt sỉ, xin Quý khách vui lòng liên lạc với BOOKBAY để được tư vấn chính sách giá chính xác nhất:
         </p>
         <ul>
             <li><b>1.</b> Đối với Nhóm hàng sách Kinh tế, Văn học: áp dụng mức giảm giá trên web tối đa không vượt quá <b>30%</b>.</li>
@@ -662,8 +662,8 @@ function showWholesalePolicy() {
             <li><b>5.</b> Đối với Nhóm hàng Giấy photo, Sản phẩm điện tử, Văn hóa phẩm: áp dụng mức giảm giá trên web tối đa không vượt quá <b>5%</b>.</li>
         </ul>
         <p>
-            Quý khách có nhu cầu mua sỉ, vui lòng liên hệ phòng kinh doanh Fahasa.com qua số hotline: <b>1900 63 64 67</b> 
-            hoặc Email: <a href="mailto:sales@fahasa.com.vn">sales@fahasa.com.vn</a> để được tư vấn.
+            Quý khách có nhu cầu mua sỉ, vui lòng liên hệ phòng kinh doanh BOOKBAY.com qua số hotline: <b>1900 63 64 67</b> 
+            hoặc Email: <a href="mailto:sales@BOOKBAY.com.vn">sales@BOOKBAY.com.vn</a> để được tư vấn.
         </p>
     `;
 
