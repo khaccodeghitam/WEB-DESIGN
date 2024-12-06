@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const billTableBody = document.querySelector('#bill-table tbody');
     const overlay = document.getElementById('overlay');
     const orderDetails = document.getElementById('order-details');
+    const itemsPerPage = 5;
+    let currentPage = 1;
     var data = [];
     axios(Parameter)
         .then(function (response) {
@@ -15,25 +17,51 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Dữ liệu tỉnh thành:", data);
 
             renderOrders(orderInfo);
+            setupPagination(orderInfo);
         })
         .catch(function (error) {
             console.error("Lỗi khi lấy dữ liệu tỉnh thành:", error);
         });
     function renderOrders(orders) {
         billTableBody.innerHTML = '';
-        orders.forEach(order => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedOrders = orders.slice(startIndex, endIndex);
+        // orders.forEach(order => {
+            paginatedOrders.forEach(order => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${order.id}</td>
                 <td>${order.date}</td>
                 <td>${order.name}</td>
-                <td>${order.totalprice}</td>
+                <td>${formatCurrency(order.totalprice)} đ</td>
                 <td>${order.status}</td>
             `;
             row.addEventListener('click', () => showOrderDetails(order));
             billTableBody.appendChild(row);
         });
     }
+
+    function setupPagination(orders) {
+        const totalPages = Math.ceil(orders.length / itemsPerPage);
+        const paginationContainer = document.getElementById('pagination');
+        paginationContainer.innerHTML = '';
+
+        if (totalPages > 1) {
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                pageButton.classList.toggle('active', i === currentPage);
+                pageButton.addEventListener('click', () => {
+                    currentPage = i;
+                    renderOrders(orders);
+                    setupPagination(orders);
+                });
+                paginationContainer.appendChild(pageButton);
+            }
+    }
+}
+
     function showOrderDetails(order) {
         
         // Tìm tên tỉnh
@@ -78,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('bill', JSON.stringify(updatedBillArray));
 
             renderOrders(orderInfo);
+            setupPagination(orderInfo);
             overlay.style.display = 'none';
         });
     }
@@ -95,9 +124,12 @@ document.addEventListener('DOMContentLoaded', function() {
                    (status === 'all' || order.status === status) &&
                    (city === 'all' || order.city === city);
         });
+        currentPage = 1;
         renderOrders(filteredOrders);
+        setupPagination(filteredOrders);
     });
     renderOrders(orderInfo);
+    setupPagination(orderInfo);
 });
 
 function closeOverlay() {

@@ -6,6 +6,7 @@ function showLogin(){
     document.getElementById("dangki").style.display = "none";
     document.getElementById("dangnhap").style.display = "block";
 }
+
 function showAddUserForm() {
     document.getElementById('addUserForm').style.display = 'block';
 }
@@ -15,13 +16,17 @@ function hideAddUserForm() {
 }
 
 function ktDangNhap(event) {
-    event.preventDefault(); // Ngăn chặn form gửi dữ liệu theo cách thông thường
-    const username = document.querySelector('#dangnhap input[name="username"]').value.trim();
-    const password = document.querySelector('#dangnhap input[name="password"]').value.trim();
-
+    event.preventDefault();
+    const username = document.querySelector('#dangnhap input[name="username"]').value;
+    const password = document.querySelector('#dangnhap input[name="password"]').value;
+    // if(username =='admin'&& password=='admin'){
+    //     window.location.href = "admin.html";
+    // }
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(u => u.username === username);
-
+    const user = users.find(u => u.username === username && u.password === password);
+    // if(username =='admin'&& password=='admin'){
+    //     alert("Admin đăng nhập!");
+    // }
     if (!user) {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
         return false;
@@ -32,27 +37,100 @@ function ktDangNhap(event) {
         return false;
     }
 
-    if (user.password !== password) {
-        alert("Mật khẩu không đúng!");
-        return false;
-    }
-
-
     // Lưu thông tin đăng nhập
     localStorage.setItem('loggedInUser', JSON.stringify(user));
     alert("Đăng nhập thành công!");
-
+    window.location.href = "index.html";
     // Cập nhật giao diện
     updateUI();
 
     // Đóng form đăng nhập
     closeForm();
 
-    loadUserAddress();
-    // Chuyển về trang chính
-    window.location.href = "./index.html";
+    // loadUserAddress();
+    
+
 }
-// Tạo 1 tài khoản admin mặc định khi chạy chương trình
+function ktDangKi(event) {
+    event.preventDefault();
+    // Lấy giá trị từ các ô input
+    const username = document.querySelector('#dangki input[name="username"]').value.trim();
+    const password = document.querySelector('#dangki input[name="password"]').value;
+    const repassword = document.querySelector('#dangki input[name="repassword"]').value;
+    const email = document.querySelector('#dangki input[name="email"]').value.trim();
+    const phone = document.querySelector('#dangki input[name="phone"]').value.trim();
+
+    // Kiểm tra tính hợp lệ
+    if (!username || !email || !password || !repassword || !phone) {
+        alert("Vui lòng điền đầy đủ thông tin bắt buộc!");
+        return false;
+    }
+
+    if (password !== repassword) {
+        alert("Mật khẩu nhập lại không khớp!");
+        return false;
+    }
+
+    // Kiểm tra email hợp lệ
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (email && !emailRegex.test(email)) {
+        alert("Email không hợp lệ!");
+        return false;
+    }
+
+    // Kiểm tra số điện thoại hợp lệ
+    const phoneRegex = /^[0-9]{10,11}$/;
+    if (phone && !phoneRegex.test(phone)) {
+        alert("Số điện thoại không hợp lệ!");
+        return false;
+    }
+
+    // Kiểm tra tên người dùng đã tồn tại chưa
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
+    const userExists = users.some(user => user.username === username);
+    if (userExists) {
+        alert("Tên người dùng đã tồn tại!");
+        return false;
+    }
+
+    // Tạo ID mới không trùng lặp
+    const userId = generateUniqueId(users, deletedUsers);
+
+    const currentDate = new Date();
+    const registrationDate = `${String(currentDate.getDate()).padStart(2, '0')}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${currentDate.getFullYear()}`;
+    // Tạo đối tượng người dùng
+    const user = {
+        id: userId,  // Gán id duy nhất cho người dùng
+        username: username,
+        password: password,
+        email: email,
+        phone: phone,
+        info: {
+            ho: "",
+            ten: "",
+            sdt: phone,
+            email: email,
+            gioiTinh: "",
+            birthday: { ngay: "", thang: "", nam: "" },
+        },
+        registrationDate,
+        userType: 'customer', // Mặc định là Khách hàng
+        isBlocked: false
+    };
+
+    // Lưu thông tin người dùng vào localStorage
+    users.push(user);
+    localStorage.setItem('users', JSON.stringify(users));
+
+    alert("Đăng ký thành công!");
+    window.location.href = "index.html";
+    // Cập nhật bảng danh sách khách hàng sau khi đăng ký thành công
+    updateCustomerTable(users);  // Gọi hàm này để cập nhật bảng
+
+    showLogin();  // Giả sử hàm này sẽ chuyển đến trang đăng nhập sau khi đăng ký thành công
+}
+
 function createDefaultAdmin() {
     const users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -87,78 +165,6 @@ function createDefaultAdmin() {
     }
 }
 
-
-function ktDangKi() {
-    const username = document.querySelector('#dangki input[name="username"]').value.trim();
-    const password = document.querySelector('#dangki input[name="password"]').value;
-    const repassword = document.querySelector('#dangki input[name="repassword"]').value;
-    const email = document.querySelector('#dangki input[name="email"]').value.trim();
-    const phone = document.querySelector('#dangki input[name="phone"]').value.trim();
-
-    if (!username || !password || !repassword || !phone) {
-        alert("Vui lòng điền đầy đủ thông tin bắt buộc!");
-        return false;
-    }
-
-    if (password !== repassword) {
-        alert("Mật khẩu nhập lại không khớp!");
-        return false;
-    }
-
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (email && !emailRegex.test(email)) {
-        alert("Email không hợp lệ!");
-        return false;
-    }
-
-    const phoneRegex = /^[0-9]{10,11}$/;
-    if (phone && !phoneRegex.test(phone)) {
-        alert("Số điện thoại không hợp lệ!");
-        return false;
-    }
-
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
-    const userExists = users.some(user => user.username === username);
-    if (userExists) {
-        alert("Tên người dùng đã tồn tại!");
-        return false;
-    }
-
-    const userId = generateUniqueId(users, deletedUsers);
-
-    const currentDate = new Date();
-    const registrationDate = `${String(currentDate.getDate()).padStart(2, '0')}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${currentDate.getFullYear()}`;
-
-    const user = {
-        id: userId,
-        username: username,
-        password: password,
-        email: email,
-        phone: phone,
-        info: {
-            ho: "",
-            ten: "",
-            sdt: phone,
-            email: email,
-            gioiTinh: "",
-            birthday: { ngay: "", thang: "", nam: "" },
-        },
-        registrationDate,
-        userType: 'customer', // Mặc định là Khách hàng
-        isBlocked: false
-    };
-
-    users.push(user);
-    localStorage.setItem('users', JSON.stringify(users));
-
-    alert("Đăng ký thành công!");
-    updateCustomerTable(users);
-    showLogin();
-}
-
-
-// Khóa người dùng
 function blockCustomer(userId) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const userIndex = users.findIndex(user => user.id === userId);
@@ -175,7 +181,6 @@ function blockCustomer(userId) {
         }
     }
 }
-
 
 function handleLogin() {
     const username = document.querySelector('#login input[name="username"]').value.trim();
@@ -205,7 +210,6 @@ function handleLogin() {
     return true;
 }
 
-
 function handleBuyNow() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
@@ -226,8 +230,60 @@ function handleCartNow() {
     }
 }
 
+function updatePassword(event) {
+    event.preventDefault();
+    // Lấy thông tin tài khoản đang đăng nhập từ localStorage
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+   
+
+    // Lấy giá trị từ các ô input
+    const oldPassword = document.getElementById('old-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    // Kiểm tra tính hợp lệ
+    if (!oldPassword || !newPassword || !confirmPassword) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+    }
+
+    if (oldPassword !== loggedInUser.password) {
+        alert("Mật khẩu cũ không đúng!");
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        alert("Mật khẩu mới và nhập lại mật khẩu không khớp!");
+        return;
+    }
+
+    // Cập nhật mật khẩu trong danh sách người dùng
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(u => u.username === loggedInUser.username);
+
+    if (userIndex !== -1) {
+        users[userIndex].password = newPassword;
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    // Cập nhật mật khẩu trong thông tin tài khoản đăng nhập
+    loggedInUser.password = newPassword;
+    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+    alert("Đổi mật khẩu thành công!");
+    // Reset form
+    document.getElementById('old-password').value = '';
+    document.getElementById('new-password').value = '';
+    document.getElementById('confirm-password').value = '';
+}
+
 function saveUserInfo() {
   
+    if (!validateForm()) {
+        alert("Vui lòng kiểm tra lại thông tin và sửa các lỗi trước khi lưu.");
+        return; 
+    }
+   
     // Lấy thông tin từ form
     const ho = document.getElementById("ho").value;
     const ten = document.getElementById("ten").value;
@@ -276,82 +332,81 @@ document.getElementById("updateButton").addEventListener("click", function() {
 //     });
 // });
 
-function updateUI() {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); 
-
-    const accountMenu = document.querySelector('.account-menu'); 
-    const notLoggedInMenu = document.querySelector('.account-dropdown');  
-    const notiMenu = document.querySelector('.noti-menu');
-    const notiDropdown = notiMenu.querySelector('.noti-dropdown');
-    const welcomeMessage = document.getElementById('welcome-message');
-    const usernameDisplay = document.getElementById('username-display');
-    if (loggedInUser) {
-        // Đã đăng nhập: ẩn bảng đăng nhập/đăng ký, hiển thị tên người dùng
-        notLoggedInMenu.style.display = "none";
-        notiDropdown.style.display="none";
-        welcomeMessage.style.display = 'flex';
-        usernameDisplay.textContent = loggedInUser.username;
-    } else {
-        // Chưa đăng nhập: hiển thị bảng đăng nhập/đăng ký khi hover
-        welcomeMessage.style.display = 'none';
-        accountMenu.addEventListener('mouseenter', () => {
-            notLoggedInMenu.style.display = "block"; 
-        });
-
-        accountMenu.addEventListener('mouseleave', () => {
-            // Ẩn bảng khi rời khỏi nút tài khoản sau 200ms (để xử lý vùng trống nhỏ)
-            setTimeout(() => {
-                if (!notLoggedInMenu.matches(':hover')) {
-                    notLoggedInMenu.style.display = "none";
-                }
-            }, 200);
-        });
-
-        notLoggedInMenu.addEventListener('mouseleave', () => {
-            // Ẩn bảng khi rời khỏi bảng
+    function updateUI() {
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); 
+    
+        const accountMenu = document.querySelector('.account-menu'); 
+        const notLoggedInMenu = document.querySelector('.account-dropdown');  
+        const notiMenu = document.querySelector('.noti-menu');
+        const notiDropdown = notiMenu.querySelector('.noti-dropdown');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const usernameDisplay = document.getElementById('username-display');
+        if (loggedInUser) {
+            // Đã đăng nhập: ẩn bảng đăng nhập/đăng ký, hiển thị tên người dùng
             notLoggedInMenu.style.display = "none";
-        });
-        notiMenu.addEventListener('mouseenter', () => {
-            if (!loggedInUser) {
-                notiDropdown.style.display = "block";
-            }
-        });
-
-        notiMenu.addEventListener('mouseleave', () => {
-            setTimeout(() => {
-                if (!notiDropdown.matches(':hover')) {
-                    notiDropdown.style.display = "none";
+            notiDropdown.style.display="none";
+            // document.querySelector('.account-menu p').textContent = loggedInUser.username;
+            welcomeMessage.style.display = 'flex';
+            usernameDisplay.textContent = loggedInUser.username;
+        } else {
+            // Chưa đăng nhập: hiển thị bảng đăng nhập/đăng ký khi hover
+            welcomeMessage.style.display = 'none';
+            accountMenu.addEventListener('mouseenter', () => {
+                notLoggedInMenu.style.display = "block"; 
+            });
+    
+            accountMenu.addEventListener('mouseleave', () => {
+                // Ẩn bảng khi rời khỏi nút tài khoản sau 200ms (để xử lý vùng trống nhỏ)
+                setTimeout(() => {
+                    if (!notLoggedInMenu.matches(':hover')) {
+                        notLoggedInMenu.style.display = "none";
+                    }
+                }, 200);
+            });
+    
+            notLoggedInMenu.addEventListener('mouseleave', () => {
+                // Ẩn bảng khi rời khỏi bảng
+                notLoggedInMenu.style.display = "none";
+            });
+            notiMenu.addEventListener('mouseenter', () => {
+                if (!loggedInUser) {
+                    notiDropdown.style.display = "block";
                 }
-            }, 200);
-        });
-
-        notiDropdown.addEventListener('mouseleave', () => {
-            notiDropdown.style.display = "none";
-        });
-    }
-
-    if (loggedInUser && loggedInUser.info) {
-        const { ho, ten, sdt, email, gioiTinh, birthday } = loggedInUser.info;
-
-        // Gán các giá trị vào form
-        document.getElementById("ho").value = ho || "";
-        document.getElementById("ten").value = ten || "";
-        document.getElementById("sdt").value = sdt || "";
-        document.getElementById("email").value = email || "";
-        if (gioiTinh) {
-            document.querySelector(`input[name="gioi_tinh"][value="${gioiTinh}"]`).checked = true;
+            });
+    
+            notiMenu.addEventListener('mouseleave', () => {
+                setTimeout(() => {
+                    if (!notiDropdown.matches(':hover')) {
+                        notiDropdown.style.display = "none";
+                    }
+                }, 200);
+            });
+    
+            notiDropdown.addEventListener('mouseleave', () => {
+                notiDropdown.style.display = "none";
+            });
         }
-        if (birthday) {
-            document.getElementById("ngay").value = birthday.ngay || "";
-            document.getElementById("thang").value = birthday.thang || "";
-            document.getElementById("nam").value = birthday.nam || "";
+
+        if (loggedInUser && loggedInUser.info) {
+            const { ho, ten, sdt, email, gioiTinh, birthday } = loggedInUser.info;
+    
+            // Gán các giá trị vào form
+            document.getElementById("ho").value = ho || "";
+            document.getElementById("ten").value = ten || "";
+            document.getElementById("sdt").value = sdt || "";
+            document.getElementById("email").value = email || "";
+            if (gioiTinh) {
+                document.querySelector(`input[name="gioi_tinh"][value="${gioiTinh}"]`).checked = true;
+            }
+            if (birthday) {
+                document.getElementById("ngay").value = birthday.ngay || "";
+                document.getElementById("thang").value = birthday.thang || "";
+                document.getElementById("nam").value = birthday.nam || "";
+            }
+        } else {
+            console.log("Không có người dùng nào đăng nhập hoặc thông tin bị thiếu.");
         }
-    } else {
-        console.log("Không có người dùng nào đăng nhập hoặc thông tin bị thiếu.");
     }
-
-}
-
 
 
 
@@ -398,6 +453,7 @@ function logout() {
     alert("Bạn đã đăng xuất thành công!");
 
     // Cập nhật giao diện
+    location.reload();
     updateUI();
 }
 
@@ -412,6 +468,7 @@ function showform() {
         showDropdownNotLoggedIn();
     }
 }
+
 
 
 function toggleUserInfo() {
@@ -452,7 +509,6 @@ function toggleUserInfo() {
         userInfo.classList.remove('user-info-active');
     }
 }
-
 function backToMain() {
     const userInfo = document.getElementById('user-info');
     const middleContent = document.querySelector('.middle');
@@ -482,6 +538,23 @@ function generateUniqueId(users, deletedUsers) {
 
 
 // Thêm người dùng mới
+// function addUser(ho, ten, username) {
+//     const users = JSON.parse(localStorage.getItem('users')) || [];
+//     const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
+
+//     const newId = generateUniqueId(users, deletedUsers);
+
+//     const newUser = {
+//         id: newId,
+//         info: { ho, ten },
+//         username,
+//         registrationDate: new Date().toISOString().split('T')[0],
+//     };
+//     users.push(newUser);
+//     localStorage.setItem('users', JSON.stringify(users));
+//     updateCustomerTable(users);
+// }
+
 function addUserFromForm() {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const deletedUsers = JSON.parse(localStorage.getItem('deletedUsers')) || [];
@@ -540,7 +613,7 @@ function updateCustomerTable(users) {
         const userType = user.userType || "Khách hàng"; // Mặc định là Khách hàng nếu không xác định
         const isBlocked = user.isBlocked ? " (Đã khóa)" : "";
 
-        const blockIconSrc = user.isBlocked ? "src/icon/lock-open.svg" : "src/icon/lock.svg";
+        const blockIconSrc = user.isBlocked ? "src/icon/unlock.svg" : "src/icon/lock.svg";
         const editIconSrc = "src/icon/rewrite.svg";
         const deleteIconSrc = "src/icon/delete.svg";
 
@@ -559,6 +632,8 @@ function updateCustomerTable(users) {
         customerList.appendChild(row);
     });
 }
+
+
 
 // Sửa thông tin người dùng
 function editCustomer(id) {
@@ -590,7 +665,6 @@ function editCustomer(id) {
         alert("Thông tin người dùng đã được cập nhật!");
     }
 }
-
 function deleteCustomer(userId) {
     if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
         const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -614,6 +688,7 @@ function deleteCustomer(userId) {
         alert("Người dùng đã được xóa!");
     }
 }
+
 // Tìm kiếm người dùng
 
 // Tìm kiếm người dùng

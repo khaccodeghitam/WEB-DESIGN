@@ -1,3 +1,5 @@
+
+
 function getProducts() {
     return JSON.parse(localStorage.getItem('products')) || [];
 }
@@ -199,7 +201,11 @@ function editProduct(id) {
                 
                 <label for="product-image">Thay đổi hình ảnh:</label>
                 <input type="file" id="product-image" name="product-image" accept="image/*" onchange="previewImage(event)">
-                <img id="image-preview" src="${productToEdit.image}" style="display: block; max-width: 200px; margin: 10px 0;">
+
+                <div class="image-controls">
+                    <img id="image-preview" src="${productToEdit.image}" style="display: block; max-width: 200px; margin: 10px 0;">
+                    <button type="button" onclick="removeProductImage()" ${productToEdit.image === './src/img/default.jpg' ? 'disabled' : ''}>Xóa hình ảnh</button>
+                </div>
 
                 <div class="btn-edit-form">
                     <button type="button" onclick="goBack()">Quay lại</button>
@@ -215,6 +221,17 @@ function editProduct(id) {
     genreSelect.value = productToEdit.category;
 }
 
+function removeProductImage() {
+    const imagePreview = document.getElementById('image-preview');
+    const imageInput = document.getElementById('product-image');
+    const removeButton = event.target;
+
+    // Set image to default if not already default
+    imagePreview.src = './src/img/default.jpg';
+    imageInput.value = ''; // Clear file input
+    removeButton.disabled = true; // Disable remove button
+}
+
 function saveEditedProduct(productID) {
     const products = getProducts();
     const productIndex = products.findIndex(product => product.productID === productID);
@@ -226,6 +243,7 @@ function saveEditedProduct(productID) {
 
     const imageInput = document.getElementById('product-image');
     const image = imageInput.files[0];
+    const currentImageSrc = document.getElementById('image-preview').src;
 
     const updateProduct = () => {
         // products[productIndex] = {
@@ -240,7 +258,8 @@ function saveEditedProduct(productID) {
             author: document.getElementById('author').value,
             form: document.getElementById('form').value,
             description: document.getElementById('description').value,
-            image: image ? currentImage : products[productIndex].image
+            // image: image ? currentImage : products[productIndex].image
+            image: image ? currentImage : (currentImageSrc.endsWith('default.jpg') ? './src/img/default.jpg' : products[productIndex].image)
         };
 
         products[productIndex] = updatedProductData;
@@ -353,6 +372,7 @@ function showThongKe() {
     const searchContainer = document.querySelector('.search-container');
     const dashboard = document.querySelector('.dashboard');
     document.getElementById("pageadmin").style.display='none';
+    document.getElementById('edit-form-container').style.display='none';
 
     dashboard.style.display='none';
     thongKeSection.style.display = 'block';
@@ -368,6 +388,8 @@ function showHoaDon() {
     const searchContainer = document.querySelector('.search-container');
     const dashboard = document.querySelector('.dashboard');
     document.getElementById("pageadmin").style.display='none';
+    document.getElementById('edit-form-container').style.display='none';
+
 
     dashboard.style.display='none';
     thongKeSection.style.display = 'none';

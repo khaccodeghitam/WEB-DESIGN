@@ -27,7 +27,7 @@
                             </a>
                         </div>
                         
-                        <ul id="navmenu">
+                        <!-- <ul id="navmenu">
                             <li>
                                 <a href="./index.html?timkiemnangcao&0">LỌC THỂ LOẠI</a>
                             </li>
@@ -40,7 +40,7 @@
                             <li>
                                 <a href="index.html?truyenthieunhi&0">TRUYỆN THIẾU NHI</a>
                             </li>                      
-                        </ul>
+                        </ul> -->
                     </div>
                     
                     <!-- Phần bot head -->
@@ -64,20 +64,20 @@
                         </ul>
 
                         <!-- Phần search bar -->
-                         <div class="search-bar">
-                            <!-- nút thể loại -->
+                         <!-- <div class="search-bar">
+                        
                             <div class="dropdown">
                                 <div class="dropdown-text" id="drop-text">
                                     <span>THỂ LOẠI</span>
                                     <img src="./src/icon/xuong.svg">
                                 </div>
                             </div>
-                            <!-- khung tìm kiếm -->
+                          
                             <div class="search-box">
                                 <input type="text" id="search-input" placeholder="Tìm kiếm">
                                 <img src="./src/icon/kinhlup.svg">
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Khung tìm kiếm full màn -->
                         <div class="search-bar2">
                             <input type="text" placeholder="">
@@ -85,12 +85,12 @@
                         </div>
 
                     <!-- Phần nút rightmenu -->
-                        <ul class="rightmenu">
+                        <!-- <ul class="rightmenu">
                             <li class="account-menu">
                                 <button onClick="showform()">
                                     <img src="./src/icon/user.svg">
                                 </button>
-                                <p>Tài khoản</p>
+                             
                                 <div id="not-logged-in" class="account-dropdown">
                                     <button type="button" onclick="showDndk('login')" class="btn-login">Đăng nhập</button>
                                     <button type="button" onclick="showDndk('register')" class="btn-signin">Đăng ký</button>
@@ -100,7 +100,7 @@
                                 <button onClick="location.href='./giohang.html'">
                                     <img src="./src/icon/giohang.svg">
                                 </button>
-                                <p>Giỏ hàng</p>
+                      
                                 <div class="account-dropdown">
                                     <button class="btn-login">Đăng nhập</button>
                                     <button class="btn-signin">Đăng ký</button>
@@ -110,13 +110,13 @@
                                 <button onClick="showThongbao()">
                                     <img src="./src/icon/thongbao.svg">
                                 </button>
-                                <p>Thông báo</p>
+                             
                                 <div id="not-logged-in" class="noti-dropdown">
                                     <button type="button" onclick="showDndk('login')" class="btn-login">Đăng nhập</button>
                                     <button type="button" onclick="showDndk('register')" class="btn-signin">Đăng ký</button>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> -->
                         <div id="welcome-message" class="welcome-message" style="display: none;">
                             Chào, <span id="username-display">Người dùng</span>!
                         <button type="button" onclick="logout()" class="btn-logout">Đăng xuất</button>
@@ -352,27 +352,39 @@
             </div>
             
             <!-- Phần footer -->
-             <div id="footer">
+            <div id="footer">
                 <div class="container">
                     <div class="topfoot">
                         <div class="footmenu" id="left">
                             <img src="./src/img/BookBay2.png">
                         </div>
                         <div class="footmenu" id="right">
-                            <h4>Thông tin liên hệ</h4>
+                            <h4>THÔNG TIN LIÊN HỆ</h4>
+                            <p><img src="./src/icon/phone.svg">Liên hệ: 0855619205</p>
+                            <p><img src="./src/icon/mail.svg">cskh@bookbay.com.vn</p>     
                             <p><img src="./src/icon/map.svg">Trụ sở chính: 273 An Dương Vương, Phường 3, Quận 5, TPHCM</p>
                             <p><img src="./src/icon/map.svg">Chi nhánh 1: 27/5 Ấp Tam Thới, Phường Tân Thới Nhì , Huyện Hóc Môn, TPHCM</p>
                             <p><img src="./src/icon/map.svg">Chi nhánh 2: 149 Trường Chinh, Phường 7, Quận 12, TPHCM</p>
-                            <p><img src="./src/icon/phone.svg">Liên hệ: 0855619205</p>
-                            <p><img src="./src/icon/mail.svg">cskh@bookbay.com.vn</p>     
                         </div>
-
+                        <div class="footmenu" id="right">
+                            <h4>DỊCH VỤ</h4>
+                            <p >Điều khoản sử dụng</p>
+                            <p >Chính sách bảo mật thanh toán</p>
+                            <p >Chính sách bảo mật thông tin cá nhân</p>
+                        </div>
+                        <div class="footmenu" id="right">
+                            <h4>HỖ TRỢ</h4>
+                            <p >Chính sách khách sỉ</p> 
+                            <p >Chính sách vận chuyển</p>
+                            <p >Chính sách bảo hành - bồi hoàn</p>
+                        </div>
                         
                     </div>
                 </div>
-             </div>
+        </div> 
         </div>    
     </body>
+    <script src="./src/js/manage-products.js"></script>
     <script src="./src/js/userinfo.js"></script>
     <script src="./src/js/middle.js"></script>
     <script src="./src/js/dndk.js"></script>

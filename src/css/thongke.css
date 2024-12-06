@@ -1,3 +1,55 @@
 #thongke h2{
     margin-bottom: 10px;
 }
+.thongke-sanpham{
+    margin-bottom: 20px;
+}
+
+.thongke-banchay{
+    margin-bottom: 20px;
+    
+}
+
+.thongke-bane{
+    margin-bottom: 20px;
+
+}
+
+#bang-thongke, th, td{
+    height:10px;
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+#pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+}
+#pagination button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+
+.product-statistics-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.product-statistics-pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.product-statistics-pagination button.active {
+    background-color: #007bff;
+    color: white;
+}

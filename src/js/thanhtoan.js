@@ -52,7 +52,7 @@ function check() {
     listProducts.innerHTML = `${info}`;
     product.appendChild(listProducts);
 
-    paidPrice.innerHTML = `${total} Đ`;
+    paidPrice.innerHTML = `${formatCurrency(total)} đ`;
 }
 
 function paymentMethod(){

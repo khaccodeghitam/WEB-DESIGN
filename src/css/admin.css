@@ -145,11 +145,11 @@ body{
     line-height: 25px;
   }
   .wrapper .info button{
-    display:flex;
+    /* display:flex; */
     justify-content: flex-start;
     align-items: center;
     padding: 6px;
-    margin: 20px;
+    margin: 10px;
     background: linear-gradient(0deg, #36aff5, #39ecf9);
     border: 2px solid #cdcdcd;
     color: #fff;
@@ -157,6 +157,7 @@ body{
     font-size: 1rem;
     border-radius: 20cap;
     cursor: pointer;
+    padding: 5px 10px;
   }
   .wrapper .info button:hover{
     background: linear-gradient(0deg, #f80101, #ff6464);

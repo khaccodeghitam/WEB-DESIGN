@@ -119,14 +119,14 @@ function cartList() {
                 <input type="number" id="quantity" readonly value="${cartArray[i].quantity}">
                 <button class="btn--increase qty" onclick="increaseQuantity(${cartArray[i].productID})">+</button>
             </td>
-            <td>${Number(cartArray[i].newPrice) * Number(cartArray[i].quantity)} Đ</td>
+            <td>${formatCurrency(Number(cartArray[i].newPrice) * Number(cartArray[i].quantity))} đ</td>
             <td><button class="delete-btn" onclick="deleteCart(${i})">Xóa</button></td>
         `;
         cartTable.appendChild(row);
         total += Number(cartArray[i].newPrice) * Number(cartArray[i].quantity);
     }
 
-    totalPrice.innerHTML = `${total} Đ`;
+    totalPrice.innerHTML = `${formatCurrency(total)} đ`;
 }
 
 function decreaseQuantity(id) {
@@ -219,7 +219,7 @@ function showBill() {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${billArray[i].info}</td>
-                <td>${billArray[i].totalprice} Đ</td>
+                <td>${billArray[i].totalprice} đ</td>
                 <td>${billArray[i].customer.username}</td>
                 <td>${billArray[i].date}</td>
                 <td class="status">${billArray[i].status}</td>

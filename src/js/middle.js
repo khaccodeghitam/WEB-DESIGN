@@ -45,6 +45,9 @@ function showEditForm() {
     document.querySelector('.product-manage').style.display = 'none';
     document.querySelector('.search-container').style.display = 'none';
     document.getElementById("pageadmin").style.display='none';
+    document.getElementById('thongke').style.display='none';
+    document.getElementById('bill-admin-management').style.display='none';
+    document.querySelector('.dashboard').style.display='none';
     //form thêm sản phẩm
     const editFormContainer = document.getElementById("edit-form-container");
     editFormContainer.style.display = 'block';
@@ -77,7 +80,6 @@ function showEditForm() {
                     <option value="Phân tích kinh tế">Phân tích kinh tế</option>
                 
                 
-                    <option value="Chọn thể loại">Chọn thể loại</option>
                     <option value="Sách giáo khoa">Sách giáo khoa</option>
                     <option value="Sách luyện thi THPTQG">Sách luyện thi THPTQG</option>
                     <option value="Sách mẫu giáo">Sách mẫu giáo</option>
@@ -186,6 +188,7 @@ function submitEditForm() {
                     description,
                     image: base64Image, // Lưu ảnh dưới dạng base64
                 });
+                
             });
         } else {
             saveProduct({
@@ -200,10 +203,34 @@ function submitEditForm() {
                 description,
                 image: './src/img/default.jpg',
             });
+            
         }
     } else {
         alert("Vui lòng điền đầy đủ thông tin!");
     }
+}
+
+function resetEditForm() {
+    document.getElementById('product-name').value = '';
+    document.getElementById('old-price').value = '';
+    document.getElementById('new-price').value = '';
+    document.getElementById('category').selectedIndex = 0;
+    document.getElementById('supplier').value = '';
+    document.getElementById('publisher').value = '';
+    document.getElementById('author').value = '';
+    document.getElementById('form').value = '';
+    // document.getElementById('description').value = '';
+
+    const descriptionTextarea = document.getElementById('description');
+    descriptionTextarea.value = '';
+    descriptionTextarea.style.height = 'auto';
+    
+    // Reset image preview
+    const imageInput = document.getElementById('product-image');
+    const imagePreview = document.getElementById('image-preview');
+    imageInput.value = ''; // Clear file input
+    imagePreview.src = '';
+    imagePreview.style.display = 'none';
 }
 
 function saveProduct(product) {
@@ -220,9 +247,9 @@ function saveProduct(product) {
 
     updateProductStatistics(product);
     alert("Đã thêm sản phẩm!");
+    resetEditForm();
     addProductToUI(product);
     
-   
 }
 
 function renderProductDetails(product,productID) {
@@ -279,9 +306,17 @@ function attachProductEventListeners(products) {
     const contentDiv = document.getElementById('content');
     const productItems = contentDiv.querySelectorAll('.item');
 
+    const url = window.location.href;
+    const temp = url.split("?");
+    const startIndex = temp[1] && temp[1].includes('&') ? parseInt(temp[1].split('&')[1]) : 0;
+
     productItems.forEach((item, index) => {
         item.addEventListener('click', () => {
-            const product = products[index];
+            // const product = products[index];
+            // renderProductDetails(product, product.productID);
+
+            const actualProductIndex = startIndex + index;
+            const product = products[actualProductIndex];
             renderProductDetails(product, product.productID);
         });
     });
@@ -581,35 +616,3 @@ function checkLoggedUser() {
         window.location.href = './giohang.html';
     }
 }
-
-// function showBill() {
-//     console.log("showBill function called");
-
-//     const billArray = JSON.parse(localStorage.getItem('bill'));
-//     if (!billArray || billArray.length === 0) {
-//         console.log("Không có hóa đơn nào!");
-//         return;
-//     } else {
-//         console.log("Bill array:", billArray);
-//     }
-
-//     const billTable = document.getElementById('bill-items');
-//     if (!billTable) {
-//         console.error("Không tìm thấy hóa đơn");
-//         return;
-//     }
-
-//     billTable.innerHTML = '';
-//     for (let i = 0; i < billArray.length; i++) {
-//         const row = document.createElement('tr');
-//         row.innerHTML = `
-//         <td>${billArray[i].id}</td>
-//         <td>${billArray[i].info}</td>
-//         <td>${billArray[i].totalprice} Đ</td>
-//         <td>${billArray[i].customer.username}</td>
-//         <td>${billArray[i].date}</td>
-//         <td class="status">${billArray[i].status}</td>
-//         `;
-//         billTable.appendChild(row);
-//     }
-// }
