@@ -518,6 +518,7 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
     var count=0,sotrang=1;
     var i=0;
     var sotrang=0;
+    var maxitem=6;
     var url=window.location.href;
     var temp=url.split("?");
     if(temp[1]=='' || temp[1]==undefined || temp[1].search('all')==0){
@@ -570,10 +571,10 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
             // Thêm sản phẩm mới vào danh sách
             contentDiv.appendChild(productItem);
             count++;
-            if(count==6)
+            if(count==maxitem)
                 break;
         }
-        sotrang = Math.ceil(products.length/6);
+        sotrang = Math.ceil(products.length/maxitem);
         const page=document.getElementById('page');
         if(sotrang==1){
             page.style.display='none';
@@ -583,7 +584,7 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
             console.error('Element with ID "page" not found');
         } else {
             for (let i = 0; i < sotrang; i++) {
-                const vitri = i * 6;
+                const vitri = i * maxitem;
                 lienket = document.createElement('button');
                 lienket.textContent = i + 1;
                 lienket.addEventListener('click', function() {
