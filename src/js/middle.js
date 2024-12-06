@@ -570,10 +570,10 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
             // Thêm sản phẩm mới vào danh sách
             contentDiv.appendChild(productItem);
             count++;
-            if(count==15)
+            if(count==6)
                 break;
         }
-        sotrang = Math.ceil(products.length/15);
+        sotrang = Math.ceil(products.length/6);
         const page=document.getElementById('page');
         if(sotrang==1){
             page.style.display='none';
@@ -583,7 +583,7 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
             console.error('Element with ID "page" not found');
         } else {
             for (let i = 0; i < sotrang; i++) {
-                const vitri = i * 15;
+                const vitri = i * 6;
                 lienket = document.createElement('button');
                 lienket.textContent = i + 1;
                 lienket.addEventListener('click', function() {

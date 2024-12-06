@@ -88,7 +88,10 @@ function buy() {
         window.location.href = "index.html"; // Quay về trang chủ
         return;
     }
-
+    const confirmPayment = confirm("Bạn có chắc chắn muốn thanh toán không?");
+    if (!confirmPayment) {
+        return; // Dừng lại nếu người dùng chọn "Không"
+    }
     // Xử lý thông tin hóa đơn
     const city = document.getElementById("city").value;
     const district = document.getElementById("district").value;

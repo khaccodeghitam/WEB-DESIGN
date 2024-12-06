@@ -32,15 +32,18 @@ if (!ten) {
 }
 
 // Validate Số điện thoại
-const sdtPattern = /^[0-9]{10}$/;
+const sdtPattern = /^0[0-9]{8}[1-9]$/;
 if (sdt && !sdtPattern.test(sdt)) {
+    // document.getElementById("sdtError").textContent = "Số điện thoại không hợp lệ";
     document.getElementById("sdtError").style.display = "block";
     isValid = false;
 }
 
 // Validate Email
-const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+// const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const emailPattern = /^[a-zA-Z0-9._-]+@(gmail\.com|yahoo\.com)$/;
 if (email && !emailPattern.test(email)) {
+    // document.getElementById("emailError").textContent = "Email không hợp lệ";
     document.getElementById("emailError").style.display = "block";
     isValid = false;
 }
