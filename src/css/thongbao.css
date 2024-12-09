@@ -1,0 +1,37 @@
+/* CSS cho bảng thông báo */
+.noti-dropdown {
+    width: 200px;
+    display: none; /* Ẩn mặc định */
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1000;
+    top: 170px;
+}
+
+.noti-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+}
+
+.noti-table {
+    width: 300px;
+    border-collapse: collapse;
+}
+
+.noti-table td {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}

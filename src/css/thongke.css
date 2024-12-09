@@ -53,3 +53,108 @@
     background-color: #007bff;
     color: white;
 }
+ #chitiet-sanpham-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #chitiet-sanpham-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 90%;
+        max-height: 80%;
+        overflow: auto;
+        position: relative;
+        width: 800px;
+    }
+
+    #chitiet-sanpham {
+        width: 100%;
+    }
+
+    #chitiet-sanpham, th {
+        background-color: lightyellow;
+    }
+
+    #chitiet-sanpham, td {
+        background-color: white;
+    }
+
+    #close-product-details {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+
+    #khachhang-chitieu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #chitiet-khachhang-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 80%;
+        max-height: 80%;
+        width: 600px;
+        position: relative;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+    }
+
+    #close-customer-details {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #888;
+    }
+
+    #close-customer-details:hover {
+        color: #333;
+    }
+
+    #chitiet-khachhang {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #chitiet-khachhang th, 
+    #chitiet-khachhang td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    #chitiet-khachhang th {
+        background-color: #f2f2f2;
+    }
+    

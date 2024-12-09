@@ -269,7 +269,7 @@ input[type=number] {
     text-align: center;
     font-size: 16px;
     border: 1px solid #f3f4f4;
-    
+    margin-top: 0;
     background-color: #fff;
     height: 40px;
     line-height: 40px;
@@ -296,7 +296,7 @@ button{
     outline: none;
     height: 40px;
     background: #fff;
-    border: 1px solid #f3f4f4;   
+    border: 2px solid #a3a3a3;   
     font-weight: bold; 
     font-size: 2rem;
     appearance: none;
@@ -365,6 +365,5 @@ padding: 0;
    .leftmenu{
    }
    .rightmenu{
-    width: 55%;
    }
 }

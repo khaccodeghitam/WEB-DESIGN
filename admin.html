@@ -187,6 +187,14 @@
 
                     <div id="edit-form-container" class="edit-form-container"></div>
                     <div id="thongke" style="display: none;">
+                        <div class="date-range">
+                        <label for="thongkedate1">Từ ngày:</label>
+                        <input type="date" id="thongkedate1">
+
+                        <label for="thongkedate2">Đến ngày:</label>
+                        <input type="date" id="thongkedate2">
+                        <button>Lọc</button>
+                    </div>
                         <div class="thongke-sanpham">
                             <h2>Thống kê sản phẩm</h2>
                             <table id="bang-thongke">
@@ -196,7 +204,7 @@
                                         <th>Tên sản phẩm</th>
                                         <th>Số lượng bán ra</th>
                                         <th>Tổng tiền thu được</th>
-                                        <!-- <th>Hành động</th> -->
+                                        <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -204,6 +212,22 @@
                                 </tbody>
                             </table>
                             
+                            <table id="chitiet-sanpham" style="display: none;">
+                                <thead>
+                                    <tr>
+                                        <th>Ngày đặt</th>
+                                        <th>Mã hoá đơn</th>
+                                        <th>Người đặt</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Số lượng </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Chi tiết các hoá đơn chứa sản phẩm được thêm tự động -->
+                                </tbody>
+                            </table>
+
+
                         </div>
                         <div id="pageStatic"></div>
                         <div class="thongke-banchay">
@@ -246,11 +270,25 @@
                                         <th>Tên khách hàng</th>
                                         <th>Địa chỉ khách hàng</th>
                                         <th>Tổng chi</th>
-                                        <!-- <th>Hành động</th> -->
+                                        <th>Chi tiết</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- khách hàng được thống kê tự động -->
+                                </tbody>
+                            </table>
+                            
+                            <table id="chitiet-khachhang" style="display: none;">
+                                <thead>
+                                    <tr>
+                                        <th>Ngày đặt</th>
+                                        <th>Mã hoá đơn</th>
+                                        <th>Người đặt</th>
+                                        <th>Tổng tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Chi tiết khách hàng được in từ đây -->
                                 </tbody>
                             </table>
                         </div>
@@ -263,8 +301,15 @@
                             <label for="billid">Bill ID</label>
                             <input type="text" id="billid" name="billid" placeholder="">
                             
-                            <label for="date">Ngày đặt</label>
-                            <input type="text" id="date" name="date" placeholder="ngày/tháng/năm">
+                            <label for="date">
+                                <div>
+                                Ngày đặt
+                                từ
+                                <input type="date" id="date1" name="date1">
+                                đến
+                                <input type="date" id="date2" name="date2">
+                                </div>
+                                </label>
                             
                             <label for="address">Địa chỉ</label>
                             <select id="city-select" aria-label=".form-select-sm">

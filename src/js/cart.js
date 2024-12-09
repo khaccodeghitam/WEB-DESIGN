@@ -181,7 +181,6 @@ function deleteCart(index) {
     cartList();
 }
 
-
 function showBill() {
     console.log("showBill function called");
 
@@ -223,6 +222,8 @@ function showBill() {
                 <td>${billArray[i].customer.username}</td>
                 <td>${billArray[i].date}</td>
                 <td class="status">${billArray[i].status}</td>
+                <td><button class="btn--cancel" onclick="cancelOrder(${billArray[i].id})">Hủy đơn hàng</button></td>
+                <td id="restore"><button class="btn--restore" onclick="restoreOrder(${billArray[i].id})">Khôi phục đơn hàng</button></td>
             `;
             billTable.appendChild(row);
         }
@@ -232,5 +233,45 @@ function showBill() {
 function init() {
     cartList();
     checkCart();
+    showBill();
+}
+function cancelOrder(id) {
+    const billArray = JSON.parse(localStorage.getItem('bill')) || [];
+    const currentStatus = billArray.find(bill => bill.id === id).status;
+    if (currentStatus === 'Hủy') {
+        alert("Đơn hàng đã bị hủy rồi!");
+        return;
+    }
+    const confirmCancel = confirm("Bạn có chắc chắn muốn hủy đơn hàng không?");
+    if (!confirmCancel) {
+        return; // Dừng lại nếu người dùng chọn "Không"
+    }
+    for (let i = 0; i < billArray.length; i++) {
+        if (billArray[i].id === id) {
+            billArray[i].status = 'Hủy';
+            break;
+        }
+    }
+    localStorage.setItem('bill', JSON.stringify(billArray));
+    showBill();
+}
+function restoreOrder(id) {
+    const billArray = JSON.parse(localStorage.getItem('bill')) || [];
+    const currentStatus = billArray.find(bill => bill.id === id).status;
+    if (currentStatus !== 'Hủy') {
+        alert("Đơn hàng chưa bị hủy, không thể khôi phục!");
+        return;
+    }
+    const confirmRestore = confirm("Bạn có chắc chắn muốn khôi phục đơn hàng không?");
+    if (!confirmRestore) {
+        return; // Dừng lại nếu người dùng chọn "Không"
+    }
+    for (let i = 0; i < billArray.length; i++) {
+        if (billArray[i].id === id) {
+            billArray[i].status = 'Chưa xử lí';
+            break;
+        }
+    }
+    localStorage.setItem('bill', JSON.stringify(billArray));
     showBill();
 }

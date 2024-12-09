@@ -114,13 +114,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.search-form').addEventListener('submit', function(event) {
         event.preventDefault();
         const billId = document.getElementById('billid').value;
-        const date = document.getElementById('date').value;
+        const date1 = document.getElementById('date1').value;
+        const date2 = document.getElementById('date2').value;
         const status = document.getElementById('status-bill').value;
         const city = document.getElementById('city-select').value;
 
         const filteredOrders = orderInfo.filter(order => {
+            const orderDate = new Date(order.date);
+            const startDate = date1 ? new Date(date1) : null;
+            const endDate = date2 ? new Date(date2) : null;
+
             return (billId === '' || order.id == billId) &&
-                   (date === '' || order.date === date) &&
+                   (!startDate || !endDate || (startDate <= orderDate && orderDate <= endDate)) &&
                    (status === 'all' || order.status === status) &&
                    (city === 'all' || order.city === city);
         });

@@ -72,14 +72,14 @@ function ktDangKi(event) {
     }
 
     // Kiểm tra email hợp lệ
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|net|org|edu|gov|vn|info|io)$/;
     if (email && !emailRegex.test(email)) {
         alert("Email không hợp lệ!");
         return false;
     }
 
     // Kiểm tra số điện thoại hợp lệ
-    const phoneRegex = /^[0-9]{10,11}$/;
+    const phoneRegex = /^0[0-9]{8}[1-9]$/;    
     if (phone && !phoneRegex.test(phone)) {
         alert("Số điện thoại không hợp lệ!");
         return false;
@@ -370,7 +370,7 @@ document.getElementById("updateButton").addEventListener("click", function() {
             });
             notiMenu.addEventListener('mouseenter', () => {
                 if (!loggedInUser) {
-                    notiDropdown.style.display = "block";
+                    notiDropdown.style.display = "flex";
                 }
             });
     

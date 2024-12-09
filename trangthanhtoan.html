@@ -79,7 +79,40 @@
             </div>
         </div>
 
-        <button type="submit" class="btn-submit" onclick="buy()">Xác Nhận Thanh Toán</button>
+        <button type="submit" class="btn-submit" onclick="showConfirmation()" >Xác Nhận Thanh Toán</button>
+    </div>
+
+    <div id="confirmation">
+        <div>
+            <h2>Tóm tắt hóa đơn</h2>
+            <div class="order-list-check">
+                
+            </div>
+            <div class="total-check" style="margin-top: 10px;margin-bottom: 10px">
+                <strong>Tổng cộng:</strong>
+                <span class="paid-price-check">a</span>
+            </div>
+            <h2>Thông tin người nhận</h2>
+            <p id="confirm-name"></p>
+            <p id="confirm-email"></p>
+            <p id="confirm-phone"></p>
+            <p id="confirm-address"></p>
+            <p id="confirm-payment"></p>
+            <div id="confirm-bank" style="display: none;">
+                <h3>Thông tin chuyển khoản</h3>
+                <p>Ngân hàng: <span>Ngân hàng ABC</span></p>
+                <p>Số tài khoản: <span>123456789</span></p>
+                <p>Chủ tài khoản: <span>Nguyễn Văn A</span></p>
+            </div>
+            <div id="confirm-credit" style="display: block;">
+                <p id="confirm-stk"></p>
+                <p id="confirm-tenstk"></p>
+                <p id="confirm-ngay"></p>
+                <p id="confirm-cvv"></p>
+            </div>
+            <button onclick="buy()">Xác nhận</button>
+            <button onclick="closeConfirmation()">Đóng</button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
