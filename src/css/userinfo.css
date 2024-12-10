@@ -205,7 +205,7 @@ body.modal-open {
 }
 
 #nav .botnav .search-box{
-    width: 89%;
+    width: 99%;
     display: flex;
     align-items: center;
     color: #36B8FF;
@@ -744,9 +744,11 @@ font-weight: 600;
 }
 
 @media screen and (min-width: 850px) and (max-width: 1200px){
+#nav .botnav .dropdown{
+        display: none;
+}
 .topnav #navmenu {
-    flex-wrap: wrap;
-    margin-left: 27%;
+    margin-left: auto;
 }
 #footer .topfoot .footmenu{
     min-width: 50%;
@@ -763,5 +765,8 @@ flex-wrap: wrap;
 @media screen and (min-width: 1200px) {
 .topnav #navmenu{
     margin-left: auto;
+}
+#nav .botnav .dropdown{
+    display: none;
 }
 }
