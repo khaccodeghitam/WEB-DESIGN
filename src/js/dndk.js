@@ -138,6 +138,12 @@ function createDefaultAdmin() {
     const adminExists = users.some(user => user.userType === 'admin');
 
     if (!adminExists) {
+        const currentDate = new Date();
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Tháng trong JavaScript bắt đầu từ 0
+        const year = currentDate.getFullYear();
+        const registrationDate = `${day}-${month}-${year}`;
+
         const adminUser = {
             id: generateUniqueId(users, []),
             username: 'admin',
@@ -152,7 +158,7 @@ function createDefaultAdmin() {
                 gioiTinh: '',
                 birthday: { ngay: '', thang: '', nam: '' }
             },
-            registrationDate: new Date().toISOString().split('T')[0],
+            registrationDate: registrationDate,
             userType: 'admin',
             isBlocked: false
         };
@@ -594,11 +600,9 @@ function addUserFromForm() {
 }
 
 
-// Cập nhật bảng danh sách người dùng
 function updateCustomerTable(users) {
     const customerList = document.getElementById('customer-list');
     customerList.innerHTML = '';
-
     if (users.length === 0) {
         customerList.innerHTML = '<tr><td colspan="6">Không tìm thấy người dùng nào</td></tr>';
         return;
@@ -612,7 +616,6 @@ function updateCustomerTable(users) {
         const registrationDate = user.registrationDate || "(Không rõ)";
         const userType = user.userType || "Khách hàng"; // Mặc định là Khách hàng nếu không xác định
         const isBlocked = user.isBlocked ? " (Đã khóa)" : "";
-
         const blockIconSrc = user.isBlocked ? "src/icon/unlock.svg" : "src/icon/lock.svg";
         const editIconSrc = "src/icon/rewrite.svg";
         const deleteIconSrc = "src/icon/delete.svg";
@@ -633,38 +636,58 @@ function updateCustomerTable(users) {
     });
 }
 
-
-
 // Sửa thông tin người dùng
-function editCustomer(id) {
+function editCustomer(userId) {
+    // Lấy thông tin người dùng từ localStorage
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const userIndex = users.findIndex(u => u.id === id); // Tìm người dùng theo ID
-    if (userIndex === -1) return alert("Không tìm thấy người dùng");
+    const user = users.find(u => u.id === userId);
 
-    const user = users[userIndex];
-    let newUsername = prompt("Nhập tên đăng nhập mới:", user.username || "");
-    const newPassword = prompt("Nhập mật khẩu mới:", ""); // Yêu cầu mật khẩu mới
+    if (user) {
+        // Lưu ID của người dùng vào trường ẩn
+        document.getElementById('editUserId').value = user.id;
 
-    // Kiểm tra trùng tên đăng nhập
-    if (newUsername && users.some(u => u.username === newUsername && u.id !== id)) {
-        alert("Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.");
-        return;
-    }
-
-    if (newUsername) {
-        users[userIndex].username = newUsername;
-    }
-
-    if (newPassword) {
-        users[userIndex].password = newPassword;
-    }
-
-    if (newUsername || newPassword) {
-        localStorage.setItem('users', JSON.stringify(users)); // Cập nhật lại localStorage
-        updateCustomerTable(users); // Cập nhật bảng
-        alert("Thông tin người dùng đã được cập nhật!");
+        // Hiển thị thông tin người dùng trên form chỉnh sửa
+        document.getElementById('editUserType').value = user.userType;
+        document.getElementById('editHo').value = user.info.ho;
+        document.getElementById('editTen').value = user.info.ten;
+        document.getElementById('editUsername').value = user.username;
+        document.getElementById('editPassword').value = user.password;
+        document.getElementById('editEmail').value = user.info.email;
+        document.getElementById('editPhone').value = user.info.phone;
+        document.getElementById('editGender').value = user.info.gioiTinh;
+        document.getElementById('editBirthday').value = `${user.info.birthday.ngay}-${user.info.birthday.thang}-${user.info.birthday.nam}`;
+        document.getElementById('editUserForm').style.display = 'block';
     }
 }
+
+function hideEditUserForm() {
+    document.getElementById('editUserForm').style.display = 'none';
+}
+
+function saveUserChanges() {
+    const userId = document.getElementById('editUserId').value;
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(u => u.id == userId);
+
+    if (userIndex > -1) {
+        users[userIndex].userType = document.getElementById('editUserType').value;
+        users[userIndex].info.ho = document.getElementById('editHo').value;
+        users[userIndex].info.ten = document.getElementById('editTen').value;
+        users[userIndex].username = document.getElementById('editUsername').value;
+        users[userIndex].password = document.getElementById('editPassword').value;
+        users[userIndex].info.email = document.getElementById('editEmail').value;
+        users[userIndex].info.phone = document.getElementById('editPhone').value;
+        users[userIndex].info.gioiTinh = document.getElementById('editGender').value;
+        const [ngay, thang, nam] = document.getElementById('editBirthday').value.split('-');
+        users[userIndex].info.birthday = { ngay, thang, nam };
+
+        localStorage.setItem('users', JSON.stringify(users));
+        hideEditUserForm();
+        updateCustomerTable(users);
+    }
+}
+
+
 function deleteCustomer(userId) {
     if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
         const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -727,4 +750,51 @@ function closeSearch() {
     // Hiển thị toàn bộ danh sách khách hàng
     const allUsers = JSON.parse(localStorage.getItem('users')) || [];
     updateCustomerTable(allUsers); // Hiển thị toàn bộ danh sách
+}
+function showEditUserForm(userId) {
+    // Lấy thông tin người dùng từ localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(u => u.id === userId);
+
+    if (user) {
+        // Hiển thị thông tin người dùng trên form chỉnh sửa
+        document.getElementById('editUserType').value = user.userType;
+        document.getElementById('editHo').value = user.info.ho;
+        document.getElementById('editTen').value = user.info.ten;
+        document.getElementById('editUsername').value = user.username;
+        document.getElementById('editPassword').value = user.password;
+        document.getElementById('editEmail').value = user.info.email;
+        document.getElementById('editPhone').value = user.info.phone;
+        document.getElementById('editGender').value = user.info.gioiTinh;
+        document.getElementById('editBirthday').value = `${user.info.birthday.ngay}-${user.info.birthday.thang}-${user.info.birthday.nam}`;
+        document.getElementById('editUserForm').style.display = 'block';
+    }
+}
+
+// Bảng chỉnh sửa người dùng
+function hideEditUserForm() {
+    document.getElementById('editUserForm').style.display = 'none';
+}
+
+function saveUserChanges() {
+    const userId = document.getElementById('editUserId').value;
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(u => u.id == userId);
+
+    if (userIndex > -1) {
+        users[userIndex].userType = document.getElementById('editUserType').value;
+        users[userIndex].info.ho = document.getElementById('editHo').value;
+        users[userIndex].info.ten = document.getElementById('editTen').value;
+        users[userIndex].username = document.getElementById('editUsername').value;
+        users[userIndex].password = document.getElementById('editPassword').value;
+        users[userIndex].info.email = document.getElementById('editEmail').value;
+        users[userIndex].info.phone = document.getElementById('editPhone').value;
+        users[userIndex].info.gioiTinh = document.getElementById('editGender').value;
+        const [ngay, thang, nam] = document.getElementById('editBirthday').value.split('-');
+        users[userIndex].info.birthday = { ngay, thang, nam };
+
+        localStorage.setItem('users', JSON.stringify(users));
+        hideEditUserForm();
+        updateCustomerTable(users);
+    }
 }
