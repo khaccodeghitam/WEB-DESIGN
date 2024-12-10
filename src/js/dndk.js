@@ -142,7 +142,7 @@ function createDefaultAdmin() {
         const day = String(currentDate.getDate()).padStart(2, '0');
         const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Tháng trong JavaScript bắt đầu từ 0
         const year = currentDate.getFullYear();
-        const registrationDate = `${day}-${month}-${year}`;
+        const registrationDate1 = `${day}-${month}-${year}`;
 
         const adminUser = {
             id: generateUniqueId(users, []),
@@ -158,7 +158,7 @@ function createDefaultAdmin() {
                 gioiTinh: '',
                 birthday: { ngay: '', thang: '', nam: '' }
             },
-            registrationDate: registrationDate,
+            registrationDate: registrationDate1,
             userType: 'admin',
             isBlocked: false
         };
@@ -635,18 +635,12 @@ function updateCustomerTable(users) {
         customerList.appendChild(row);
     });
 }
-
-// Sửa thông tin người dùng
 function editCustomer(userId) {
-    // Lấy thông tin người dùng từ localStorage
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(u => u.id === userId);
 
     if (user) {
-        // Lưu ID của người dùng vào trường ẩn
         document.getElementById('editUserId').value = user.id;
-
-        // Hiển thị thông tin người dùng trên form chỉnh sửa
         document.getElementById('editUserType').value = user.userType;
         document.getElementById('editHo').value = user.info.ho;
         document.getElementById('editTen').value = user.info.ten;
@@ -655,7 +649,7 @@ function editCustomer(userId) {
         document.getElementById('editEmail').value = user.info.email;
         document.getElementById('editPhone').value = user.info.phone;
         document.getElementById('editGender').value = user.info.gioiTinh;
-        document.getElementById('editBirthday').value = `${user.info.birthday.ngay}-${user.info.birthday.thang}-${user.info.birthday.nam}`;
+        document.getElementById('editBirthday').value = `${user.info.birthday.nam}-${user.info.birthday.thang}-${user.info.birthday.ngay}`;
         document.getElementById('editUserForm').style.display = 'block';
     }
 }
@@ -670,15 +664,49 @@ function saveUserChanges() {
     const userIndex = users.findIndex(u => u.id == userId);
 
     if (userIndex > -1) {
+        const username = document.getElementById('editUsername').value;
+        const email = document.getElementById('editEmail').value;
+        const phone = document.getElementById('editPhone').value;
+        const gender = document.getElementById('editGender').value;
+
+        // Kiểm tra username không trùng lặp
+        const usernameExists = users.some((u, index) => u.username === username && index !== userIndex);
+        if (usernameExists) {
+            alert('Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.');
+            return;
+        }
+
+        // Kiểm tra định dạng email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Email không hợp lệ. Vui lòng nhập email đúng định dạng.');
+            return;
+        }
+
+        // Kiểm tra định dạng số điện thoại (10 số và bắt đầu bằng số 0)
+        const phoneRegex = /^0\d{9}$/;
+        if (!phoneRegex.test(phone)) {
+            alert('Số điện thoại không hợp lệ. Số điện thoại phải có 10 số và bắt đầu bằng số 0.');
+            return;
+        }
+
+        // Kiểm tra giới tính
+        if (!['Nam', 'Nữ'].includes(gender)) {
+            alert('Giới tính không hợp lệ. Vui lòng chọn Nam hoặc Nữ.');
+            return;
+        }
+
         users[userIndex].userType = document.getElementById('editUserType').value;
         users[userIndex].info.ho = document.getElementById('editHo').value;
         users[userIndex].info.ten = document.getElementById('editTen').value;
-        users[userIndex].username = document.getElementById('editUsername').value;
+        users[userIndex].username = username;
         users[userIndex].password = document.getElementById('editPassword').value;
-        users[userIndex].info.email = document.getElementById('editEmail').value;
-        users[userIndex].info.phone = document.getElementById('editPhone').value;
-        users[userIndex].info.gioiTinh = document.getElementById('editGender').value;
-        const [ngay, thang, nam] = document.getElementById('editBirthday').value.split('-');
+        users[userIndex].info.email = email;
+        users[userIndex].info.phone = phone;
+        users[userIndex].info.gioiTinh = gender;
+
+        const birthday = document.getElementById('editBirthday').value;
+        const [nam, thang, ngay] = birthday.split('-');
         users[userIndex].info.birthday = { ngay, thang, nam };
 
         localStorage.setItem('users', JSON.stringify(users));

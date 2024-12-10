@@ -152,35 +152,39 @@
                         <button onclick="addUserFromForm()">Thêm</button>
                         <button onclick="hideAddUserForm()">Hủy</button>
                     </div>
-                    <!-- Form chỉnh sửa người dùng -->
-                    <div id="editUserForm" style="display: none;">
-                        <h2>Chỉnh sửa người dùng</h2>
-                        <input type="hidden" id="editUserId">
-                        <label for="editUserType">Loại tài khoản:</label>
-                        <select id="editUserType">
-                            <option value="admin">Admin</option>
-                            <option value="customer">Khách hàng</option>
-                            <option value="staff">Nhân viên</option>
-                        </select>
-                        <label for="editHo">Họ:</label>
-                        <input type="text" id="editHo" name="editHo">
-                        <label for="editTen">Tên:</label>
-                        <input type="text" id="editTen" name="editTen">
-                        <label for="editUsername">Tên đăng nhập:</label>
-                        <input type="text" id="editUsername" name="editUsername" required>
-                        <label for="editPassword">Mật khẩu:</label>
-                        <input type="password" id="editPassword" name="editPassword" required>
-                        <label for="editEmail">Email:</label>
-                        <input type="email" id="editEmail" name="editEmail">
-                        <label for="editPhone">Số điện thoại:</label>
-                        <input type="text" id="editPhone" name="editPhone">
-                        <label for="editGender">Giới tính:</label>
-                        <input type="text" id="editGender" name="editGender">
-                        <label for="editBirthday">Ngày sinh:</label>
-                        <input type="text" id="editBirthday" name="editBirthday">
-                        <button onclick="saveUserChanges()">Lưu</button>
-                        <button onclick="hideEditUserForm()">Hủy</button>
-                    </div>
+<!-- Form chỉnh sửa người dùng -->
+<div id="editUserForm" style="display: none;">
+    <h2>Chỉnh sửa người dùng</h2>
+    <input type="hidden" id="editUserId">
+    <label for="editUserType">Loại tài khoản:</label>
+    <select id="editUserType">
+        <option value="admin">Admin</option>
+        <option value="customer">Khách hàng</option>
+        <option value="staff">Nhân viên</option>
+    </select>
+    <label for="editHo">Họ:</label>
+    <input type="text" id="editHo" name="editHo">
+    <label for="editTen">Tên:</label>
+    <input type="text" id="editTen" name="editTen">
+    <label for="editUsername">Tên đăng nhập:</label>
+    <input type="text" id="editUsername" name="editUsername" required>
+    <label for="editPassword">Mật khẩu:</label>
+    <input type="password" id="editPassword" name="editPassword" required>
+    <label for="editEmail">Email:</label>
+    <input type="email" id="editEmail" name="editEmail" required>
+    <label for="editPhone">Số điện thoại:</label>
+    <input type="text" id="editPhone" name="editPhone" required>
+    <label for="editGender">Giới tính:</label>
+    <select id="editGender" name="editGender">
+        <option value="Nam">Nam</option>
+        <option value="Nữ">Nữ</option>
+    </select>
+    <label for="editBirthday">Ngày sinh:</label>
+    <input type="date" id="editBirthday" name="editBirthday" required>
+    <button onclick="saveUserChanges()">Lưu</button>
+    <button onclick="hideEditUserForm()">Hủy</button>
+</div>
+
                     <!-- Danh sách người dùng -->
                      <div class="dashboard">
                         <h2>Danh sách người dùng</h2>
